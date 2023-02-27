@@ -4,7 +4,7 @@ import LogIn from './components/views/logIn/LogIn.jsx'
 function App() {
 
   return (
-    <div className="App h-full">
+    <div className="App">
       <LogIn/>
     </div>
   )

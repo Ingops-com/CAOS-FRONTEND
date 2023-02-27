@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+*{
+    font-family: 'Red Hat Display', sans-serif;
+}
+
+body{
+    background-image: url('./assets/img/BackgroundLogin.webp');
+}
