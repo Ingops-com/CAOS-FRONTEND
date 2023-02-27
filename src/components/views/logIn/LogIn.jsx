@@ -4,21 +4,21 @@ import Services from "../../../services/loginServices"
 import Caos from "../../../assets/svg/caos.svg"
 import Logo from "../../../assets/svg/logo.svg"
 import './Login.css';
+import { useNavigate } from "react-router-dom";
 
 function LogIn() {
 
     const [user, setUser] = useState(" ");
     const [password, setPasword] = useState(" ");
+    const navigate = useNavigate()
 
     function handleSubmit(e) {
         e.preventDefault();
-        setUser(ev.target.user.value)
-        setPasword(ev.target.password.value)
+        setUser(e.target.user.value)
+        setPasword(e.target.password.value)
+        console.log(user,password)
         Services(user, password)
-    }
-
-    function handleInvalid(e) {
-        e.target.setCustomValidity('Este campo es obligatorio')
+        navigate("/home")
     }
 
     return (
@@ -35,13 +35,13 @@ function LogIn() {
                 </div>
                 <form onSubmit={handleSubmit} className="grid text-lg gap-5">
                     <p>
-                        <input type="text" id="user" className="bg-regal-blue text-center w-full p-3 rounded" onInvalid={handleInvalid} placeholder='USUARIO' required />
+                        <input type="text" id="user" className="bg-regal-blue text-center w-full p-3 rounded" placeholder='USUARIO' required />
                     </p>
                     <p>
-                        <input type="password" id="password" className="bg-regal-blue text-center w-full p-3 rounded  border-black" onInvalid={handleInvalid} placeholder='CONSTRASE&Ntilde;A' required />
+                        <input type="password" id="password" className="bg-regal-blue text-center w-full p-3 rounded  border-black" placeholder='CONSTRASE&Ntilde;A' required />
                     </p>
-                    <p>
-                        <button type="submit" className="bg-emerald-400 text-regal-blue rounded p-3">Ingresar</button>
+                    <p className="flex justify-center">
+                        <button type="submit" className="flex bg-emerald-400 text-regal-blue rounded p-3">Ingresar</button>
                     </p>
                 </form>
             </div>

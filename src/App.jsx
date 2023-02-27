@@ -1,9 +1,12 @@
 import './App.css'
-import LogIn from './components/views/logIn/LogIn.jsx'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Routes from './components/routes/Routes';
 
 function App() {
+  const routes = Routes()
+  
   return (
-    <LogIn />
+    <RouterProvider router={routes} />
   )
 }
 

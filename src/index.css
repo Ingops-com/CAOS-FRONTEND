@@ -4,12 +4,6 @@
 @tailwind utilities;
 
 
-*{
+* {
     font-family: 'Red Hat Display', sans-serif;
-}
-
-#root{
-    max-width: none;
-    margin: 0;
-    padding: 0;
 }

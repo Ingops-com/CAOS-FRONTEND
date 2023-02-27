@@ -1,9 +1,9 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function logIn(name, password) {
 
-    axios.defaults.baseURL = "http://25.5.144.146:4000"
-
+    axios.defaults.baseURL = "http://localhost:4000"
     try {
         axios({
             method: "POST",
@@ -12,11 +12,17 @@ function logIn(name, password) {
                 name: name,
                 password: password
             }
-        }).then(function (response) {
-            localStorage.setItem("key", JSON.stringify(response.data.tokenSession));
+        }).then((res) => {
+            // localStorage.clear()
+            // localStorage.setItem("token", JSON.stringify(res.data.tokenSession));
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+            return
         })
     } catch (error) {
-        console.log()
+        console.log(error)
+        return
     }
 }
 
