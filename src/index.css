@@ -8,6 +8,8 @@
     font-family: 'Red Hat Display', sans-serif;
 }
 
-body{
-    background-image: url('./assets/img/BackgroundLogin.webp');
+#root{
+    max-width: none;
+    margin: 0;
+    padding: 0;
 }
