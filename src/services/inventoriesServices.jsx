@@ -6,7 +6,7 @@ const logIn = async(name, password) => {
 
     return axios({
         method: "POST",
-        url: "/api/auth/login",
+        url: "/api/inventories/",
         data: {
             name: name,
             password: password
@@ -17,4 +17,3 @@ const logIn = async(name, password) => {
 
 
 export default logIn
-
