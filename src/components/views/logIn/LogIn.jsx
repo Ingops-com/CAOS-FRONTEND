@@ -1,25 +1,43 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Services from "../../../services/loginServices"
 import Caos from "../../../assets/svg/caos.svg"
 import Logo from "../../../assets/svg/logo.svg"
 import './Login.css';
-import { useNavigate } from "react-router-dom";
 
 function LogIn() {
 
-    const [user, setUser] = useState(" ");
-    const [password, setPasword] = useState(" ");
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        localStorage.clear()
+    }, [])
+    
 
     function handleSubmit(e) {
-        e.preventDefault();
-        setUser(e.target.user.value)
-        setPasword(e.target.password.value)
-        console.log(user,password)
-        Services(user, password)
-        navigate("/home")
+        e.preventDefault()
+        localStorage.clear()
+        getData()
     }
+
+    function getData() {
+        const user = document.getElementById('user').value
+        const password = document.getElementById('password').value
+
+        Services(user, password).then(res => {
+
+            console.log(res.data)
+
+            let token = JSON.stringify(res.data.tokenSession)
+
+            localStorage.setItem("token", token);
+
+            if(token){
+                navigate("/home")
+            }
+        })
+    }
+
 
     return (
         // contenedor principal del login
@@ -41,7 +59,7 @@ function LogIn() {
                         <input type="password" id="password" className="bg-regal-blue text-center w-full p-3 rounded  border-black" placeholder='CONSTRASE&Ntilde;A' required />
                     </p>
                     <p className="flex justify-center">
-                        <button type="submit" className="flex bg-emerald-400 text-regal-blue rounded p-3">Ingresar</button>
+                        <button type="submit" className="flex bg-emerald-400 text-regal-blue rounded p-3" >Ingresar</button>
                     </p>
                 </form>
             </div>
@@ -49,4 +67,10 @@ function LogIn() {
 
     );
 }
+
+
+
+
+
+
 export default LogIn;
