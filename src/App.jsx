@@ -1,12 +1,27 @@
 import './App.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Routes from './components/routes/Routes';
+import Dashboard from "./components/views/Dashboard/Dashboard";
+import ErrorPage from './components/views/Errors/ErrorPage';
+import LogIn from "./components/views/LogIn/LogIn";
+import { UserContextProvider } from './context/UserContext';
 
 function App() {
-  const routes = Routes()
-  
+  const routes = createBrowserRouter([
+    {
+      path: "/",
+      element: <LogIn />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/home",
+      element: <Dashboard />
+    }
+  ])
+
   return (
-    <RouterProvider router={routes} />
+    <UserContextProvider>
+      <RouterProvider router={routes} />
+    </UserContextProvider>
   )
 }
 
