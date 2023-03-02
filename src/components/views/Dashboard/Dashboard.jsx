@@ -1,11 +1,8 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { UserContext } from "../../../context/UserContext";
-import Navbar from "../Navbar/Navbar";
+import Sidebar from "../Sidebar/Sidebar";
 
 export default function Dashboard() {
-
-    const { user } = useContext(UserContext)
 
     const navigate = useNavigate();
 
@@ -18,12 +15,11 @@ export default function Dashboard() {
 
 
     return (
-        <div className="flex h-">
-            <div id="sidebar" className="bg-black text-cyan-50 w-1/6">
-                <Navbar />
+        <div className="flex h-full bg-[#f9f9fb] dark:bg-[#191B22]">
+            <div id="sidebar" className="text-black w-1/6 p-5 dark:text-white">
+                <Sidebar />
             </div>
-            <div id="detail" className="bg-red-500 w-full">
-                <h1>sa</h1>
+            <div id="detail" className="w-full ">
                 <Outlet />
             </div>
         </div>

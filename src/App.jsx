@@ -1,9 +1,10 @@
-import './App.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { UserContextProvider } from './context/UserContext';
 import Dashboard from "./components/views/Dashboard/Dashboard";
 import ErrorPage from './components/views/Errors/ErrorPage';
 import LogIn from "./components/views/LogIn/LogIn";
-import { UserContextProvider } from './context/UserContext';
+import Soon from './components/views/Soon/Soon';
+import './App.css'
 
 function App() {
   const routes = createBrowserRouter([
@@ -14,7 +15,13 @@ function App() {
     },
     {
       path: "/home",
-      element: <Dashboard />
+      element: <Dashboard />,
+      children: [
+        {
+          path: 'soon/:id',
+          element: <Soon />
+        }
+      ]
     }
   ])
 
