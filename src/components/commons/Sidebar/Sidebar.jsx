@@ -3,13 +3,12 @@ import { RiDashboardFill, RiCalendarCheckFill, RiArchiveFill } from "react-icons
 import caos from "../../../assets/svg/caos.light.svg"
 import './Sidebar.css'
 
-export default function Navbar() {
+export default function Sidebar() {
 
     const navigate = [
         { name: 'Dashboard', href: '/home/soon/1', icon: <RiDashboardFill /> },
         { name: 'Inventarios', href: '/home/soon/2', icon: <RiCalendarCheckFill /> },
         { name: 'Producto', href: '/home/soon/3', icon: <RiArchiveFill /> },
-
     ]
 
     return (
@@ -21,7 +20,7 @@ export default function Navbar() {
                 {
                     navigate.map((item) => (
                         <NavLink to={item.href} className={({ isActive }) => {
-                            return ('flex w-full text-center rounded-lg p-1  transition-all dark:hover:bg-[#2B2E33]' + (isActive ? 'invert shadow-lg  bg-white dark:bg-[#2B2E39]' : ''))
+                            return ('flex w-full text-center rounded-lg p-1  transition-all dark:hover:bg-[#212528]' + (isActive ? 'invert shadow-lg border-0 border-b-4 border-b-[#FD0D0D] bg-white dark:bg-[#2B2E39]' : ''))
                         }}>
                             <div className="flex items-center p-2">
                                 {item.icon}
