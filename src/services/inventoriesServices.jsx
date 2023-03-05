@@ -1,19 +1,17 @@
 import axios from "axios";
 
-const logIn = async(name, password) => {
+
+const Inventories = async (Token) => {
 
     axios.defaults.baseURL = "http://25.5.144.146:4000"
-
-    return axios({
-        method: "POST",
-        url: "/api/inventories/",
-        data: {
-            name: name,
-            password: password
+    return await axios({
+        method: "GET",
+        url: "/api/inventories-raw-material",
+        headers:{
+            'Authorization':Token
         }
     })
 }
 
 
-
-export default logIn
+export default Inventories

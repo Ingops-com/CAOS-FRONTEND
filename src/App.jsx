@@ -4,6 +4,7 @@ import Dashboard from "./components/views/Dashboard/Dashboard";
 import ErrorPage from './components/views/Errors/ErrorPage';
 import LogIn from "./components/views/LogIn/LogIn";
 import Soon from './components/views/Soon/Soon';
+import Inventories from "./components/views/inventories/inventories";
 import './App.css'
 
 function App() {
@@ -20,7 +21,12 @@ function App() {
         {
           path: 'soon/:id',
           element: <Soon />
+        },
+        {
+          path: 'inventories',
+          element: <Inventories />
         }
+        
       ]
     }
   ])
