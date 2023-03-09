@@ -13,7 +13,7 @@ module.exports = {
         'dark-ing-800': '#17182c',
         'dark-ing-700': '#212442',
         'blue-ing-600': '#2e7cec',
-        'blue-ing-900': '#0b1f42'
+        'blue-ing-900': '#170c9e'
       }
     },
   },

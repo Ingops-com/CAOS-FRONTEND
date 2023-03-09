@@ -16,11 +16,11 @@ export default function Sidebar() {
             <div className=" flex w-full p-5 justify-center items-center">
                 <img src={caos} alt="logo.png" />
             </div>
-            <nav className="grid gap-2">
+            <nav className="grid gap-2 ">
                 {
                     navigate.map((item,index) => (
                         <NavLink to={item.href} key={index} className={({ isActive }) => {
-                            return ('flex w-full text-center rounded-lg p-1  transition-all dark:hover:bg-[#212528]' + (isActive ? 'invert shadow-lg border-0 border-b-4 border-b-[#FD0D0D] bg-white dark:bg-[#2B2E39]' : ''))
+                            return ('flex w-full text-center p-3 bg-gradient-to-r transition-all hover:from-gray-200 dark:hover:from-blue-ing-900 ' + (isActive ? 'bg-gray-200 dark:bg-blue-ing-900' : ''))
                         }}>
                             <div className="flex items-center p-2">
                                 {item.icon}
