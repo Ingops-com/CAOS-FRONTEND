@@ -14,10 +14,11 @@ export function UserContextProvider(props) {
         })
             .then((res) => {
                 localStorage.setItem('key',JSON.stringify(res.data.tokenSession))
+                localStorage.setItem('user',JSON.stringify(res.data.data))
                 window.location.assign('/home')
             })
             .catch((err) => {
-                console.error({ error: err.response.data })
+                console.error({ error: err })
             })
     }
 
