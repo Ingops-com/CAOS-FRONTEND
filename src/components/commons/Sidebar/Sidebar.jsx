@@ -18,8 +18,8 @@ export default function Sidebar() {
             </div>
             <nav className="grid gap-2">
                 {
-                    navigate.map((item) => (
-                        <NavLink to={item.href} className={({ isActive }) => {
+                    navigate.map((item,index) => (
+                        <NavLink to={item.href} key={index} className={({ isActive }) => {
                             return ('flex w-full text-center rounded-lg p-1  transition-all dark:hover:bg-[#212528]' + (isActive ? 'invert shadow-lg border-0 border-b-4 border-b-[#FD0D0D] bg-white dark:bg-[#2B2E39]' : ''))
                         }}>
                             <div className="flex items-center p-2">
