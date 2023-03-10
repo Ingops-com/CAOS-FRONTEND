@@ -8,7 +8,7 @@ export const UserContext = createContext();
 export function UserContextProvider(props) {
 
     function login(name, password) {
-        axios.post('http://25.5.144.146:4000/api/auth/login', {
+        axios.post('http://localhost:4000/api/auth/login', {
             name: name,
             password: password
         })

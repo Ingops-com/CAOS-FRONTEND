@@ -8,7 +8,6 @@ function Inventories() {
 
     const [data, setData] = useState([]);
     const [invValuTotal, setInvValuTotal] = useState(0);
-    const [date, setDate ] = useState(0);
     
     useEffect(() => {
         let key = localStorage.getItem('key')
@@ -28,7 +27,6 @@ function Inventories() {
 
     return (
         <div className='inventoriesBody'>
-            {console.log(data)}
             <div className='w-full h-auto flex justify-center gap-4 items-center p-5'> {/* Container  */}
                 <Cards
                     titleCard='VALOR NETO INVENTARIO'
