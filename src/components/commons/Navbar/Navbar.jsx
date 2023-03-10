@@ -13,7 +13,7 @@ function Navbar() {
     let user = JSON.parse(localStorage.getItem('user'))
     
     useEffect(() => {
-        axios.get(`http://localhost:4000/api/users/theme/${user.id}`)
+        axios.get(`http://25.5.144.146:4000/api/users/theme/${user.id}`)
         .then((data) => {
             let theme = JSON.stringify(data.data)
             theme = JSON.parse(theme)

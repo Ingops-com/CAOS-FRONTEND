@@ -15,6 +15,7 @@ function Inventories() {
         RawMaterial(key.replace(/['"]+/g, '')).then((res) => {
             setData(res.data);
         })
+        AllInventories
     }, [])
     
     useEffect(()=>{
