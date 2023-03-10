@@ -1,36 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import Cards from '../../commons/cards/Cards.jsx'
-import services from '../../../services/inventoriesServices.jsx'
+import {RawMaterial, AllInventories} from '../../../services/inventoriesServices.jsx'
 import { BsFillTrashFill, BsPencilFill } from 'react-icons/bs'
 
 
 function Inventories() {
 
     const [data, setData] = useState([]);
-
+    const [invValuTotal, setInvValuTotal] = useState(0);
+    const [date, setDate ] = useState(0);
+    
     useEffect(() => {
         let key = localStorage.getItem('key')
-        services(key.replace(/['"]+/g, '')).then((res) => {
+        RawMaterial(key.replace(/['"]+/g, '')).then((res) => {
             setData(res.data);
         })
     }, [])
+    
+    useEffect(()=>{
+        let total = 0
+        data.forEach((dataPrice) => {
+            total += dataPrice.price
+        });
+        setInvValuTotal(total)
+    })
+
     return (
         <div className='inventoriesBody'>
+            {console.log(data)}
             <div className='w-full h-auto flex justify-center gap-4 items-center p-5'> {/* Container  */}
                 <Cards
-                    titleCard='Hola'
-                    bodyCard='Caos'
+                    titleCard='VALOR NETO INVENTARIO'
+                    bodyCard={invValuTotal}
                     cardNum='card1'
                 />
                 <Cards
-                    titleCard='Hola'
-                    bodyCard='Soy un cuerpo'
+                    titleCard='FECHA ULTIMO INVENTARIO'
+                    bodyCard='12 FEBRERO 2022'
                     cardNum='card2'
                     />
                     
                 <Cards
-                    titleCard='Hola'
-                    bodyCard='De puta' 
+                    titleCard='CANTIDAD DE PRODUCTOS'
+                    bodyCard={data.length} 
                     cardNum='card3'
                     />
             </div>
@@ -49,7 +61,7 @@ function Inventories() {
                     <tbody >
                         {data.map((materia, index) => (
                             <tr key={index} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
-                                <td>{materia.raw_material_id}</td>
+                                <td>{materia.raw_material.name}</td>
                                 <td>{materia.stock}</td>
                                 <td>{materia.price}</td>
                                 <td>
