@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { MdLightMode, MdOutlineLightMode, MdMiscellaneousServices, MdLogout } from "react-icons/md";
 import { BiBell } from "react-icons/bi";
+import axios from 'axios';
+import { json } from 'react-router-dom';
 
 
 function Navbar() {
@@ -8,13 +10,18 @@ function Navbar() {
     const [sizeIcon, setSizeIcon] = useState('1.5rem')
     const [theme, setTheme] = useState(null)
 
+    let user = JSON.parse(localStorage.getItem('user'))
+    
     useEffect(() => {
-        if (window.matchMedia('(prefers-color-schema: dark)').matches) {
-            setTheme('dark')
-        }
-        else {
-            setTheme('light')
-        }
+        axios.get(`http://localhost:4000/api/users/theme/${user.id}`)
+        .then((data) => {
+            let theme = JSON.stringify(data.data)
+            theme = JSON.parse(theme)
+            setTheme(theme.theme)
+        })
+        .catch((Error) => {
+            console.log(Error)
+        })
     }, [])
 
     useEffect(() => {
