@@ -22,12 +22,6 @@ function Navbar() {
         .catch((Error) => {
             console.log(Error)
         })
-        // if (window.matchMedia('(prefers-color-schema: dark)').matches) {
-        //     setTheme('dark')
-        // }
-        // else {
-        //     setTheme('light')
-        // }
     }, [])
 
     useEffect(() => {
