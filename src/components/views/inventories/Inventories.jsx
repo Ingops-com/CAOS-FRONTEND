@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Cards from '../../commons/cards/Cards.jsx'
-import {RawMaterial, AllInventories} from '../../../services/inventoriesServices.jsx'
+import { RawMaterial, AllInventories } from '../../../services/inventoriesServices.jsx'
 import { BsFillTrashFill, BsPencilFill } from 'react-icons/bs'
 
 
@@ -8,16 +8,19 @@ function Inventories() {
 
     const [data, setData] = useState([]);
     const [invValuTotal, setInvValuTotal] = useState(0);
-    
+    const [date, setDate] = useState(0);
+
     useEffect(() => {
         let key = localStorage.getItem('key')
         RawMaterial(key.replace(/['"]+/g, '')).then((res) => {
             setData(res.data);
         })
-        AllInventories
+        AllInventories(key.replace(/['"]+/g, '')).then((res) => {
+            setDate(res.data.pop());
+        })
     }, [])
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         let total = 0
         data.forEach((dataPrice) => {
             total += dataPrice.price
@@ -30,20 +33,20 @@ function Inventories() {
             <div className='w-full h-auto flex justify-center gap-4 items-center p-5'> {/* Container  */}
                 <Cards
                     titleCard='VALOR NETO INVENTARIO'
-                    bodyCard={invValuTotal}
+                    bodyCard= {'$' + invValuTotal}
                     cardNum='card1'
                 />
                 <Cards
                     titleCard='FECHA ULTIMO INVENTARIO'
-                    bodyCard='12 FEBRERO 2022'
+                    bodyCard={date.createdAt}
                     cardNum='card2'
-                    />
-                    
+                />
+
                 <Cards
                     titleCard='CANTIDAD DE PRODUCTOS'
-                    bodyCard={data.length} 
+                    bodyCard={data.length}
                     cardNum='card3'
-                    />
+                />
             </div>
             <div className='buttons'>
             </div>
@@ -53,7 +56,7 @@ function Inventories() {
                         <tr>
                             <th>Nombre</th>
                             <th>Cantidad</th>
-                            <th>Precio</th>
+                            <th>Precio total</th>
                             <th>Acciones</th>
                         </tr>
                     </thead >
