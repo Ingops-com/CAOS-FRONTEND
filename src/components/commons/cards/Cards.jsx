@@ -1,8 +1,9 @@
 import React from "react";
+import './Cards.css'
 
-function Cards({titleCard, bodyCard}){
+function Cards({titleCard, bodyCard, cardNum}){
     return(
-    <div className="p-3 bg-emerald-500 max-w-xs min-w-[80%]">
+    <div className="w-80 h-32 p-2 rounded bg-emerald-500 shadow-xl dark:shadow-none bg-gradient-to-r text-white text-lg" id={cardNum}>
         <div className="titleCard">
             <h1>{titleCard}</h1>
         </div>

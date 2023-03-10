@@ -16,17 +16,23 @@ function Inventories() {
     }, [])
     return (
         <div className='inventoriesBody'>
-            <div className='grid grid-cols-3 gap-1 content-center'>
+            <div className='w-full h-auto flex justify-center gap-4 items-center p-5'> {/* Container  */}
                 <Cards
                     titleCard='Hola'
                     bodyCard='Caos'
+                    cardNum='card1'
                 />
                 <Cards
                     titleCard='Hola'
-                    bodyCard='Soy un cuerpo' />
+                    bodyCard='Soy un cuerpo'
+                    cardNum='card2'
+                    />
+                    
                 <Cards
                     titleCard='Hola'
-                    bodyCard='De puta' />
+                    bodyCard='De puta' 
+                    cardNum='card3'
+                    />
             </div>
             <div className='buttons'>
             </div>
