@@ -6,11 +6,9 @@ export const UserContext = createContext();
 
 export function UserContextProvider(props) {
 
-    const URL_API = import.meta.env.VITE_API_URL
-
     function login(name, password) {
-        console.log(URL_API)
-        axios.post('http://localhost:4000/api/auth/login', {
+
+        axios.post('/auth/login', {
             name: name,
             password: password
         })
