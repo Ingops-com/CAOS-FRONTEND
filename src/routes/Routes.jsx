@@ -4,7 +4,8 @@ import Dashboard from "../components/views/Dashboard/Dashboard";
 import ErrorPage from '../components/views/Errors/ErrorPage';
 import LogIn from "../components/views/LogIn/LogIn";
 import Soon from '../components/views/Soon/Soon';
-import Inventories from "../components/views/inventories/inventories";
+import Inventories from "../components/views/inventories/Inventories";
+import InventoriesContextProvider from "../context/InventoriesContext";
 
 export default function Routes() {
     const routes = createBrowserRouter([
@@ -23,7 +24,7 @@ export default function Routes() {
                 },
                 {
                     path: 'inventories',
-                    element: <Inventories />
+                    element: <InventoriesContextProvider> <Inventories /> </InventoriesContextProvider> 
                 }
 
             ]

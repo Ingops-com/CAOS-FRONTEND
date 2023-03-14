@@ -1,12 +1,14 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
+import { UserContext } from "./UserContext";
 
 export const DashContext = createContext();
 
 export function DashContextProvider(props) {
 
-    function verifySession(){
-        let token = localStorage.getItem('sessionToken')
-        console.log(token)
+    const {  getToken  } = useContext(UserContext)
+
+    function verifySession() {
+        let token = (getToken())
         if (token === null) {
             window.location.assign('/')
         }

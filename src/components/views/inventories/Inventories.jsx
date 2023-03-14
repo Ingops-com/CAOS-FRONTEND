@@ -1,39 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import Cards from '../../commons/cards/Cards.jsx'
-import { RawMaterial, AllInventories } from '../../../services/inventoriesServices.jsx'
+import { useContext, useEffect } from 'react';
 import { BsFillTrashFill, BsPencilFill } from 'react-icons/bs'
+import { InventoriesContext } from '../../../context/InventoriesContext.jsx';
+import Cards from '../../commons/cards/Cards.jsx'
 
 
 function Inventories() {
 
-    const [data, setData] = useState([]);
-    const [invValuTotal, setInvValuTotal] = useState(0);
-    const [date, setDate] = useState(0);
+    const { getAllRawMate, getAllInve, data, date, valTotalRawMate } = useContext(InventoriesContext)
 
     useEffect(() => {
-        let key = localStorage.getItem('key')
-        RawMaterial(key.replace(/['"]+/g, '')).then((res) => {
-            setData(res.data);
-        })
-        AllInventories(key.replace(/['"]+/g, '')).then((res) => {
-            setDate(res.data.pop());
-        })
+        getAllRawMate()
+        getAllInve()
+        console.log("object")
     }, [])
 
-    useEffect(() => {
-        let total = 0
-        data.forEach((dataPrice) => {
-            total += dataPrice.price
-        });
-        setInvValuTotal(total)
-    })
-
     return (
+
         <div className='inventoriesBody'>
-            <div className='w-full h-auto flex justify-center gap-4 items-center p-5'> {/* Container  */}
+            <div className='w-full h-auto flex justify-center gap-4 items-center p-5'>
                 <Cards
                     titleCard='VALOR NETO INVENTARIO'
-                    bodyCard= {'$' + invValuTotal}
+                    bodyCard={'$ ' + valTotalRawMate}
                     cardNum='card1'
                 />
                 <Cards

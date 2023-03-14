@@ -1,45 +1,27 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { MdLightMode, MdOutlineLightMode, MdMiscellaneousServices, MdLogout } from "react-icons/md";
+import { NavbarContext } from '../../../context/NavbarContext';
+import Modal from "react-modal";
 import { BiBell } from "react-icons/bi";
 import { IoIosAlert } from "react-icons/io";
-import Modal from "react-modal";
-import axios from 'axios';
 import './Navbar.css'
 
 
 function Navbar() {
 
     const [sizeIcon, setSizeIcon] = useState('1.5rem')
-    const [theme, setTheme] = useState(null)
     const [modalOpen, setModalOpen] = useState(false)
-
-    let user = JSON.parse(localStorage.getItem('user'))
+    const { theme, setTheme, getTheme, chargeTheme } = useContext(NavbarContext)
 
     useEffect(() => {
-        axios.get(`http://25.5.144.146:4000/api/users/theme/${user.id}`)
-            .then((data) => {
-                let theme = JSON.stringify(data.data)
-                theme = JSON.parse(theme)
-                setTheme(theme.theme)
-            })
-            .catch((Error) => {
-                console.log(Error)
-            })
+        getTheme()
     }, [])
 
     useEffect(() => {
-        if (theme === 'dark') {
-            document.documentElement.classList.add('dark');
-            document.getElementById('sunIcon').classList.remove('hidden')
-            document.getElementById('sunDarkIcon').classList.add('hidden')
-        } else {
-            document.documentElement.classList.remove('dark');
-            document.getElementById('sunDarkIcon').classList.remove('hidden')
-            document.getElementById('sunIcon').classList.add('hidden')
-        }
+        chargeTheme(theme)
     }, [theme])
 
-    const handleThemeSwitch = () => {
+    function handleThemeSwitch(){
         setTheme(theme === 'dark' ? 'light' : 'dark')
     }
 
@@ -86,7 +68,7 @@ function Navbar() {
                 className=' dark:bg-dark-ing-800 dark:text-white p-5'
             >
                 <div className='flex items-center justify-center m-1'>
-                <IoIosAlert size={'3rem'} />
+                    <IoIosAlert size={'3rem'} />
                 </div>
                 <div className='text-center flex items-center justify-center'>
                     <div className='text-xl'>

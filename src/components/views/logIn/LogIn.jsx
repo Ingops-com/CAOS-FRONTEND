@@ -1,11 +1,13 @@
-import { useEffect } from "react";
-import { login } from "../../../services/authServices.jsx";
+import { useEffect, useContext } from "react";
 import Caos from "../../../assets/svg/caos.svg"
 import Logo from "../../../assets/svg/logo.svg"
+import { UserContext } from "../../../context/UserContext";
 import './Login.css';
 
 
 function LogIn() {
+
+    const { login } = useContext(UserContext)
 
     useEffect(() => {
         localStorage.clear()
