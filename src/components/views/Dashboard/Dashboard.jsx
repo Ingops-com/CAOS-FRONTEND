@@ -1,23 +1,20 @@
-import { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Outlet } from "react-router-dom";
+import { DashContext } from "../../../context/DashContext";
 import Navbar from "../../commons/Navbar/Navbar";
 import Sidebar from "../../commons/Sidebar/Sidebar";
 
 export default function Dashboard() {
 
-    const navigate = useNavigate();
+    const { verifySession } = useContext(DashContext)
 
     useEffect(() => {
-        let token = localStorage.getItem('key')
-        if (token === null) {
-            navigate("/")
-        }
+        verifySession()
     }, [])
 
-
     return (
-        <div className="flex w-full h-screen bg-[#f9f9fb] dark:bg-dark-ing-900"> {/* Color orginal dark:bg-[#212528]*/}
-            <div id="sidebar" className="text-black lg:w-1/6 p-2 dark:text-white dark:bg-dark-ing-800"> {/* Color original dark:bg-[#2a2f32]  */}
+        <div className="flex w-full h-screen bg-[#f9f9fb] dark:bg-dark-ing-900">
+            <div id="sidebar" className="text-black lg:w-1/6 p-2 dark:text-white dark:bg-dark-ing-800">
                 <Sidebar />
             </div>
             <div id="detail" className=" w-full p-5">

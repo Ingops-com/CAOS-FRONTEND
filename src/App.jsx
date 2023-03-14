@@ -2,6 +2,7 @@ import { RouterProvider } from "react-router-dom";
 import Routes from "./routes/routes.jsx";
 import axios from "axios";
 import { UserContextProvider } from './context/UserContext';
+import { DashContextProvider } from "./context/DashContext";
 import './App.css'
 
 function App() {
@@ -14,7 +15,9 @@ function App() {
 
   return (
     <UserContextProvider>
-      <RouterProvider router={routes} />
+      <DashContextProvider>
+        <RouterProvider router={routes} />
+      </DashContextProvider>
     </UserContextProvider>
   )
 }
