@@ -10,15 +10,7 @@ export function NavbarContextProvider(props) {
     function getTheme() {
         let userData = JSON.parse(localStorage.getItem('userData'))
 
-        axios.get(`/users/theme/${userData.id}`)
-            .then((data) => {
-                let Theme = JSON.stringify(data.data)
-                Theme = JSON.parse(Theme)
-                setTheme(Theme.theme)
-            })
-            .catch((Error) => {
-                console.log(Error)
-            })
+        setTheme(userData.theme)
     }
 
     function chargeTheme(theme) {
