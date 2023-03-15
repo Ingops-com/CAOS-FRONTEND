@@ -16,10 +16,13 @@ function Navbar() {
 
     useEffect(() => {
         getTheme()
+    }, [])
+
+    useEffect(() => {
         chargeTheme(theme)
     }, [theme])
 
-    function handleThemeSwitch(){
+    function handleThemeSwitch() {
         setTheme(theme === 'dark' ? 'light' : 'dark')
     }
 
