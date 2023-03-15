@@ -6,17 +6,16 @@ import Cards from '../../commons/cards/Cards.jsx'
 
 function Inventories() {
 
-    const { getAllRawMate, getAllInve, data, date, valTotalRawMate } = useContext(InventoriesContext)
+    const { getAllRawMate, data, date, valTotalRawMate } = useContext(InventoriesContext)
 
     useEffect(() => {
         getAllRawMate()
-        getAllInve()
-        console.log("object")
     }, [])
 
     return (
 
         <div className='inventoriesBody'>
+            {console.log(data)}
             <div className='w-full h-auto flex justify-center gap-4 items-center p-5'>
                 <Cards
                     titleCard='VALOR NETO INVENTARIO'
@@ -52,6 +51,7 @@ function Inventories() {
                             <tr key={index} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
                                 <td>{materia.raw_material.name}</td>
                                 <td>{materia.stock}</td>
+                                <td>{materia.raw_material.unit_measure.name}</td>
                                 <td>{materia.price}</td>
                                 <td>
                                     <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'><BsFillTrashFill color='ffffff' /></button>

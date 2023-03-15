@@ -27,27 +27,15 @@ export default function InventoriesContextProvider(props) {
     })
       .then((res) => {
         setData(res.data)
+        setDate(res.data.slice(-1)[0]);
       })
       .catch((err) => {
         console.log("Error getAll Inventories " + err)
       })
   }
 
-  function getAllInve() {
-    axios({
-      method: "GET",
-      url: "/inventories",
-      headers: {
-        'Authorization': token
-      }
-    })
-      .then((res) => {
-        setDate(res.data.pop());
-      })
-      .catch((err) => {
-        setDate("Error getAllInve " + err)
-      })
-  }
+
+
 
   function getValTotalRawMate() {
     let total = 0
@@ -60,7 +48,6 @@ export default function InventoriesContextProvider(props) {
   return (
     <InventoriesContext.Provider value={{
       getAllRawMate,
-      getAllInve,
       data,
       date,
       valTotalRawMate
