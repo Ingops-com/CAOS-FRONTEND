@@ -13,11 +13,9 @@ function Navbar() {
     const [modalOpen, setModalOpen] = useState(false)
     const { theme, setTheme, getTheme, chargeTheme } = useContext(NavbarContext)
 
-    useEffect(() => {
-        getTheme()
-    }, [])
 
     useEffect(() => {
+        getTheme()
         chargeTheme(theme)
     }, [theme])
 

@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { BsFillTrashFill, BsPencilFill } from 'react-icons/bs'
 import { InventoriesContext } from '../../../context/InventoriesContext.jsx';
 import Cards from '../../commons/cards/Cards.jsx'
+import ListNewItems from './ListNewItems/ListNewItems.jsx';
 
 
 function Inventories() {
@@ -15,7 +16,6 @@ function Inventories() {
     return (
 
         <div className='inventoriesBody'>
-            {console.log(data)}
             <div className='w-full h-auto flex justify-center gap-4 items-center p-5'>
                 <Cards
                     titleCard='VALOR NETO INVENTARIO'
@@ -35,6 +35,12 @@ function Inventories() {
                 />
             </div>
             <div className='buttons'>
+
+
+
+
+
+                <ListNewItems />
             </div>
             <div className='flex w-full items-center justify-center shadow-xl p-5 dark:shadow-none dark:bg-dark-ing-800'>
                 <table className='w-full'>
