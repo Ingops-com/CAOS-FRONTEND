@@ -6,16 +6,15 @@ import Cards from '../../commons/cards/Cards.jsx'
 
 function Inventories() {
 
-    const { getAllRawMate, data, date, valTotalRawMate } = useContext(InventoriesContext)
+    const { getAllInvRawMate, data, date, valTotalRawMate } = useContext(InventoriesContext)
 
     useEffect(() => {
-        getAllRawMate()
+        getAllInvRawMate()
     }, [])
 
     return (
 
         <div className='inventoriesBody'>
-            {console.log(data)}
             <div className='w-full h-auto flex justify-center gap-4 items-center p-5'>
                 <Cards
                     titleCard='VALOR NETO INVENTARIO'
@@ -42,6 +41,7 @@ function Inventories() {
                         <tr>
                             <th>Nombre</th>
                             <th>Cantidad</th>
+                            <th>Unidad de medida</th>
                             <th>Precio total</th>
                             <th>Acciones</th>
                         </tr>

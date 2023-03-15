@@ -16,7 +16,7 @@ export default function InventoriesContextProvider(props) {
   }, [data])
 
 
-  function getAllRawMate() {
+  function getAllInvRawMate() {
     console.log(token)
     axios({
       method: "GET",
@@ -47,7 +47,7 @@ export default function InventoriesContextProvider(props) {
 
   return (
     <InventoriesContext.Provider value={{
-      getAllRawMate,
+      getAllInvRawMate,
       data,
       date,
       valTotalRawMate
