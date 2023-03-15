@@ -16,7 +16,7 @@ export default function InventoriesContextProvider(props) {
   }, [data])
 
 
-  function getAllRawMate() {
+  function getAllInvRawMate() {
     axios({
       method: "GET",
       url: "/inventories-raw-material",

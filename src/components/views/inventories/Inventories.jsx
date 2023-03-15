@@ -36,7 +36,7 @@ function Inventories() {
             </div>
             <div className='buttons'>
 
-
+                
 
 
 
