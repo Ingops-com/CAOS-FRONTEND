@@ -8,19 +8,13 @@ export default function RawMateContextProvider(props) {
     const { token } = useContext(UserContext)
     const [dataRawMate, setDataRawMate] = useState([])
 
-    useEffect(()=>{
-        getAllRawMate()
-    },[dataRawMate])
 
-    function getAllRawMate() {
-        axios({
+    const getAllRawMate = async () => {
+        await axios({
             method: "get",
             url: "/raw-material",
             headers: {
                 'Authorization': token
-            },
-            data:{
-
             }
         })
             .then((res) => {
@@ -31,12 +25,12 @@ export default function RawMateContextProvider(props) {
             })
     }
 
-return(
-    <RawMaterialContext.Provider value={{
-        getAllRawMate,
-        dataRawMate
-    }}>
-        {props.children}
-    </RawMaterialContext.Provider>
-)
+    return (
+        <RawMateContext.Provider value={{
+            getAllRawMate,
+            dataRawMate
+        }}>
+            {props.children}
+        </RawMateContext.Provider>
+    )
 } 

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState, createContext, useContext, useEffect } from 'react'
+import { useState, createContext, useContext } from 'react'
 import { UserContext } from './UserContext'
 
 export const CategoriesContext = createContext()
@@ -8,11 +8,6 @@ export default function CategoriesContextProvider(props) {
 
     const { token } = useContext(UserContext)
     const [categories, setCategories] = useState([])
-
-
-    useEffect(() => {
-        getAllCategories()
-    }, [categories])
 
 
     function getAllCategories() {
