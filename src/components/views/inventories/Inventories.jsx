@@ -15,7 +15,6 @@ function Inventories() {
     useEffect(() => {
         getAllInvRawMate()
     }, [])
-    debugger
     return (
 
         <div className='inventoriesBody'>
@@ -42,14 +41,15 @@ function Inventories() {
                         <Form>
                         </Form>
                     </div>
-            </CategoriesContextProvider> 
+            </CategoriesContextProvider>
             <div className='flex w-full items-center justify-center shadow-xl p-5 dark:shadow-none dark:bg-dark-ing-800'>
-                <div className=' w-full max-h-36 overflow-auto'>
+                <div className=' w-full max-h-96 overflow-auto'>
                     <table className='w-full '>
                         <thead className=' border-b-slate-300 dark:text-slate-500 dark:border-b-slate-800 bg-transparent'>
                             <tr>
                                 <th>Nombre</th>
                                 <th>Cantidad</th>
+                                <th>Unidad de medida</th>
                                 <th>Precio total</th>
                                 <th>Acciones</th>
                             </tr>
