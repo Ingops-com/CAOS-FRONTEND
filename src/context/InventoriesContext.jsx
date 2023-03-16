@@ -33,9 +33,6 @@ export default function InventoriesContextProvider(props) {
       })
   }
 
-
-
-
   function getValTotalRawMate() {
     let total = 0
     data.forEach((dataPrice) => {
