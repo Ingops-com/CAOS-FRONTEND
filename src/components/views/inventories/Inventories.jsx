@@ -1,18 +1,21 @@
 import { useContext, useEffect } from 'react';
 import { BsFillTrashFill, BsPencilFill } from 'react-icons/bs'
 import { InventoriesContext } from '../../../context/InventoriesContext.jsx';
+import RawMateContextProvider from '../../../context/RawMateContext.jsx';
+import CategoriesContextProvider from '../../../context/CategoriesContext.jsx';
 import Cards from '../../commons/cards/Cards.jsx'
+import Form from './CategoriesForm'
 import './Inventories.css'
 
 
 function Inventories() {
 
-    const { getAllRawMate, data, date, valTotalRawMate } = useContext(InventoriesContext)
+    const { getAllInvRawMate, data, date, valTotalRawMate } = useContext(InventoriesContext)
 
     useEffect(() => {
-        getAllRawMate()
+        getAllInvRawMate()
     }, [])
-
+    debugger
     return (
 
         <div className='inventoriesBody'>
@@ -34,9 +37,12 @@ function Inventories() {
                     cardNum='card3'
                 />
             </div>
-            <div className='buttons'>
-
-            </div>
+             <CategoriesContextProvider>
+                    <div className='addRawMaterial'>
+                        <Form>
+                        </Form>
+                    </div>
+            </CategoriesContextProvider> 
             <div className='flex w-full items-center justify-center shadow-xl p-5 dark:shadow-none dark:bg-dark-ing-800'>
                 <div className=' w-full max-h-36 overflow-auto'>
                     <table className='w-full '>
