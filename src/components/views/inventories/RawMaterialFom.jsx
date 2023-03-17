@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react'
 import { CategoriesContext } from '../../../context/CategoriesContext'
 
-function CategoriesForm() {
+function RawMaterialForm() {
 
     const { getAllCategories, dataCategories, dataUnitMeasure, getAllUnitMeasure, createRawMaterial, getIdRawMaterial, dataIdRawMaterial, createItemInventorie } = useContext(CategoriesContext)
 
@@ -10,6 +10,9 @@ function CategoriesForm() {
         getAllUnitMeasure()
     }, [])
 
+    useEffect (()=>{
+
+    },[dataIdRawMaterial])
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -42,4 +45,4 @@ function CategoriesForm() {
     )
 }
 
-export default CategoriesForm
+export default RawMaterialForm
