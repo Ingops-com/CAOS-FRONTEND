@@ -4,7 +4,7 @@ import { InventoriesContext } from '../../../context/InventoriesContext.jsx';
 import RawMateContextProvider from '../../../context/RawMateContext.jsx';
 import CategoriesContextProvider from '../../../context/CategoriesContext.jsx';
 import Cards from '../../commons/cards/Cards.jsx'
-import Form from './CategoriesForm'
+import Form from './RawMaterialFom.jsx'
 import './Inventories.css'
 
 
