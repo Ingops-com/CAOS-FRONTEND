@@ -15,7 +15,6 @@ export default function InventoriesContextProvider(props) {
     getValTotalRawMate()
   }, [data])
 
-
   function getAllInvRawMate() {
     axios({
       method: "GET",
@@ -41,12 +40,35 @@ export default function InventoriesContextProvider(props) {
     setValTotalRawMate(total)
   }
 
+  const createItemInventorie = async (rawId) => {
+    await axios({
+      method: "POST",
+      url: "/inventories-raw-material/",
+      headers: {
+        'Authorization': token
+      },
+      data: {
+        raw_material_id: rawId,
+        stock: 0,
+        price: 0
+      }
+    })
+      .then((res) => {
+        getAllInvRawMate()
+      })
+      .catch((err) => {
+        console.log("Error getAll Unit Measure " + err)
+      })
+  }
+
   return (
     <InventoriesContext.Provider value={{
       getAllInvRawMate,
+      createItemInventorie,
       data,
       date,
-      valTotalRawMate
+      valTotalRawMate,
+
     }}>
       {props.children}
     </InventoriesContext.Provider>

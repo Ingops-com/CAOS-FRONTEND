@@ -1,18 +1,32 @@
 import { useContext, useEffect } from 'react'
-import { CategoriesContext } from '../../../context/CategoriesContext'
+import { CategoriesContext } from '../../../../context/CategoriesContext'
+import { InventoriesContext } from '../../../../context/InventoriesContext'
+import { RawMateContext } from '../../../../context/RawMateContext'
+import { UnitMeasuresContext } from '../../../../context/UnitMeasuresContext'
 
 function RawMaterialForm() {
 
-    const { getAllCategories, dataCategories, dataUnitMeasure, getAllUnitMeasure, createRawMaterial, getIdRawMaterial, dataIdRawMaterial, createItemInventorie } = useContext(CategoriesContext)
+    const { getAllCategories, dataCategories } = useContext(CategoriesContext)
+    const { getAllUnitMeasure, dataUnitMeasure } = useContext(UnitMeasuresContext)
+    const { createRawMaterial, newRawMate, dataIdRawMaterial, getIdRawMaterial } = useContext(RawMateContext)
+    const { createItemInventorie } = useContext(InventoriesContext)
 
     useEffect(() => {
         getAllCategories()
         getAllUnitMeasure()
     }, [])
 
-    useEffect (()=>{
+    useEffect(() => {
+        if (newRawMate != '') {
+            getIdRawMaterial(newRawMate)
+        }
+    }, [newRawMate])
 
-    },[dataIdRawMaterial])
+    useEffect(() => {
+        if (dataIdRawMaterial != []) {
+            createItemInventorie(dataIdRawMaterial)
+        }
+    }, [dataIdRawMaterial])
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -20,9 +34,6 @@ function RawMaterialForm() {
         let categorie = e.target.categories.value
         let unitMeasure = e.target.unitMeasure.value
         createRawMaterial(name, categorie, unitMeasure)
-        getIdRawMaterial(name)
-        createItemInventorie(dataIdRawMaterial.id)
-        //window.location.reload()
     }
 
     return (

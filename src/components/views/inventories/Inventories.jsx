@@ -4,19 +4,15 @@ import { InventoriesContext } from '../../../context/InventoriesContext.jsx';
 import RawMateContextProvider from '../../../context/RawMateContext.jsx';
 import CategoriesContextProvider from '../../../context/CategoriesContext.jsx';
 import Cards from '../../commons/cards/Cards.jsx'
-import Form from './RawMaterialFom.jsx'
+import RawMaterialForm from './RawMaterialForm/RawMaterialForm.jsx'
 import './Inventories.css'
 
 
 function Inventories() {
 
-    const { getAllInvRawMate, data, date, valTotalRawMate } = useContext(InventoriesContext)
+    const { data, date, valTotalRawMate } = useContext(InventoriesContext)
 
-    useEffect(() => {
-        getAllInvRawMate()
-    }, [])
     return (
-
         <div className='inventoriesBody'>
             <div className='w-full h-auto flex justify-center gap-4 items-center p-5'>
                 <Cards
@@ -36,12 +32,13 @@ function Inventories() {
                     cardNum='card3'
                 />
             </div>
-             <CategoriesContextProvider>
-                    <div className='addRawMaterial'>
-                        <Form>
-                        </Form>
-                    </div>
+
+            <CategoriesContextProvider>
+                <RawMateContextProvider>
+                    <RawMaterialForm />
+                </RawMateContextProvider>
             </CategoriesContextProvider>
+
             <div className='flex w-full items-center justify-center shadow-xl p-5 dark:shadow-none dark:bg-dark-ing-800'>
                 <div className=' w-full max-h-96 overflow-auto'>
                     <table className='w-full '>
