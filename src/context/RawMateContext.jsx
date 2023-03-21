@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useState, createContext, useContext } from 'react'
+import { toast } from 'react-hot-toast'
 import { UserContext } from './UserContext'
 
 export const RawMateContext = createContext()
@@ -40,7 +41,7 @@ export default function RawMateContextProvider(props) {
             }
         })
             .then((res) => {
-                console.log('Materia Creada')
+                toast.success('CREACION EXITOSA')
                 setNewRawMate(name)
             })
             .catch((err) => {
