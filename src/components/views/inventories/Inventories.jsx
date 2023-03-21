@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { BsFillTrashFill, BsPencilFill } from 'react-icons/bs'
 import { InventoriesContext } from '../../../context/InventoriesContext.jsx';
 import RawMateContextProvider from '../../../context/RawMateContext.jsx';
@@ -33,22 +33,31 @@ function Inventories() {
                 />
             </div>
 
+            <div className='flex justify-center items-center'>
+                <button
+                    className="middle none center mr-3 rounded-lg bg-green-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:opacity-75 focus:ring focus:ring-green-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    data-ripple-dark="true"
+                >
+                    NUEVO
+                </button>
+            </div>
+
             <CategoriesContextProvider>
                 <RawMateContextProvider>
                     <RawMaterialForm />
                 </RawMateContextProvider>
             </CategoriesContextProvider>
 
-            <div className='flex w-full items-center justify-center shadow-xl p-5 dark:shadow-none dark:bg-dark-ing-800'>
+            <div className='flex w-full items-center justify-center shadow-xl p-5 mt-2.5 mb-2.5 dark:shadow-none dark:bg-dark-ing-800'>
                 <div className=' w-full max-h-96 overflow-auto'>
                     <table className='w-full '>
                         <thead className=' border-b-slate-300 dark:text-slate-500 dark:border-b-slate-800 bg-transparent'>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Cantidad</th>
-                                <th>Unidad de medida</th>
-                                <th>Precio total</th>
-                                <th>Acciones</th>
+                                <th className='thwhite dark:th'>Nombre</th>
+                                <th className='thwhite dark:th'>Cantidad</th>
+                                <th className='thwhite dark:th'>Unidad de medida</th>
+                                <th className='thwhite dark:th'>Precio total</th>
+                                <th className='thwhite dark:th'>Acciones</th>
                             </tr>
                         </thead >
                         <tbody >

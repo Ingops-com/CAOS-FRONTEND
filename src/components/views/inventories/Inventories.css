@@ -1,6 +1,11 @@
-th {
+.dark .dark\:th {
     position: sticky;
     top: 0;
-    background-color: #17182c;
+    background-color: #17182c !important;
+}
 
+.thwhite {
+    position: sticky;
+    top: 0;
+    background-color: rgb(249 249 251 / var(--tw-bg-opacity));
 }
