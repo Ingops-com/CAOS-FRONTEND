@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { BsFillTrashFill, BsPlusCircle } from 'react-icons/bs'
 import { InventoriesContext } from '../../../context/InventoriesContext.jsx';
 import { RawMateContext } from '../../../context/RawMateContext.jsx';
@@ -18,33 +18,56 @@ function Inventories() {
     const [active, setActive] = useState(false);
 
     return (
-        <CategoriesContextProvider>
-            <RawMateContextProvider>
-                <div className='inventoriesBody'>
-                    
-                    <div><Toaster /></div>
 
+        <div className='inventoriesBody'>
+
+            <div><Toaster /></div>
+
+            <div className='w-full h-auto flex justify-center gap-4 items-center p-5'>
+                <Cards
+                    titleCard='VALOR NETO INVENTARIO'
+                    bodyCard={'$ ' + valTotalRawMate}
+                    cardNum='card1'
+                />
+                <Cards
+                    titleCard='FECHA ULTIMO INVENTARIO'
+                    bodyCard={date.createdAt}
+                    cardNum='card2'
+                />
                 <Cards
                     titleCard='CANTIDAD DE PRODUCTOS'
                     bodyCard={data.length}
                     cardNum='card3'
                 />
             </div>
+
+            <div className='flex justify-center'>
+                <button
+                    className="middle none center mr-3 rounded-lg bg-green-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:opacity-75 focus:ring focus:ring-green-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    data-ripple-dark="true"
+                >
+                    NUEVA MATERIA PRIMA
+                </button>
+            </div>
+
             <div className='transition-all' id='formEdit'>
                 {active ? (<RawMaterialFormEdit />) : (<></>)}
             </div>
-            <RawMaterialForm />
+
+            <div className='flex justify-center items-center'>
+                <RawMaterialForm />
+            </div>
 
             <div className='flex w-full items-center justify-center shadow-xl p-5 dark:shadow-none dark:bg-dark-ing-800'>
                 <div className=' w-full max-h-96 overflow-auto'>
                     <table className='w-full '>
                         <thead className=' border-b-slate-300 dark:text-slate-500 dark:border-b-slate-800 bg-transparent'>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Cantidad</th>
-                                <th>Unidad de medida</th>
-                                <th>Precio total</th>
-                                <th>Acciones</th>
+                                <th className='thwhite dark:th'>Nombre</th>
+                                <th className='thwhite dark:th'>Cantidad</th>
+                                <th className='thwhite dark:th'>Unidad de medida</th>
+                                <th className='thwhite dark:th'>Precio total</th>
+                                <th className='thwhite dark:th'>Acciones</th>
                             </tr>
                         </thead >
                         <tbody >
@@ -66,8 +89,8 @@ function Inventories() {
                         </tbody>
                     </table>
                 </div>
-            </RawMateContextProvider>
-        </CategoriesContextProvider>
+            </div>
+        </div>
     )
 }
 
