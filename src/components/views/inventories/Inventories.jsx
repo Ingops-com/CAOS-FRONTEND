@@ -17,6 +17,7 @@ function Inventories() {
         <CategoriesContextProvider>
             <RawMateContextProvider>
                 <div className='inventoriesBody'>
+                    
                     <div><Toaster /></div>
 
                     <div className='w-full h-auto flex justify-center gap-4 items-center p-5'>
