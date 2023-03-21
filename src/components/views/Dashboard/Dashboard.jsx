@@ -1,7 +1,9 @@
 import { useContext, useEffect } from "react";
 import { Outlet } from "react-router-dom";
+import CategoriesContextProvider from "../../../context/CategoriesContext";
 import { DashContext } from "../../../context/DashContext";
 import { NavbarContextProvider } from "../../../context/NavbarContext";
+import RawMateContextProvider from "../../../context/RawMateContext";
 import Navbar from "../../commons/Navbar/Navbar";
 import Sidebar from "../../commons/Sidebar/Sidebar";
 
@@ -24,7 +26,11 @@ export default function Dashboard() {
                         <Navbar />
                     </div>
                     <div className="">
-                            <Outlet />
+                        <CategoriesContextProvider>
+                            <RawMateContextProvider>
+                                <Outlet />
+                            </RawMateContextProvider>
+                        </CategoriesContextProvider>
                     </div>
                 </div>
             </div>
