@@ -6,15 +6,15 @@ import { RawMateContext } from "../../../../context/RawMateContext"
 function EditForm() {
 
     const [newDataObject, setNewDataObject] = useState(null)
-    const { setActive, getAllInvRawMate , updateItemById, editData} = useContext(InventoriesContext)
+    const { setActive, getAllInvRawMate, updateItemById, editData } = useContext(InventoriesContext)
 
     useEffect(() => {
-        if(newDataObject != null){   
+        if (newDataObject != null) {
             updateItemById(newDataObject)
             setActive(false)
             getAllInvRawMate()
         }
-    }, [newDataObject]) 
+    }, [newDataObject])
 
     function addingStock(e) {
         e.preventDefault()
@@ -28,7 +28,7 @@ function EditForm() {
 
     return (
 
-        <div className="w-fit shadow-xl p-5 mt-2.5 mb-2.5 dark:shadow-none dark:bg-dark-ing-800">
+        <div className="w-fit shadow-xl p-5 dark:shadow-none dark:bg-dark-ing-800">
             <div className='flex justify-center'>
                 <h2>A&Ntilde;ADIR EXISTENCIAS</h2>
             </div>
@@ -61,8 +61,14 @@ function EditForm() {
                         Precio Unitario
                     </label>
                 </div>
-                <button type="submit" className="middle none center mr-3 rounded-lg bg-green-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:opacity-75 focus:ring focus:ring-green-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                    data-ripple-dark="true">ENVIAR</button>
+                <button type="submit" className="middle none center rounded-lg bg-green-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:opacity-75 focus:ring focus:ring-green-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    data-ripple-dark="true">
+                    ENVIAR
+                </button>
+                <button type="button" className="middle none center rounded-lg bg-red-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:opacity-75 focus:ring focus:ring-red-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    data-ripple-dark="true" onClick={() => {setActive(false)}}>
+                    CANCELAR
+                </button>
             </form>
 
         </div >)

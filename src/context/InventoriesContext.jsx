@@ -78,7 +78,7 @@ export default function InventoriesContextProvider(props) {
     })
     .then((res)=>{
       getAllInvRawMate()
-        toast.success('STOCK AGREGADO CORRECTAMENTE')
+        toast.success('STOCK AGREGADO')
     })
     .catch((err)=>{
         toast.error('ERROR AL AGREGAR')
