@@ -1,7 +1,6 @@
 import { useContext, useState } from 'react';
 import { BsFillTrashFill, BsPlusCircle } from 'react-icons/bs'
 import { InventoriesContext } from '../../../context/InventoriesContext.jsx';
-import { RawMateContext } from '../../../context/RawMateContext.jsx';
 import Cards from '../../commons/cards/Cards.jsx'
 import RawMaterialForm from './RawMaterialForm/RawMaterialForm.jsx'
 import RawMaterialFormEdit from './RawMaterialForm/RawMaterialFormEdit.jsx'
@@ -13,9 +12,9 @@ import { Toaster } from 'react-hot-toast';
 
 function Inventories() {
 
-    const { data, date, valTotalRawMate } = useContext(InventoriesContext)
-    const { setEditData } = useContext(RawMateContext)
-    const [active, setActive] = useState(false);
+    const { data, date, valTotalRawMate, active, setActive, setEditData } = useContext(InventoriesContext)
+
+   
 
     return (
 
@@ -50,7 +49,7 @@ function Inventories() {
                 </button>
             </div>
 
-            <div className='transition-all' id='formEdit'>
+            <div className='flex justify-center items-center'>
                 {active ? (<RawMaterialFormEdit />) : (<></>)}
             </div>
 
