@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useState, createContext, useContext, useEffect } from 'react'
+import { toast } from 'react-hot-toast'
 import { UserContext } from './UserContext'
 
 export const InventoriesContext = createContext()
@@ -10,6 +11,8 @@ export default function InventoriesContextProvider(props) {
   const [data, setData] = useState([])
   const [date, setDate] = useState(0);
   const [valTotalRawMate, setValTotalRawMate] = useState(0);
+  const [active, setActive] = useState(false);
+  const [editData, setEditData] = useState (null)
 
   useEffect(() => {
     getValTotalRawMate()
@@ -61,6 +64,28 @@ export default function InventoriesContextProvider(props) {
       })
   }
 
+  const updateItemById = async (data) => {
+    await axios({
+        method: "PATCH",
+        url: `/inventories-raw-material/${editData.id}`,
+        headers: {
+            'Authorization': token
+        },
+        data:{
+            "stock" : data[0],
+            "price" : data[1]
+        }
+    })
+    .then((res)=>{
+      getAllInvRawMate()
+        toast.success('STOCK AGREGADO CORRECTAMENTE')
+    })
+    .catch((err)=>{
+        toast.error('ERROR AL AGREGAR')
+        console.log("error updateItemById" + err)
+    })
+}
+
   return (
     <InventoriesContext.Provider value={{
       getAllInvRawMate,
@@ -68,6 +93,11 @@ export default function InventoriesContextProvider(props) {
       data,
       date,
       valTotalRawMate,
+      active,
+      setActive,
+      updateItemById,
+      setEditData,
+      editData
 
     }}>
       {props.children}

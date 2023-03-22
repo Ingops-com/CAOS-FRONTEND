@@ -10,7 +10,6 @@ export default function RawMateContextProvider(props) {
     const [dataRawMate, setDataRawMate] = useState([])
     const [dataIdRawMaterial, setdataIdRawMaterial] = useState([])
     const [newRawMate, setNewRawMate] = useState('')
-    const [editData, setEditData] = useState (null)
 
     const getIdRawMaterial = async (name) => {
         await axios({
@@ -50,18 +49,15 @@ export default function RawMateContextProvider(props) {
             })
     }
     
-    
+
     return (
         <RawMateContext.Provider value={{
             dataIdRawMaterial,
             newRawMate,
             dataRawMate,
-            // getAllRawMate,
             setNewRawMate,
             createRawMaterial,
             getIdRawMaterial,
-            editData,
-            setEditData,
         }}>
             {props.children}
         </RawMateContext.Provider>
