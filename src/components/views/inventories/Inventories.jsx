@@ -1,18 +1,33 @@
-import { useContext, useState, useRef } from 'react';
+import { useContext, useState, useRef, useEffect } from 'react';
 import { BsFillTrashFill, BsPlusCircle } from 'react-icons/bs'
-import { InventoriesContext } from '../../../context/InventoriesContext.jsx';
+import { InventoriesContext } from '../../../context/Inventories/InventoriesContext';
 import Cards from '../../commons/cards/Cards.jsx'
-import RawMaterialForm from './RawMaterialForm/RawMaterialForm.jsx'
-import RawMaterialFormEdit from './RawMaterialForm/RawMaterialFormEdit.jsx'
+import RawMaterialForm from './Forms/RawMaterialForm.jsx'
+import RawMaterialFormEdit from './Forms/RawMaterialFormEdit.jsx'
 import './Inventories.css'
 import { Toaster } from 'react-hot-toast';
-import CategoriesForm from './RawMaterialForm/CategoriesForm.jsx';
+import CategoriesForm from './Forms/CategoriesForm.jsx';
+import { UserContext } from '../../../context/User/UserContext';
 
 
 
 function Inventories() {
 
     const { data, date, valTotalRawMate, showFormEdit, setShowFormEdit, setEditData, setshowFormNew, showFormNew, showFormCategorie, setShowFormCategorie } = useContext(InventoriesContext)
+    const { validatePermission } = useContext(UserContext)
+    const [userData, setUserData] = useState(null)
+    const [permission, setPermission] = useState(false)
+
+    useEffect(() => {
+        setUserData(JSON.parse(localStorage.getItem("userData")))
+    }, [])
+
+    useEffect(() => {
+        if (userData != null) {
+            setPermission(validatePermission(userData.role_id, 1))
+        }
+    }, [userData])
+
 
     return (
 
@@ -74,7 +89,7 @@ function Inventories() {
 
 
             {/* Tabla de contenido */}
-            <div className='flex w-full items-center justify-center shadow-xl p-5 mt-5 mb-5 dark:shadow-none dark:bg-dark-ing-800'>
+            <div className='flex w-full items-center justify-center shadow-xl p-5 mt-5 mb-5 bg-white dark:shadow-none dark:bg-dark-ing-800'>
                 <div className=' w-full max-h-96 overflow-auto'>
                     <table className='w-full '>
                         <thead className=' border-b-slate-300 dark:text-slate-500 dark:border-b-slate-800 bg-transparent'>
@@ -94,7 +109,16 @@ function Inventories() {
                                     <td>{materia.raw_material.unit_measure.name}</td>
                                     <td>{materia.price}</td>
                                     <td>
-                                        <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'><BsFillTrashFill color='ffffff' /></button>
+
+                                        {
+                                            permission && (
+                                                <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'><BsFillTrashFill color='ffffff' /></button> 
+                                            )
+                                        }
+
+                                        {/* <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'><BsFillTrashFill color='ffffff' /></button> */}
+
+
                                         <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => {
                                             setShowFormEdit(true)
                                             setEditData(materia)

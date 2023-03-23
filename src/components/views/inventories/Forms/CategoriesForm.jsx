@@ -1,7 +1,7 @@
 import { useContext, useRef } from "react"
-import { CategoriesContext } from "../../../../context/CategoriesContext.jsx"
+import { CategoriesContext } from "../../../../context/Inventories/Categories/CategoriesContext"
 import { CSSTransition } from 'react-transition-group';
-import { InventoriesContext } from "../../../../context/InventoriesContext.jsx";
+import { InventoriesContext } from "../../../../context/Inventories/InventoriesContext";
 
 
 
@@ -24,7 +24,7 @@ function categoriesForm({showFormCategorie}) {
          onEnter={() => { setShowFormEdit(false) , setshowFormNew(false) }}
         >
             <div ref={nodeRef} className='flex justify-center items-center'>
-                <div className='w-fit shadow-xl p-5 mt-2.5 mb-2.5 dark:shadow-none dark:bg-dark-ing-800'>
+                <div className='w-fit shadow-xl p-5 mt-2.5 mb-2.5 dark:shadow-none bg-white dark:bg-dark-ing-800'>
                     <div className='flex justify-center'>
                         <h2>NUEVA CATEGORIA</h2>
                     </div>

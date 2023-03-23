@@ -1,7 +1,7 @@
 import { useEffect, useContext } from "react";
 import Caos from "../../../assets/svg/caos.svg"
 import Logo from "../../../assets/svg/logo.svg"
-import { UserContext } from "../../../context/UserContext";
+import { UserContext } from "../../../context/User/UserContext";
 import './Login.css';
 
 

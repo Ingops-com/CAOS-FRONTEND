@@ -1,6 +1,6 @@
 import { createContext, useState, useContext } from 'react'
 import axios from 'axios'
-import { UserContext } from './UserContext'
+import { UserContext } from '../../User/UserContext'
 
 export const UnitMeasuresContext = createContext()
 

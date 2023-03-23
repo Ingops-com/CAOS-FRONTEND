@@ -1,8 +1,8 @@
 import { RouterProvider } from "react-router-dom";
 import Routes from "./routes/routes.jsx";
 import axios from "axios";
-import { UserContextProvider } from './context/UserContext';
-import { DashContextProvider } from "./context/DashContext";
+import { UserContextProvider } from './context/User/UserContext';
+import { DashContextProvider } from "./context/Dashboard/DashContext";
 import './App.css'
 
 function App() {
