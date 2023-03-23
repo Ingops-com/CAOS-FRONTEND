@@ -1,4 +1,5 @@
 import { useEffect, useContext } from "react";
+import { Toaster } from "react-hot-toast";
 import Caos from "../../../assets/svg/caos.svg"
 import Logo from "../../../assets/svg/logo.svg"
 import { UserContext } from "../../../context/User/UserContext";
@@ -23,6 +24,7 @@ function LogIn() {
 
     return (
         <div className="flex h-screen w-full items-center justify-center background">
+            <Toaster />
             <div className="grid gap-2 bg-[#2A353B]/75 text-white rounded-3xl justify-center p-5 max-w-sm backdrop-blur-sm">
                 <div>
                     <div className="imagenLogo p-2 flex justify-center items-center">
