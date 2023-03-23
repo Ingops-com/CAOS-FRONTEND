@@ -11,8 +11,10 @@ export default function InventoriesContextProvider(props) {
   const [data, setData] = useState([])
   const [date, setDate] = useState(0);
   const [valTotalRawMate, setValTotalRawMate] = useState(0);
-  const [active, setActive] = useState(false);
+  const [showFormEdit, setShowFormEdit] = useState(false)
   const [editData, setEditData] = useState (null)
+  const [showFormNew, setshowFormNew] = useState(false)
+
 
   useEffect(() => {
     getValTotalRawMate()
@@ -90,15 +92,16 @@ export default function InventoriesContextProvider(props) {
     <InventoriesContext.Provider value={{
       getAllInvRawMate,
       createItemInventorie,
+      setShowFormEdit,
+      updateItemById,
+      setEditData,
+      setshowFormNew,
+      showFormNew,
       data,
       date,
       valTotalRawMate,
-      active,
-      setActive,
-      updateItemById,
-      setEditData,
+      showFormEdit,
       editData
-
     }}>
       {props.children}
     </InventoriesContext.Provider>

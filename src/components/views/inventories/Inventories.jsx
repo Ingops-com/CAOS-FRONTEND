@@ -6,16 +6,13 @@ import RawMaterialForm from './RawMaterialForm/RawMaterialForm.jsx'
 import RawMaterialFormEdit from './RawMaterialForm/RawMaterialFormEdit.jsx'
 import './Inventories.css'
 import { Toaster } from 'react-hot-toast';
-import { CSSTransition } from 'react-transition-group';
 
 
 
 
 function Inventories() {
 
-    const { data, date, valTotalRawMate, active, setActive, setEditData } = useContext(InventoriesContext)
-    const [showFormNew, setshowFormNew] = useState(false)
-    const nodeRef = useRef(null);
+    const { data, date, valTotalRawMate, showFormEdit, setShowFormEdit, setEditData, setshowFormNew, showFormNew } = useContext(InventoriesContext)
 
     return (
 
@@ -55,32 +52,12 @@ function Inventories() {
             </div>
 
             {/* Formulario nueva materia prima */}
-            <CSSTransition
-                nodeRef={nodeRef}
-                in={showFormNew}
-                timeout={500}
-                classNames="container"
-                unmountOnExit
-                onEnter={() => { setActive(false) }}
-            >
-                <div ref={nodeRef} className='flex justify-center items-center'>
-                    <RawMaterialForm />
-                </div>
-            </CSSTransition>
+
+            <RawMaterialForm showFormNew={showFormNew} />
 
             {/* Formulario nuevo Stock */}
-            <CSSTransition
-                nodeRef={nodeRef}
-                in={active}
-                timeout={500}
-                classNames="container"
-                unmountOnExit
-                onEnter={() => { setshowFormNew(false) }}
-            >
-                <div ref={nodeRef} className='flex justify-center items-center'>
-                    <RawMaterialFormEdit />
-                </div>
-            </CSSTransition>
+
+            <RawMaterialFormEdit showFormEdit={showFormEdit} />
 
             {/* Tabla de contenido */}
             <div className='flex w-full items-center justify-center shadow-xl p-5 mt-5 mb-5 dark:shadow-none dark:bg-dark-ing-800'>
@@ -105,7 +82,7 @@ function Inventories() {
                                     <td>
                                         <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'><BsFillTrashFill color='ffffff' /></button>
                                         <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => {
-                                            setActive(true)
+                                            setShowFormEdit(true)
                                             setEditData(materia)
                                         }} ><BsPlusCircle color='ffffff' /></button>
                                     </td>
