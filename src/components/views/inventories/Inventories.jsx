@@ -7,7 +7,7 @@ import RawMaterialFormEdit from './RawMaterialForm/RawMaterialFormEdit.jsx'
 import './Inventories.css'
 import { Toaster } from 'react-hot-toast';
 import { CSSTransition } from 'react-transition-group';
-
+import CategoriesForm from './RawMaterialForm/CategoriesForm.jsx';
 
 
 
@@ -43,7 +43,30 @@ function Inventories() {
                 />
             </div>
 
-            {/* Boton nueva materia prima */}
+            {/* Boton nueva categoria */}
+            <div className='flex justify-center mt-5 mb-5'>
+                <button
+                    className="middle none center mr-3 rounded-lg bg-green-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:opacity-75 focus:ring focus:ring-green-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    data-ripple-dark="true"
+                    onClick={() => { setshowFormNew(!showFormNew) }}
+                >
+                    NUEVA MATERIA PRIMA
+                </button>
+            </div>
+
+            {/* Formulario nueva categoria */}
+            <CSSTransition
+                nodeRef={nodeRef}
+                in={showFormNew}
+                timeout={500}
+                classNames="container"
+                unmountOnExit
+                onEnter={() => { setActive(false) }}
+            >
+                <div ref={nodeRef} className='flex justify-center items-center'>
+                    <RawMaterialForm />
+                </div>
+            </CSSTransition>
             <div className='flex justify-center mt-5 mb-5'>
                 <button
                     className="middle none center mr-3 rounded-lg bg-green-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:opacity-75 focus:ring focus:ring-green-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
@@ -64,10 +87,10 @@ function Inventories() {
                 onEnter={() => { setActive(false) }}
             >
                 <div ref={nodeRef} className='flex justify-center items-center'>
-                    <RawMaterialForm />
+                    <CategoriesForm />
                 </div>
             </CSSTransition>
-
+            
             {/* Formulario nuevo Stock */}
             <CSSTransition
                 nodeRef={nodeRef}
@@ -81,6 +104,7 @@ function Inventories() {
                     <RawMaterialFormEdit />
                 </div>
             </CSSTransition>
+
 
             {/* Tabla de contenido */}
             <div className='flex w-full items-center justify-center shadow-xl p-5 mt-5 mb-5 dark:shadow-none dark:bg-dark-ing-800'>

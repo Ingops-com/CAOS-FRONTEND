@@ -26,11 +26,31 @@ export default function CategoriesContextProvider(props) {
             })
     }
 
+    function createCategorie(name) {
+        axios({
+            method: "POST",
+            url: "/categories/",
+            headers: {
+                'Authorization': token
+            },
+            data:{
+                name:name
+            }
+        })
+            .then((res) => {
+                setCategories(res.data)
+            })
+            .catch((err) => {
+                console.log("Error getAll Categories " + err)
+            })
+    }
+
     return (
         <UnitMeasuresContextProvider>
             <CategoriesContext.Provider value={{
                 getAllCategories,
                 dataCategories,
+                createCategorie
             }}>
                 {props.children}
             </CategoriesContext.Provider>
