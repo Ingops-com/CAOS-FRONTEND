@@ -6,14 +6,13 @@ import RawMaterialForm from './RawMaterialForm/RawMaterialForm.jsx'
 import RawMaterialFormEdit from './RawMaterialForm/RawMaterialFormEdit.jsx'
 import './Inventories.css'
 import { Toaster } from 'react-hot-toast';
-import { CSSTransition } from 'react-transition-group';
 import CategoriesForm from './RawMaterialForm/CategoriesForm.jsx';
 
 
 
 function Inventories() {
 
-    const { data, date, valTotalRawMate, showFormEdit, setShowFormEdit, setEditData, setshowFormNew, showFormNew } = useContext(InventoriesContext)
+    const { data, date, valTotalRawMate, showFormEdit, setShowFormEdit, setEditData, setshowFormNew, showFormNew, showFormCategorie, setShowFormCategorie } = useContext(InventoriesContext)
 
     return (
 
@@ -44,28 +43,13 @@ function Inventories() {
             {/* Boton nueva categoria */}
             <div className='flex justify-center mt-5 mb-5'>
                 <button
-                    className="middle none center mr-3 rounded-lg bg-green-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:opacity-75 focus:ring focus:ring-green-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    className="middle none center mr-3 rounded-lg bg-cyan-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:opacity-75 focus:ring focus:ring-cyan-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     data-ripple-dark="true"
-                    onClick={() => { setshowFormNew(!showFormNew) }}
+                    onClick={() => { setShowFormCategorie(!showFormCategorie) }}
                 >
-                    NUEVA MATERIA PRIMA
+                    NUEVA CATEGORIA
                 </button>
-            </div>
 
-            {/* Formulario nueva categoria */}
-            <CSSTransition
-                nodeRef={nodeRef}
-                in={showFormNew}
-                timeout={500}
-                classNames="container"
-                unmountOnExit
-                onEnter={() => { setActive(false) }}
-            >
-                <div ref={nodeRef} className='flex justify-center items-center'>
-                    <RawMaterialForm />
-                </div>
-            </CSSTransition>
-            <div className='flex justify-center mt-5 mb-5'>
                 <button
                     className="middle none center mr-3 rounded-lg bg-green-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:opacity-75 focus:ring focus:ring-green-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     data-ripple-dark="true"
@@ -74,6 +58,11 @@ function Inventories() {
                     NUEVA MATERIA PRIMA
                 </button>
             </div>
+
+
+            {/* Formulario nueva categoria */}
+
+            <CategoriesForm showFormCategorie={showFormCategorie} />
 
             {/* Formulario nueva materia prima */}
 

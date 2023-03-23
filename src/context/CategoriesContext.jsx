@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useState, createContext, useContext } from 'react'
+import { toast } from 'react-hot-toast'
 import { UnitMeasuresContextProvider } from './UnitMeasuresContext'
 import { UserContext } from './UserContext'
 
@@ -38,7 +39,8 @@ export default function CategoriesContextProvider(props) {
             }
         })
             .then((res) => {
-                setCategories(res.data)
+                toast.success('CATEGORIA CREADA')
+                getAllCategories()
             })
             .catch((err) => {
                 console.log("Error getAll Categories " + err)

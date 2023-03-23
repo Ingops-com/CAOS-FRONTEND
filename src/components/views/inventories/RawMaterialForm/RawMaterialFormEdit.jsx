@@ -5,7 +5,7 @@ import { CSSTransition } from 'react-transition-group';
 function EditForm({ showFormEdit }) {
 
     const [newDataObject, setNewDataObject] = useState(null)
-    const { setShowFormEdit, updateItemById, editData , setshowFormNew} = useContext(InventoriesContext)
+    const { setShowFormEdit, updateItemById, editData , setshowFormNew, setShowFormCategorie} = useContext(InventoriesContext)
     const [nameRawMaterial, setNameRawMaterial] = useState(null)
     const nodeRef = useRef(null);
 
@@ -34,7 +34,7 @@ function EditForm({ showFormEdit }) {
 
     return (
         <CSSTransition nodeRef={nodeRef} in={showFormEdit} timeout={200} classNames="container" unmountOnExit
-        onEnter={() => { setshowFormNew(false) }}
+        onEnter={() => { setshowFormNew(false), setShowFormCategorie(false)}}
         >
             <div id='formNew' ref={nodeRef} className='flex justify-center items-center'>
 

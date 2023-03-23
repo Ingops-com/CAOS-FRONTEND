@@ -10,7 +10,7 @@ function RawMaterialForm({ showFormNew }) {
     const { getAllCategories, dataCategories } = useContext(CategoriesContext)
     const { getAllUnitMeasure, dataUnitMeasure } = useContext(UnitMeasuresContext)
     const { createRawMaterial, newRawMate, dataIdRawMaterial, getIdRawMaterial } = useContext(RawMateContext)
-    const { createItemInventorie, setShowFormEdit } = useContext(InventoriesContext)
+    const { createItemInventorie, setShowFormEdit, setShowFormCategorie } = useContext(InventoriesContext)
     const nodeRef = useRef(null);
 
     useEffect(() => {
@@ -40,7 +40,7 @@ function RawMaterialForm({ showFormNew }) {
 
     return (
         <CSSTransition nodeRef={nodeRef} in={showFormNew} timeout={200} classNames="container" unmountOnExit appear={true}
-            onEnter={() => { setShowFormEdit(false) }}
+            onEnter={() => { setShowFormEdit(false), setShowFormCategorie(false) }}
         >
             <div id='formNew' ref={nodeRef} className='flex justify-center items-center'>
                 <div className='w-fit shadow-xl p-5 mt-2.5 mb-2.5 dark:shadow-none dark:bg-dark-ing-800'>

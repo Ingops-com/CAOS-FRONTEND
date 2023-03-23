@@ -11,9 +11,10 @@ export default function InventoriesContextProvider(props) {
   const [data, setData] = useState([])
   const [date, setDate] = useState(0);
   const [valTotalRawMate, setValTotalRawMate] = useState(0);
+  const [editData, setEditData] = useState(null)
   const [showFormEdit, setShowFormEdit] = useState(false)
-  const [editData, setEditData] = useState (null)
   const [showFormNew, setshowFormNew] = useState(false)
+  const [showFormCategorie, setShowFormCategorie] = useState(false)
 
 
   useEffect(() => {
@@ -68,25 +69,25 @@ export default function InventoriesContextProvider(props) {
 
   const updateItemById = async (data) => {
     await axios({
-        method: "PATCH",
-        url: `/inventories-raw-material/${editData.id}`,
-        headers: {
-            'Authorization': token
-        },
-        data:{
-            "stock" : data[0],
-            "price" : data[1]
-        }
+      method: "PATCH",
+      url: `/inventories-raw-material/${editData.id}`,
+      headers: {
+        'Authorization': token
+      },
+      data: {
+        "stock": data[0],
+        "price": data[1]
+      }
     })
-    .then((res)=>{
-      getAllInvRawMate()
+      .then((res) => {
+        getAllInvRawMate()
         toast.success('STOCK AGREGADO')
-    })
-    .catch((err)=>{
+      })
+      .catch((err) => {
         toast.error('ERROR AL AGREGAR')
         console.log("error updateItemById" + err)
-    })
-}
+      })
+  }
 
   return (
     <InventoriesContext.Provider value={{
@@ -101,7 +102,9 @@ export default function InventoriesContextProvider(props) {
       date,
       valTotalRawMate,
       showFormEdit,
-      editData
+      editData,
+      showFormCategorie,
+      setShowFormCategorie
     }}>
       {props.children}
     </InventoriesContext.Provider>
