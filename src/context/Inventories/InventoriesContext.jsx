@@ -9,29 +9,14 @@ export default function InventoriesContextProvider(props) {
 
   const { token } = useContext(UserContext)
   const [data, setData] = useState([])
-  const [date, setDate] = useState(0);
+  const [date, setDate] = useState([]);
   const [valTotalRawMate, setValTotalRawMate] = useState(0);
   const [editData, setEditData] = useState(null)
   const [showFormEdit, setShowFormEdit] = useState(false)
   const [showFormNew, setshowFormNew] = useState(false)
   const [showFormCategorie, setShowFormCategorie] = useState(false)
-  const cero = [
-    {
-      "id": 0,
-      "stock": 0,
-      "price": 0,
-      "createdAt": "0",
-      "raw_material": {
-        "name": "",
-        "category_raw_material": {
-          "name": ""
-        },
-        "unit_measure": {
-          "name": ""
-        }
-      }
-    }
-  ]
+  const [datafilter, setDatafilter] = useState("")
+
 
   useEffect(() => {
     getValTotalRawMate()
@@ -46,15 +31,12 @@ export default function InventoriesContextProvider(props) {
       }
     })
       .then((res) => {
-        console.log(res.data)
-        if () {
-          console.log("entro vacio")
-          setData(cero)
-          setDate(cero.slice(-1)[0]);
-
-        } else {
-          setData(res.data)
-          setDate(res.data.slice(-1)[0]);
+        setData(res.data)
+        setDatafilter(res.data)
+        if(res.data != ''){
+        setDate(res.data.slice(-1)[0]);}
+        else{
+          setDate({'createdAt': '00-00-0000'})
         }
       })
       .catch((err) => {
@@ -147,7 +129,8 @@ export default function InventoriesContextProvider(props) {
       editData,
       showFormCategorie,
       setShowFormCategorie,
-      deleteById
+      setData,
+      datafilter
     }}>
       {props.children}
     </InventoriesContext.Provider>
