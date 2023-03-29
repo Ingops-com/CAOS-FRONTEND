@@ -15,7 +15,23 @@ export default function InventoriesContextProvider(props) {
   const [showFormEdit, setShowFormEdit] = useState(false)
   const [showFormNew, setshowFormNew] = useState(false)
   const [showFormCategorie, setShowFormCategorie] = useState(false)
-
+  const cero = [
+    {
+      "id": 0,
+      "stock": 0,
+      "price": 0,
+      "createdAt": "0",
+      "raw_material": {
+        "name": "",
+        "category_raw_material": {
+          "name": ""
+        },
+        "unit_measure": {
+          "name": ""
+        }
+      }
+    }
+  ]
 
   useEffect(() => {
     getValTotalRawMate()
@@ -30,8 +46,16 @@ export default function InventoriesContextProvider(props) {
       }
     })
       .then((res) => {
-        setData(res.data)
-        setDate(res.data.slice(-1)[0]);
+        console.log(res.data)
+        if () {
+          console.log("entro vacio")
+          setData(cero)
+          setDate(cero.slice(-1)[0]);
+
+        } else {
+          setData(res.data)
+          setDate(res.data.slice(-1)[0]);
+        }
       })
       .catch((err) => {
         console.log("Error getAll Inventories " + err)
@@ -89,6 +113,24 @@ export default function InventoriesContextProvider(props) {
       })
   }
 
+  const deleteById = async (id) => {
+    await axios({
+      method: "DELETE",
+      url: `/inventories-raw-material/${id}`,
+      headers: {
+        'Authorization': token
+      }
+    })
+      .then((res) => {
+        getAllInvRawMate()
+        toast.success('PRODUCTO BORRADO')
+      })
+      .catch((err) => {
+        toast.error('ERROR AL BORRAR')
+        console.log("error updateItemById" + err)
+      })
+  }
+
   return (
     <InventoriesContext.Provider value={{
       getAllInvRawMate,
@@ -104,7 +146,8 @@ export default function InventoriesContextProvider(props) {
       showFormEdit,
       editData,
       showFormCategorie,
-      setShowFormCategorie
+      setShowFormCategorie,
+      deleteById
     }}>
       {props.children}
     </InventoriesContext.Provider>

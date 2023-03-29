@@ -13,7 +13,7 @@ import { UserContext } from '../../../context/User/UserContext';
 
 function Inventories() {
 
-    const { data, date, valTotalRawMate, showFormEdit, setShowFormEdit, setEditData, setshowFormNew, showFormNew, showFormCategorie, setShowFormCategorie } = useContext(InventoriesContext)
+    const { data, date, valTotalRawMate, showFormEdit, setShowFormEdit, setEditData, setshowFormNew, showFormNew, showFormCategorie, setShowFormCategorie, deleteById } = useContext(InventoriesContext)
     const { validatePermission } = useContext(UserContext)
     const [userData, setUserData] = useState(null)
     const [permission, setPermission] = useState(false)
@@ -87,7 +87,6 @@ function Inventories() {
 
             <RawMaterialFormEdit showFormEdit={showFormEdit} />
 
-
             {/* Tabla de contenido */}
             <div className='flex w-full items-center justify-center shadow-xl p-5 mt-5 mb-5 bg-white dark:shadow-none dark:bg-dark-ing-800'>
                 <div className=' w-full max-h-96 overflow-auto'>
@@ -112,12 +111,13 @@ function Inventories() {
 
                                         {
                                             permission && (
-                                                <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'><BsFillTrashFill color='ffffff' /></button> 
+                                                <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'
+                                                    onClick={() => {
+                                                        deleteById(materia.id)
+                                                    }}
+                                                ><BsFillTrashFill color='ffffff' /></button>
                                             )
                                         }
-
-                                        {/* <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'><BsFillTrashFill color='ffffff' /></button> */}
-
 
                                         <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => {
                                             setShowFormEdit(true)
