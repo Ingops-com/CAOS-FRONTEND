@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { useState, createContext, useContext } from 'react'
 import { toast } from 'react-hot-toast'
-import { UnitMeasuresContextProvider } from './UnitMeasuresContext'
-import { UserContext } from './UserContext'
+import { UnitMeasuresContextProvider } from '../Unite Measure/UnitMeasuresContext'
+import { UserContext } from '../../User/UserContext'
 
 export const CategoriesContext = createContext()
 

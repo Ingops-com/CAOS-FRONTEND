@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { MdLightMode, MdOutlineLightMode, MdMiscellaneousServices, MdLogout } from "react-icons/md";
-import { NavbarContext } from '../../../context/NavbarContext';
+import { NavbarContext } from '../../../context/Dashboard/Navbar/NavbarContext';
 import Modal from "react-modal";
 import { BiBell } from "react-icons/bi";
 import { IoIosAlert } from "react-icons/io";
@@ -66,7 +66,7 @@ function Navbar() {
             <Modal
                 isOpen={modalOpen}
                 onRequestClose={closeModal}
-                className=' dark:bg-dark-ing-800 dark:text-white p-5'
+                className='border shadow-xl bg-white dark:bg-dark-ing-800 dark:text-white p-5'
             >
                 <div className='flex items-center justify-center m-1'>
                     <IoIosAlert size={'3rem'} />

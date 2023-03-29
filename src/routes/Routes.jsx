@@ -5,7 +5,7 @@ import ErrorPage from '../components/views/Errors/ErrorPage';
 import LogIn from "../components/views/LogIn/LogIn";
 import Soon from '../components/views/Soon/Soon';
 import Inventories from "../components/views/inventories/Inventories";
-import InventoriesContextProvider from "../context/InventoriesContext";
+import InventoriesContextProvider from "../context/Inventories/InventoriesContext";
 
 export default function Routes() {
     const routes = createBrowserRouter([

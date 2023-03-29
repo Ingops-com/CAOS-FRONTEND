@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useState, createContext, useContext, useEffect } from 'react'
 import { toast } from 'react-hot-toast'
-import { UserContext } from './UserContext'
+import { UserContext } from '../User/UserContext'
 
 export const InventoriesContext = createContext()
 
@@ -33,10 +33,11 @@ export default function InventoriesContextProvider(props) {
       .then((res) => {
         setData(res.data)
         setDatafilter(res.data)
-        if(res.data != ''){
-        setDate(res.data.slice(-1)[0]);}
-        else{
-          setDate({'createdAt': '00-00-0000'})
+        if (res.data != '') {
+          setDate(res.data.slice(-1)[0]);
+        }
+        else {
+          setDate({ 'createdAt': '00-00-0000' })
         }
       })
       .catch((err) => {
@@ -95,6 +96,26 @@ export default function InventoriesContextProvider(props) {
       })
   }
 
+  const deleteById = async (id) => {
+    await axios({
+      method: "DELETE",
+      url: `/inventories-raw-material/${id}`,
+      headers: {
+        'Authorization': token
+      }
+    })
+      .then((res) => {
+        getAllInvRawMate()
+        toast.success('PRODUCTO BORRADO')
+      })
+      .catch((err) => {
+        toast.error('ERROR AL BORRAR')
+        console.log("error updateItemById" + err)
+      })
+  }
+
+  
+
   return (
     <InventoriesContext.Provider value={{
       getAllInvRawMate,
@@ -112,7 +133,8 @@ export default function InventoriesContextProvider(props) {
       showFormCategorie,
       setShowFormCategorie,
       setData,
-      datafilter
+      datafilter,
+      deleteById
     }}>
       {props.children}
     </InventoriesContext.Provider>

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState, useRef } from "react"
-import { InventoriesContext } from "../../../../context/InventoriesContext.jsx"
+import { InventoriesContext } from "../../../../context/Inventories/InventoriesContext"
 import { CSSTransition } from 'react-transition-group';
 
 function EditForm({ showFormEdit }) {
@@ -38,7 +38,7 @@ function EditForm({ showFormEdit }) {
         >
             <div id='formNew' ref={nodeRef} className='flex justify-center items-center'>
 
-                <div className="w-fit shadow-xl p-5 dark:shadow-none dark:bg-dark-ing-800">
+                <div className="w-fit shadow-xl p-5 dark:shadow-none bg-white dark:bg-dark-ing-800">
                     <div className='flex justify-center'>
                         <h2>A&Ntilde;ADIR EXISTENCIAS DE "{nameRawMaterial}'' </h2>
                     </div>

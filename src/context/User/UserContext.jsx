@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export const UserContext = createContext();
 
@@ -19,7 +20,10 @@ export function UserContextProvider(props) {
                 window.location.assign('/home')
             })
             .catch((err) => {
-                console.error({ error: err })
+                // console.error({ error: err.response.data.error })
+                if(err.response.status == 401){
+                    toast.error('USUARIO 0 CONTRASEÑA INVALIDA')
+                }
             })
 
     }
@@ -31,8 +35,13 @@ export function UserContextProvider(props) {
         return token
     }
 
+    function validatePermission(user, maxValid) {
+        return user > maxValid ? false : true
+    }
+
+
     return (
-        <UserContext.Provider value={{ login, getToken, token }}>
+        <UserContext.Provider value={{ login, getToken, token , validatePermission}}>
             {props.children}
         </UserContext.Provider >
     )

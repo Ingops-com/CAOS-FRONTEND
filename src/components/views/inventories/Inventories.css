@@ -7,7 +7,7 @@
 .thwhite {
     position: sticky;
     top: 0;
-    background-color: rgb(249 249 251 / var(--tw-bg-opacity));
+    background-color: white
 }
 
 .container-enter {

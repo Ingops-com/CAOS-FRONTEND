@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useState, createContext, useContext } from 'react'
 import { toast } from 'react-hot-toast'
-import { UserContext } from './UserContext'
+import { UserContext } from '../../User/UserContext'
 
 export const RawMateContext = createContext()
 export default function RawMateContextProvider(props) {

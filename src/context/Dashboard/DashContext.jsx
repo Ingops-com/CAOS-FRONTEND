@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { UserContext } from "./UserContext";
+import { UserContext } from "../User/UserContext";
 
 export const DashContext = createContext();
 

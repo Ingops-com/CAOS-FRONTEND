@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef } from 'react'
-import { CategoriesContext } from '../../../../context/CategoriesContext'
-import { InventoriesContext } from '../../../../context/InventoriesContext'
-import { RawMateContext } from '../../../../context/RawMateContext'
-import { UnitMeasuresContext } from '../../../../context/UnitMeasuresContext'
+import { CategoriesContext } from '../../../../context/Inventories/Categories/CategoriesContext'
+import { InventoriesContext } from '../../../../context/Inventories/InventoriesContext'
+import { RawMateContext } from '../../../../context/Inventories/Raw Material/RawMateContext'
+import { UnitMeasuresContext } from '../../../../context/Inventories/Unite Measure/UnitMeasuresContext'
 import { CSSTransition } from 'react-transition-group';
 
 function RawMaterialForm({ showFormNew }) {
@@ -43,7 +43,7 @@ function RawMaterialForm({ showFormNew }) {
             onEnter={() => { setShowFormEdit(false), setShowFormCategorie(false) }}
         >
             <div id='formNew' ref={nodeRef} className='flex justify-center items-center'>
-                <div className='w-fit shadow-xl p-5 mt-2.5 mb-2.5 dark:shadow-none dark:bg-dark-ing-800'>
+                <div className='w-fit shadow-xl p-5 mt-2.5 mb-2.5 dark:shadow-none bg-white dark:bg-dark-ing-800'>
                     <div className='flex justify-center'>
                         <h2>NUEVA MATERIA PRIMA</h2>
                     </div>
