@@ -9,12 +9,13 @@ export default function InventoriesContextProvider(props) {
 
   const { token } = useContext(UserContext)
   const [data, setData] = useState([])
-  const [date, setDate] = useState(0);
+  const [date, setDate] = useState([]);
   const [valTotalRawMate, setValTotalRawMate] = useState(0);
   const [editData, setEditData] = useState(null)
   const [showFormEdit, setShowFormEdit] = useState(false)
   const [showFormNew, setshowFormNew] = useState(false)
   const [showFormCategorie, setShowFormCategorie] = useState(false)
+  const [datafilter, setDatafilter] = useState("")
 
 
   useEffect(() => {
@@ -31,7 +32,12 @@ export default function InventoriesContextProvider(props) {
     })
       .then((res) => {
         setData(res.data)
-        setDate(res.data.slice(-1)[0]);
+        setDatafilter(res.data)
+        if(res.data != ''){
+        setDate(res.data.slice(-1)[0]);}
+        else{
+          setDate({'createdAt': '00-00-0000'})
+        }
       })
       .catch((err) => {
         console.log("Error getAll Inventories " + err)
@@ -104,7 +110,9 @@ export default function InventoriesContextProvider(props) {
       showFormEdit,
       editData,
       showFormCategorie,
-      setShowFormCategorie
+      setShowFormCategorie,
+      setData,
+      datafilter
     }}>
       {props.children}
     </InventoriesContext.Provider>
