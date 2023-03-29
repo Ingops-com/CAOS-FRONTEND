@@ -33,10 +33,11 @@ export default function InventoriesContextProvider(props) {
       .then((res) => {
         setData(res.data)
         setDatafilter(res.data)
-        if(res.data != ''){
-        setDate(res.data.slice(-1)[0]);}
-        else{
-          setDate({'createdAt': '00-00-0000'})
+        if (res.data != '') {
+          setDate(res.data.slice(-1)[0]);
+        }
+        else {
+          setDate({ 'createdAt': '00-00-0000' })
         }
       })
       .catch((err) => {
@@ -113,6 +114,8 @@ export default function InventoriesContextProvider(props) {
       })
   }
 
+  
+
   return (
     <InventoriesContext.Provider value={{
       getAllInvRawMate,
@@ -130,7 +133,8 @@ export default function InventoriesContextProvider(props) {
       showFormCategorie,
       setShowFormCategorie,
       setData,
-      datafilter
+      datafilter,
+      deleteById
     }}>
       {props.children}
     </InventoriesContext.Provider>

@@ -13,9 +13,22 @@ import { UserContext } from '../../../context/User/UserContext';
 
 function Inventories() {
 
-    const { data, date, valTotalRawMate, showFormEdit, setShowFormEdit, setEditData, setshowFormNew, showFormNew, showFormCategorie, setShowFormCategorie, setData, datafilter } = useContext(InventoriesContext)
+    const { data, date, valTotalRawMate, showFormEdit, setShowFormEdit, setEditData, setshowFormNew, showFormNew, showFormCategorie, setShowFormCategorie, setData, datafilter,deleteById } = useContext(InventoriesContext)
     const [search, setSearch] = useState("")
     const [permission, setPermission] = useState(false)
+
+    function checkPermissions(permMin) {
+        let user = JSON.parse(localStorage.getItem('userData'))
+        console.log(user)
+        if (user.role_id <= permMin) {
+           setPermission(true)
+        }
+    }
+
+    useEffect(() => {
+        checkPermissions(1)
+    }, [])
+    
 
     const handleChange = e => {
         setSearch(e.target.value)
