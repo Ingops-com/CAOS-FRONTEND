@@ -2,12 +2,14 @@ import axios from 'axios'
 import { useState, createContext, useContext, useEffect } from 'react'
 import { toast } from 'react-hot-toast'
 import { UserContext } from '../User/UserContext'
+import { HistoriesContext } from './HistoriesContext'
 
 export const InventoriesContext = createContext()
 
 export default function InventoriesContextProvider(props) {
 
   const { token } = useContext(UserContext)
+  const { creaHistInve } = useContext(HistoriesContext)
   const [data, setData] = useState([])
   const [date, setDate] = useState([]);
   const [valTotalRawMate, setValTotalRawMate] = useState(0);
@@ -68,6 +70,7 @@ export default function InventoriesContextProvider(props) {
     })
       .then((res) => {
         getAllInvRawMate()
+        creaHistInve(rawId, 0, '0')
       })
       .catch((err) => {
         console.log("Error getAll Unit Measure " + err)
@@ -88,6 +91,7 @@ export default function InventoriesContextProvider(props) {
     })
       .then((res) => {
         getAllInvRawMate()
+        creaHistInve(editData.id, data[0], '1')
         toast.success('STOCK AGREGADO')
       })
       .catch((err) => {
@@ -106,6 +110,7 @@ export default function InventoriesContextProvider(props) {
     })
       .then((res) => {
         getAllInvRawMate()
+        creaHistInve(id, 0, '2')
         toast.success('PRODUCTO BORRADO')
       })
       .catch((err) => {
@@ -114,7 +119,7 @@ export default function InventoriesContextProvider(props) {
       })
   }
 
-  
+
 
   return (
     <InventoriesContext.Provider value={{
