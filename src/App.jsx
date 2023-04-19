@@ -3,6 +3,7 @@ import Routes from "./routes/routes.jsx";
 import axios from "axios";
 import { UserContextProvider } from './context/User/UserContext';
 import { DashContextProvider } from "./context/Dashboard/DashContext";
+import HistoriesContextProvider from "./context/Inventories/HistoriesContext.jsx";
 import './App.css'
 
 function App() {
@@ -15,9 +16,11 @@ function App() {
 
   return (
     <UserContextProvider>
-      <DashContextProvider>
-        <RouterProvider router={routes} />
-      </DashContextProvider>
+      <HistoriesContextProvider>
+        <DashContextProvider>
+          <RouterProvider router={routes} />
+        </DashContextProvider>
+      </HistoriesContextProvider>
     </UserContextProvider>
   )
 }

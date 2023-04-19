@@ -19,7 +19,6 @@ function Inventories() {
 
     function checkPermissions(permMin) {
         let user = JSON.parse(localStorage.getItem('userData'))
-        console.log(user)
         if (user.role_id <= permMin) {
            setPermission(true)
         }
