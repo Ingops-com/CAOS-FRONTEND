@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useState, createContext, useContext, useEffect } from 'react'
 import { toast } from 'react-hot-toast'
 import { UserContext } from '../User/UserContext'
-import { HistoriesContext } from './HistoriesContext'
+import { HistoriesContext } from '../History/InvenHistContext'
 
 export const InventoriesContext = createContext()
 
