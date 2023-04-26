@@ -45,6 +45,7 @@ export default function InvenHistContextProvider(props) {
       }
     }).then((res) => {
       console.log(res)
+      getHistInve()
     }).catch((err) => {
       console.log(err)
     })
