@@ -2,14 +2,14 @@ import axios from 'axios'
 import { useState, createContext, useContext, useEffect } from 'react'
 import { toast } from 'react-hot-toast'
 import { UserContext } from '../User/UserContext'
-import { HistoriesContext } from '../History/InvenHistContext'
+import { InvenHistContext } from '../History/InvenHistContext.jsx'
 
 export const InventoriesContext = createContext()
 
 export default function InventoriesContextProvider(props) {
 
   const { token } = useContext(UserContext)
-  const { creaHistInve } = useContext(HistoriesContext)
+  const { creaHistInve } = useContext(InvenHistContext)
   const [data, setData] = useState([])
   const [date, setDate] = useState([]);
   const [valTotalRawMate, setValTotalRawMate] = useState(0);
@@ -18,7 +18,6 @@ export default function InventoriesContextProvider(props) {
   const [showFormNew, setshowFormNew] = useState(false)
   const [showFormCategorie, setShowFormCategorie] = useState(false)
   const [datafilter, setDatafilter] = useState("")
-
 
   useEffect(() => {
     getValTotalRawMate()
@@ -70,10 +69,10 @@ export default function InventoriesContextProvider(props) {
     })
       .then((res) => {
         getAllInvRawMate()
-        creaHistInve(rawId, 0, '0')
+        creaHistInve(rawId, 0, '0')  
       })
       .catch((err) => {
-        console.log("Error getAll Unit Measure " + err)
+        console.log("Error create item inventorie " + err)
       })
   }
 
@@ -118,8 +117,6 @@ export default function InventoriesContextProvider(props) {
         console.log("error updateItemById" + err)
       })
   }
-
-
 
   return (
     <InventoriesContext.Provider value={{

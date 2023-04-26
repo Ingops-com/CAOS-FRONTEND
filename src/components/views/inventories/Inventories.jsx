@@ -12,8 +12,8 @@ import { InvenHistContext } from '../../../context/History/InvenHistContext';
 
 function Inventories() {
 
-    const { data, date, valTotalRawMate, showFormEdit, setShowFormEdit, setEditData, setshowFormNew, showFormNew, showFormCategorie, setShowFormCategorie, setData, datafilter, deleteById } = useContext(InventoriesContext)
-    const { historyRaw } = useContext(InvenHistContext)
+    const { data, date, getAllInvRawMate, valTotalRawMate, showFormEdit, setShowFormEdit, setEditData, setshowFormNew, showFormNew, showFormCategorie, setShowFormCategorie, setData, datafilter, deleteById } = useContext(InventoriesContext)
+    const { historyRaw, getHistInve } = useContext(InvenHistContext)
     const [search, setSearch] = useState("")
     const [permission, setPermission] = useState(false)
 
@@ -26,6 +26,8 @@ function Inventories() {
 
     useEffect(() => {
         checkPermissions(1)
+        getAllInvRawMate()
+
     }, [])
 
     const handleChange = e => {
@@ -126,7 +128,8 @@ function Inventories() {
                             </tr>
                         </thead >
                         <tbody >
-                            {data.map((materia) => (
+                            {
+                            data.map((materia) => (
                                 <tr key={materia.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
                                     <td>{materia.raw_material.name}</td>
                                     <td>{materia.stock}</td>
@@ -149,8 +152,8 @@ function Inventories() {
                                             setEditData(materia)
                                         }} ><BsPlusCircle color='ffffff' /></button>
                                     </td>
-                                </tr>)
-                            )}
+                                </tr>))
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -170,32 +173,12 @@ function Inventories() {
                             </tr>
                         </thead >
                         <tbody >
-                            {historyRaw.map((a) => (
-                                // <tr key={materia.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
-                                //     <td>{materia.raw_material.name}</td>
-                                //     <td>{materia.stock}</td>
-                                //     <td>{materia.raw_material.unit_measure.name}</td>
-                                //     <td>{materia.price}</td>
-                                //     <td>
-
-                                //         {
-                                //             permission && (
-                                //                 <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'
-                                //                     onClick={() => {
-                                //                         deleteById(materia.id)
-                                //                     }}
-                                //                 ><BsFillTrashFill color='ffffff' /></button>
-                                //             )
-                                //         }
-
-                                //         <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => {
-                                //             setShowFormEdit(true)
-                                //             setEditData(materia)
-                                //         }} ><BsPlusCircle color='ffffff' /></button>
-                                //     </td>
-                                // </tr>)
+                            {console.log(historyRaw)}
+                            {/* {historyRaw.map((a) => (
+                                
                                 <p>{a}</p>
-                            ))}
+                            ))
+                            } */}
                         </tbody>
                     </table>
                 </div>
