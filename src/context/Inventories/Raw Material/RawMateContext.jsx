@@ -7,8 +7,8 @@ export const RawMateContext = createContext()
 export default function RawMateContextProvider(props) {
 
     const { token } = useContext(UserContext)
-    const [dataRawMate, setDataRawMate] = useState([])
-    const [dataIdRawMaterial, setdataIdRawMaterial] = useState([])
+    const [dataRawMate] = useState([])
+    const [dataIdRawMaterial, setdataIdRawMaterial] = useState(null)
     const [newRawMate, setNewRawMate] = useState('')
 
     const getIdRawMaterial = async (name) => {
@@ -23,7 +23,7 @@ export default function RawMateContextProvider(props) {
                 setdataIdRawMaterial(JSON.stringify(res.data.id))
             })
             .catch((err) => {
-                console.log("Error getAll Unit Measure " + err)
+                console.log("Error get Id by name " + err)
             })
     }
 
@@ -41,11 +41,11 @@ export default function RawMateContextProvider(props) {
             }
         })
             .then((res) => {
-                toast.success('CREACION EXITOSA')
                 setNewRawMate(name)
+                console.log(res)
             })
             .catch((err) => {
-                console.log("Error getAll Unit Measure " + err)
+                console.log("Error getAll create raw material " + err)
             })
     }
     

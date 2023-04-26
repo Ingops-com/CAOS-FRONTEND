@@ -1,21 +1,26 @@
 import axios from 'axios';
+import { useEffect } from "react";
 import { useState, createContext, useContext } from 'react';
-import { toast } from 'react-hot-toast';
 import { UserContext } from '../User/UserContext';
 
-export const HistoriesContext = createContext()
-const user = JSON.parse(localStorage.getItem('userData'))
+export const InvenHistContext = createContext()
 
-export default function HistoriesContextProvider(props) {
+export default function InvenHistContextProvider(props) {
 
   const { token } = useContext(UserContext);
-  const [historyRaw, setHistoryRaw] = useState();
+  const [historyRaw, setHistoryRaw] = useState(null);
+  const user = JSON.parse(localStorage.getItem('userData'))
 
+  useEffect(() => {
+    if(historyRaw == null){
+      getHistInve()
+    }
+  }, [historyRaw])
 
   function getHistInve() {
     axios({
       method: "GET",
-      url: "/hisyory-raw-mate",
+      url: "/history-raw-mate",
       headers: {
         'Authorization': token
       }
@@ -24,7 +29,6 @@ export default function HistoriesContextProvider(props) {
         setHistoryRaw(res.data)
       })
   }
-
 
   const creaHistInve = async (nameRaw, cuantity, status) => {
     await axios({
@@ -46,16 +50,13 @@ export default function HistoriesContextProvider(props) {
     })
   }
 
-
-
   return (
-    <HistoriesContext.Provider value={{
+    <InvenHistContext.Provider value={{
       historyRaw,
       getHistInve,
       creaHistInve
     }}>
       {props.children}
-    </HistoriesContext.Provider>
+    </InvenHistContext.Provider>
   );
-
 }

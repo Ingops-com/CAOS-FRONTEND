@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter} from "react-router-dom";
 
 import Dashboard from "../components/views/Dashboard/Dashboard";
 import ErrorPage from '../components/views/Errors/ErrorPage';

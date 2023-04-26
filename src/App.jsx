@@ -3,7 +3,7 @@ import Routes from "./routes/Routes.jsx";
 import axios from "axios";
 import { UserContextProvider } from './context/User/UserContext';
 import { DashContextProvider } from "./context/Dashboard/DashContext";
-import HistoriesContextProvider from "./context/Inventories/HistoriesContext.jsx";
+import HistoriesContextProvider from "./context/History/InvenHistContext.jsx";
 import './App.css'
 
 function App() {

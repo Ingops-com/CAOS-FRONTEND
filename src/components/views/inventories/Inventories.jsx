@@ -7,27 +7,28 @@ import RawMaterialFormEdit from './Forms/RawMaterialFormEdit.jsx'
 import './Inventories.css'
 import { Toaster } from 'react-hot-toast';
 import CategoriesForm from './Forms/CategoriesForm.jsx';
-import { UserContext } from '../../../context/User/UserContext';
-
+import { InvenHistContext } from '../../../context/History/InvenHistContext';
 
 
 function Inventories() {
 
-    const { data, date, valTotalRawMate, showFormEdit, setShowFormEdit, setEditData, setshowFormNew, showFormNew, showFormCategorie, setShowFormCategorie, setData, datafilter,deleteById } = useContext(InventoriesContext)
+    const { data, date, getAllInvRawMate, valTotalRawMate, showFormEdit, setShowFormEdit, setEditData, setshowFormNew, showFormNew, showFormCategorie, setShowFormCategorie, setData, datafilter, deleteById } = useContext(InventoriesContext)
+    const { historyRaw, getHistInve } = useContext(InvenHistContext)
     const [search, setSearch] = useState("")
     const [permission, setPermission] = useState(false)
 
     function checkPermissions(permMin) {
         let user = JSON.parse(localStorage.getItem('userData'))
         if (user.role_id <= permMin) {
-           setPermission(true)
+            setPermission(true)
         }
     }
 
     useEffect(() => {
         checkPermissions(1)
+        getAllInvRawMate()
+
     }, [])
-    
 
     const handleChange = e => {
         setSearch(e.target.value)
@@ -42,6 +43,7 @@ function Inventories() {
         });
         setData(results)
     }
+
     return (
 
         <div className='inventoriesBody'>
@@ -126,7 +128,8 @@ function Inventories() {
                             </tr>
                         </thead >
                         <tbody >
-                            {data.map((materia) => (
+                            {
+                            data.map((materia) => (
                                 <tr key={materia.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
                                     <td>{materia.raw_material.name}</td>
                                     <td>{materia.stock}</td>
@@ -149,8 +152,33 @@ function Inventories() {
                                             setEditData(materia)
                                         }} ><BsPlusCircle color='ffffff' /></button>
                                     </td>
-                                </tr>)
-                            )}
+                                </tr>))
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {/* Tabla del historial */}
+            <div className='flex w-full items-center justify-center shadow-xl p-5 mt-5 mb-5 bg-white dark:shadow-none dark:bg-dark-ing-800'>
+                <div className=' w-full max-h-96 overflow-auto'>
+                    <table className='w-full '>
+                        <thead className=' border-b-slate-300 dark:text-slate-500 dark:border-b-slate-800 bg-transparent'>
+                            <tr>
+                                <th className='thwhite dark:th'>Nombre</th>
+                                <th className='thwhite dark:th'>Cantidad</th>
+                                <th className='thwhite dark:th'>Unidad de medida</th>
+                                <th className='thwhite dark:th'>Precio total</th>
+                                <th className='thwhite dark:th'>Acciones</th>
+                            </tr>
+                        </thead >
+                        <tbody >
+                            {console.log(historyRaw)}
+                            {/* {historyRaw.map((a) => (
+                                
+                                <p>{a}</p>
+                            ))
+                            } */}
                         </tbody>
                     </table>
                 </div>
