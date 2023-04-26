@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useEffect } from "react";
 import { useState, createContext, useContext } from 'react';
 import { UserContext } from '../User/UserContext';
 
@@ -7,13 +8,19 @@ export const InvenHistContext = createContext()
 export default function InvenHistContextProvider(props) {
 
   const { token } = useContext(UserContext);
-  const [historyRaw, setHistoryRaw] = useState();
+  const [historyRaw, setHistoryRaw] = useState(null);
   const user = JSON.parse(localStorage.getItem('userData'))
+
+  useEffect(() => {
+    if(historyRaw == null){
+      getHistInve()
+    }
+  }, [historyRaw])
 
   function getHistInve() {
     axios({
       method: "GET",
-      url: "/hisyory-raw-mate",
+      url: "/history-raw-mate",
       headers: {
         'Authorization': token
       }
@@ -52,5 +59,4 @@ export default function InvenHistContextProvider(props) {
       {props.children}
     </InvenHistContext.Provider>
   );
-
 }

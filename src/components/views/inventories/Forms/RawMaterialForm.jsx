@@ -17,7 +17,7 @@ function RawMaterialForm({ showFormNew }) {
         getAllCategories()
         getAllUnitMeasure()
     }, [])
-
+    
     useEffect(() => {
         if (newRawMate != '') {
             getIdRawMaterial(newRawMate)
@@ -25,7 +25,7 @@ function RawMaterialForm({ showFormNew }) {
     }, [newRawMate])
 
     useEffect(() => {
-        if (dataIdRawMaterial != []) {
+        if (dataIdRawMaterial != null) {
             createItemInventorie(dataIdRawMaterial)
         }
     }, [dataIdRawMaterial])
@@ -39,10 +39,10 @@ function RawMaterialForm({ showFormNew }) {
     }
 
     return (
-        <CSSTransition nodeRef={nodeRef} in={showFormNew} timeout={200} classNames="container" unmountOnExit appear={true}
+        <CSSTransition nodeRef={nodeRef} in={showFormNew} timeout={200} classNames="" unmountOnExit appear={true}
             onEnter={() => { setShowFormEdit(false), setShowFormCategorie(false) }}
         >
-            <div id='formNew' ref={nodeRef} className='flex justify-center items-center'>
+            <div id='formNew' ref={nodeRef} className='flex justify-center items-center m-5'>
                 <div className='w-fit shadow-xl p-5 mt-2.5 mb-2.5 dark:shadow-none bg-white dark:bg-dark-ing-800'>
                     <div className='flex justify-center'>
                         <h2>NUEVA MATERIA PRIMA</h2>
