@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { RiDashboardFill, RiCalendarCheckFill, RiArchiveFill } from "react-icons/ri";
+import { RiDashboardFill, RiCalendarCheckFill, RiArchiveFill, RiMoneyPoundBoxFill } from "react-icons/ri";
 import caos from "../../../assets/svg/caos.light.svg"
 import './Sidebar.css'
 
@@ -9,6 +9,7 @@ export default function Sidebar() {
         { name: 'Dashboard', href: '/home/soon/1', icon: <RiDashboardFill /> },
         { name: 'Inventarios', href: '/home/inventories', icon: <RiCalendarCheckFill /> },
         { name: 'Producto', href: '/home/soon/3', icon: <RiArchiveFill /> },
+        { name: 'Finanzas' , href: '/home/buys', icon: <RiMoneyPoundBoxFill />}
     ]
 
     return (
