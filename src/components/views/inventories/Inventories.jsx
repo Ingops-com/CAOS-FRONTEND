@@ -129,30 +129,30 @@ function Inventories() {
                         </thead >
                         <tbody >
                             {
-                            data.map((materia) => (
-                                <tr key={materia.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
-                                    <td>{materia.raw_material.name}</td>
-                                    <td>{materia.stock}</td>
-                                    <td>{materia.raw_material.unit_measure.name}</td>
-                                    <td>{materia.price}</td>
-                                    <td>
+                                data.map((materia) => (
+                                    <tr key={materia.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
+                                        <td>{materia.raw_material.name}</td>
+                                        <td>{materia.stock}</td>
+                                        <td>{materia.raw_material.unit_measure.name}</td>
+                                        <td>{materia.price}</td>
+                                        <td>
 
-                                        {
-                                            permission && (
-                                                <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'
-                                                    onClick={() => {
-                                                        deleteById(materia.id)
-                                                    }}
-                                                ><BsFillTrashFill color='ffffff' /></button>
-                                            )
-                                        }
+                                            {
+                                                permission && (
+                                                    <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'
+                                                        onClick={() => {
+                                                            deleteById(materia.id)
+                                                        }}
+                                                    ><BsFillTrashFill color='ffffff' /></button>
+                                                )
+                                            }
 
-                                        <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => {
-                                            setShowFormEdit(true)
-                                            setEditData(materia)
-                                        }} ><BsPlusCircle color='ffffff' /></button>
-                                    </td>
-                                </tr>))
+                                            <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => {
+                                                setShowFormEdit(true)
+                                                setEditData(materia)
+                                            }} ><BsPlusCircle color='ffffff' /></button>
+                                        </td>
+                                    </tr>))
                             }
                         </tbody>
                     </table>
@@ -162,23 +162,28 @@ function Inventories() {
             {/* Tabla del historial */}
             <div className='flex w-full items-center justify-center shadow-xl p-5 mt-5 mb-5 bg-white dark:shadow-none dark:bg-dark-ing-800'>
                 <div className=' w-full max-h-96 overflow-auto'>
-                    <table className='w-full '>
+                    <h1 className='flex w-full justify-center p-4 dark:text-slate-500 text-xl'>HISTORIAL</h1>
+                    <table className='w-full'>
                         <thead className=' border-b-slate-300 dark:text-slate-500 dark:border-b-slate-800 bg-transparent'>
                             <tr>
-                                <th className='thwhite dark:th'>Nombre</th>
+                                <th className='thwhite dark:th'>User</th>
+                                <th className='thwhite dark:th'>Materia Prima</th>
                                 <th className='thwhite dark:th'>Cantidad</th>
-                                <th className='thwhite dark:th'>Unidad de medida</th>
-                                <th className='thwhite dark:th'>Precio total</th>
-                                <th className='thwhite dark:th'>Acciones</th>
+                                <th className='thwhite dark:th'>Status</th>
+                                <th className='thwhite dark:th'>Fecha</th>
                             </tr>
                         </thead >
                         <tbody >
-                            {console.log(historyRaw)}
-                            {/* {historyRaw.map((a) => (
-                                
-                                <p>{a}</p>
+                            {historyRaw.map((a) => (
+                                <tr key={a.id} className='text-center odd:bg-transparent  even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
+                                    <td className='p-3'>{a.user}</td>
+                                    <td>{a.object}</td>
+                                    <td>{a.cuantity}</td>
+                                    <td>{a.status}</td>
+                                    <td>{a.createdAt}</td>
+                                </tr>
                             ))
-                            } */}
+                            }
                         </tbody>
                     </table>
                 </div>
