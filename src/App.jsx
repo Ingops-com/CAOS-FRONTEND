@@ -1,5 +1,5 @@
 import { RouterProvider } from "react-router-dom";
-import Routes from "./routes/routes.jsx";
+import Routes from "./routes/Routes.jsx";
 import axios from "axios";
 import { UserContextProvider } from './context/User/UserContext';
 import { DashContextProvider } from "./context/Dashboard/DashContext";
