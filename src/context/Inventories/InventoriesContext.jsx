@@ -12,12 +12,12 @@ export default function InventoriesContextProvider(props) {
   const { creaHistInve } = useContext(InvenHistContext)
   const [data, setData] = useState([])
   const [date, setDate] = useState([]);
-  const [valTotalRawMate, setValTotalRawMate] = useState(0);
   const [editData, setEditData] = useState(null)
+  const [datafilter, setDatafilter] = useState("")
+  const [valTotalRawMate, setValTotalRawMate] = useState(0);
   const [showFormEdit, setShowFormEdit] = useState(false)
   const [showFormNew, setshowFormNew] = useState(false)
   const [showFormCategorie, setShowFormCategorie] = useState(false)
-  const [datafilter, setDatafilter] = useState("")
 
   useEffect(() => {
     getValTotalRawMate()
@@ -142,5 +142,6 @@ export default function InventoriesContextProvider(props) {
       {props.children}
     </InventoriesContext.Provider>
   )
+  
 }
 

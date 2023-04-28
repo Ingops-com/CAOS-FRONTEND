@@ -1,6 +1,6 @@
 import { Toaster } from 'react-hot-toast';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { useContext, useState, useRef, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { BsFillTrashFill, BsPlusCircle } from 'react-icons/bs'
 import { InventoriesContext } from '../../../context/Inventories/InventoriesContext';
 import Cards from '../../commons/cards/Cards.jsx'
@@ -10,7 +10,6 @@ import CategoriesForm from './Forms/CategoriesForm.jsx';
 import { InvenHistContext } from '../../../context/History/InvenHistContext';
 import './Inventories.css'
 import 'react-tabs/style/react-tabs.css';
-
 
 function Inventories() {
 
@@ -72,7 +71,7 @@ function Inventories() {
                 />
             </div>
 
-            {/* Boton nueva categoria */}
+            {/* Botones */}
             <div className='flex justify-center mt-5 mb-5'>
                 <button
                     className="middle none center mr-3 rounded-lg bg-cyan-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:opacity-75 focus:ring focus:ring-cyan-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
@@ -90,7 +89,6 @@ function Inventories() {
                     NUEVA MATERIA PRIMA
                 </button>
             </div>
-
 
             {/* Formulario nueva categoria */}
 
@@ -150,7 +148,6 @@ function Inventories() {
                                                     <td>{materia.raw_material.unit_measure.name}</td>
                                                     <td>{materia.price}</td>
                                                     <td>
-
                                                         {
                                                             permission && (
                                                                 <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'
@@ -189,18 +186,21 @@ function Inventories() {
                                             <th className='thwhite dark:th'>Fecha</th>
                                         </tr>
                                     </thead >
-                                    <tbody >
-                                        {historyRaw.map((a) => (
-                                            <tr key={a.id} className='text-center odd:bg-transparent  even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
-                                                <td className='p-3'>{a.user}</td>
-                                                <td>{a.raw_material.name}</td>
-                                                <td>{a.cuantity}</td>
-                                                <td>{a.status}</td>
-                                                <td>{a.createdAt}</td>
-                                            </tr>
-                                        ))
-                                        }
-                                    </tbody>
+                                    {historyRaw == null ? console.log('Historial Vacio') :
+                                        <tbody >
+                                            {
+                                                historyRaw.map((a) => (
+                                                    <tr key={a.id} className='text-center odd:bg-transparent  even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
+                                                        <td className='p-3'>{a.user}</td>
+                                                        <td>{a.raw_material.name}</td>
+                                                        <td>{a.cuantity}</td>
+                                                        <td>{a.status}</td>
+                                                        <td>{a.createdAt}</td>
+                                                    </tr>
+                                                ))
+                                            }
+                                        </tbody>
+                                    }
                                 </table>
                             </div>
                         </div>
@@ -208,9 +208,6 @@ function Inventories() {
 
                 </Tabs>
             </div>
-
-
-
 
         </div>
     )
