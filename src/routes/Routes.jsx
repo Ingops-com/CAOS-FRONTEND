@@ -8,6 +8,7 @@ import Inventories from "../components/views/inventories/Inventories";
 import Buys from "../components/views/Buys/Buys"
 import InventoriesContextProvider from "../context/Inventories/InventoriesContext";
 import { BuysContextProvider } from "../context/Buys/BuysContext";
+import SupplierContextProvider from "../context/Buys/Suppliers/SuppliersContext"
 import ProductionContextProvider from "../context/Production/ProductionContext";
 import Production from "../components/views/Production/Production";
 
@@ -32,7 +33,8 @@ export default function Routes() {
                 },
                 {
                     path: 'buys',
-                    element: <BuysContextProvider> <Buys /> </BuysContextProvider>
+
+                    element: <SupplierContextProvider> <BuysContextProvider><Buys /> </BuysContextProvider> </SupplierContextProvider>
                 },
                 {
                     path: 'production',
