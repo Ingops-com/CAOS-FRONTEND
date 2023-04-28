@@ -10,7 +10,7 @@ import StepsForm from '../Forms/StepsForm';
 
 export default function Item({ item }) {
 
-    const { deleteRecipeById } = useContext(ProductionContext)
+    const { deleteRecipeById, deleteStepsByRecipe, deleteIngrByRecipe, } = useContext(ProductionContext)
     const { getAllIngrbyId, recipes } = useContext(RecipesIngrContext)
     const { getAllStepsbyId, steps } = useContext(StepsContext)
     const [bottonsIngr, setBottonsIngr] = useState(true)
@@ -58,6 +58,8 @@ export default function Item({ item }) {
                     <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2'><BsFillPencilFill /></button>
                     <button className='bg-red-500 p-2 rounded-lg pr-4 pl-4 m-2'
                         onClick={() => {
+                            deleteStepsByRecipe(item.id)
+                            deleteIngrByRecipe(item.id)
                             deleteRecipeById(item.id)
                         }}
                     ><BsFillTrashFill color='ffffff' /></button>

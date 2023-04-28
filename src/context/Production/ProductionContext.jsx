@@ -59,19 +59,57 @@ export default function ProductionContextProvider(props) {
     })
       .then((res) => {
         getAllRecipes()
-        toast.success('PRODUCTO BORRADO')
+        toast.success('RECETA BORRADA')
       })
       .catch((err) => {
-        toast.error('ERROR AL BORRAR')
+        toast.error('ERROR AL BORRAR RECETA')
         console.log("error updateItemById" + err)
       })
   }
+
+  function deleteStepsByRecipe(id) {
+    axios({
+      method: "DELETE",
+      url: `/recipes-steps/recipe/${id}`,
+      headers: {
+        'Authorization': token
+      }
+    })
+      .then((res) => {
+
+      })
+      .catch((err) => {
+        toast.error('ERROR AL BORRAR PASOS')
+        console.log("error updateItemById" + err)
+      })
+  }
+
+  function deleteIngrByRecipe(id) {
+    axios({
+      method: "DELETE",
+      url: `/recipes-ingredients/recipe/${id}`,
+      headers: {
+        'Authorization': token
+      }
+    })
+      .then((res) => {
+
+      })
+      .catch((err) => {
+        toast.error('ERROR AL BORRAR INGREDIENTES')
+        console.log("error updateItemById" + err)
+      })
+  }
+
+  
 
   return (
     <ProductionContext.Provider value={{
       getAllRecipes,
       createRecipes,
       deleteRecipeById,
+      deleteStepsByRecipe,
+      deleteIngrByRecipe,
       data
     }}>
       <RecipesIngrContextProvider>
