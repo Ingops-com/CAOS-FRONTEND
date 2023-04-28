@@ -44,9 +44,11 @@ function RawMaterialForm({ showFormNew }) {
         >
             <div id='formNew' ref={nodeRef} className='flex justify-center items-center m-5'>
                 <div className='w-fit shadow-xl p-5 mt-2.5 mb-2.5 dark:shadow-none bg-white dark:bg-dark-ing-800'>
+                    
                     <div className='flex justify-center'>
                         <h2>NUEVA MATERIA PRIMA</h2>
                     </div>
+
                     <form onSubmit={handleSubmit} className="flex gap-3 p-5 justify-center items-center" >
                         <div className="relative h-10 w-72 min-w-[200px]">
                             <select

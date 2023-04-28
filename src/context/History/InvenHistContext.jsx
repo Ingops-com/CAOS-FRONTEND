@@ -12,7 +12,7 @@ export default function InvenHistContextProvider(props) {
   const user = JSON.parse(localStorage.getItem('userData'))
 
   useEffect(() => {
-    if(historyRaw == null){
+    if (historyRaw == null) {
       getHistInve()
     }
   }, [historyRaw])
@@ -44,7 +44,7 @@ export default function InvenHistContextProvider(props) {
         "status": status
       }
     }).then((res) => {
-      console.log(res)
+      getHistInve()
     }).catch((err) => {
       console.log(err)
     })

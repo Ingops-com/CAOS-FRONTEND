@@ -8,7 +8,7 @@ export default function Sidebar() {
     const navigate = [
         { name: 'Dashboard', href: '/home/soon/1', icon: <RiDashboardFill /> },
         { name: 'Inventarios', href: '/home/inventories', icon: <RiCalendarCheckFill /> },
-        { name: 'Producto', href: '/home/soon/3', icon: <RiArchiveFill /> },
+        { name: 'Produccion', href: '/home/production', icon: <RiArchiveFill /> },
         { name: 'Finanzas' , href: '/home/buys', icon: <RiMoneyPoundBoxFill />}
     ]
 

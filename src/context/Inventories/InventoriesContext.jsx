@@ -12,12 +12,12 @@ export default function InventoriesContextProvider(props) {
   const { creaHistInve } = useContext(InvenHistContext)
   const [data, setData] = useState([])
   const [date, setDate] = useState([]);
-  const [valTotalRawMate, setValTotalRawMate] = useState(0);
   const [editData, setEditData] = useState(null)
+  const [datafilter, setDatafilter] = useState("")
+  const [valTotalRawMate, setValTotalRawMate] = useState(0);
   const [showFormEdit, setShowFormEdit] = useState(false)
   const [showFormNew, setshowFormNew] = useState(false)
   const [showFormCategorie, setShowFormCategorie] = useState(false)
-  const [datafilter, setDatafilter] = useState("")
 
   useEffect(() => {
     getValTotalRawMate()
@@ -69,7 +69,7 @@ export default function InventoriesContextProvider(props) {
     })
       .then((res) => {
         getAllInvRawMate()
-        creaHistInve(rawId, 0, '0')  
+        creaHistInve(rawId, 0, '0')
       })
       .catch((err) => {
         console.log("Error create item inventorie " + err)
@@ -90,7 +90,8 @@ export default function InventoriesContextProvider(props) {
     })
       .then((res) => {
         getAllInvRawMate()
-        creaHistInve(editData.id, data[0], '1')
+        console.log(data)
+        creaHistInve(editData.raw_material_id, data[2], '1')
         toast.success('STOCK AGREGADO')
       })
       .catch((err) => {
@@ -99,7 +100,7 @@ export default function InventoriesContextProvider(props) {
       })
   }
 
-  const deleteById = async (id) => {
+  const deleteById = async (id, stock, rawId) => {
     await axios({
       method: "DELETE",
       url: `/inventories-raw-material/${id}`,
@@ -109,7 +110,7 @@ export default function InventoriesContextProvider(props) {
     })
       .then((res) => {
         getAllInvRawMate()
-        creaHistInve(id, 0, '2')
+        creaHistInve(rawId, stock, '2')
         toast.success('PRODUCTO BORRADO')
       })
       .catch((err) => {
@@ -141,5 +142,6 @@ export default function InventoriesContextProvider(props) {
       {props.children}
     </InventoriesContext.Provider>
   )
+  
 }
 
