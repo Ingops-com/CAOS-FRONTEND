@@ -68,7 +68,7 @@ export default function Item({ item }) {
             {/* body */}
             <Collapse isOpened={open}>
                 <div className='flex items-center p-5'>
-                    <p className='text-xl text-green-300'>Descripcion:</p>
+                    <p className='text-xl text-green-500'>Descripcion:</p>
                     <p className='mx-2.5'>{item.description}</p>
                 </div>
 
@@ -92,7 +92,7 @@ export default function Item({ item }) {
                         <div className='m-2.5'>
                             <table className='w-full'>
                                 <thead>
-                                    <tr>
+                                    <tr className='bg-slate-200'>
                                         <th>Ingrediente</th>
                                         <th>Porcentaje</th>
                                     </tr>
@@ -113,7 +113,7 @@ export default function Item({ item }) {
                     </div>
 
                     {/* lissta de pasos */}
-                    <div className='px-2.5 border border-white border-y-0 border-r-0'>
+                    <div className='px-2.5 border border-black dark:border-white border-y-0 border-r-0'>
 
                         {/* Botones de opciones */}
                         <CSSTransition nodeRef={nodeRef} in={bottonsSteps} timeout={200} classNames="" unmountOnExit appear={true}
@@ -129,8 +129,9 @@ export default function Item({ item }) {
                         <div className='p-5'>
                             {
                                 dataSteps == null ? console.log('Sin datos') :
-                                    dataSteps.map((items) => (
-                                        <div key={items.id}>
+                                    dataSteps.map((items,index) => (
+                                        <div className='flex gap-3' key={items.id}>
+                                            <div>{index + 1}.</div>
                                             {items.description}
                                         </div>
                                     ))

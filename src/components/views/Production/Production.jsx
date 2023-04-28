@@ -14,7 +14,6 @@ export default function Production() {
 
   useEffect(() => {
     if (data.length == 0) {
-      console.log(data.length)
       getAllRecipes()
     }
   }, [])
@@ -28,17 +27,12 @@ export default function Production() {
       {/* tarjetas de datos */}
       <div className='w-full h-auto flex justify-center gap-4 mt-5 mb-5 items-center '>
         <Cards
-          titleCard='COMIDA TOTAL'
-          bodyCard={''}
-          cardNum='card6'
-        />
-        <Cards
           titleCard='FECHA ULTIMA PRODUCCION'
           bodyCard={''}
           cardNum='card4'
         />
         <Cards
-          titleCard='EXISTENCIAS MAS BAJAS'
+          titleCard='COMIDA TOTAL'
           bodyCard={''}
           cardNum='card5'
         />
@@ -57,7 +51,7 @@ export default function Production() {
         <button
           className="middle none center mr-3 rounded-lg bg-orange-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:opacity-75 focus:ring focus:ring-cyan-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           data-ripple-dark="true"
-          onClick={() => { }}
+          onClick={() => { window.location.assign('/home/inventories') }}
         >
           VER MATERIA PRIMA
         </button>
