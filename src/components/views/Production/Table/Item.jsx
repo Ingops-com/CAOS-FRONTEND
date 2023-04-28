@@ -9,7 +9,7 @@ import IngredientsForm from '../Forms/IngredientsForm';
 export default function Item({ item }) {
 
     const { deleteRecipeById } = useContext(ProductionContext)
-    const { getAllIngrbyId } = useContext(RecipesIngrContext)
+    const { getAllIngrbyId, recipes } = useContext(RecipesIngrContext)
     const [open, setOpen] = useState(false)
     const [bottons, setBottons] = useState(true)
     const [openFormIngredients, setOpenFormIngredients] = useState(false)
@@ -25,7 +25,7 @@ export default function Item({ item }) {
             .catch((err) => {
                 console.log(err)
             })
-    }, [])
+    }, [data, recipes])
 
     return (
         <div className='w-full'>
@@ -66,7 +66,7 @@ export default function Item({ item }) {
                         </CSSTransition>
 
 
-                        <IngredientsForm showFormIngredients={openFormIngredients} setBottons={setBottons} />
+                        <IngredientsForm showFormIngredients={openFormIngredients} setBottons={setBottons} id_recipe={item.id} />
 
                         <div className='m-2.5'>
                             <table className='w-full'>
@@ -86,7 +86,6 @@ export default function Item({ item }) {
                                                 </tr>
                                             ))
                                     }
-
                                 </tbody>
                             </table>
                         </div>

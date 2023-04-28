@@ -1,10 +1,12 @@
 import { useContext, useEffect, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { InventoriesContext } from '../../../../context/Inventories/InventoriesContext';
+import { RecipesIngrContext } from '../../../../context/Production/recipes/ingredients/RecipesIngrContext';
 
-function IngredientsForm({ showFormIngredients, setBottons }) {
+function IngredientsForm({ showFormIngredients, setBottons, id_recipe }) {
 
     const { data, getAllInvRawMate } = useContext(InventoriesContext)
+    const { createIngr } = useContext(RecipesIngrContext)
 
     const nodeRef = useRef(null);
 
@@ -14,9 +16,9 @@ function IngredientsForm({ showFormIngredients, setBottons }) {
 
     function handleSubmit(e) {
         e.preventDefault()
-        let name = e.target.name.value
-        let description = e.target.description.value
-
+        let raw_material_id = e.target.raw_material_id.value
+        let percent = e.target.percent.value
+        createIngr(id_recipe, raw_material_id, percent)
     }
 
     return (
@@ -29,9 +31,8 @@ function IngredientsForm({ showFormIngredients, setBottons }) {
                         <div className="relative">
                             <select
                                 className="p-2 font-normal rounded-[7px] border border-blue-gray-200 bg-transparent transition-all"
-                                id='categories'
+                                id='raw_material_id'
                             >
-                                {console.log(data)}
                                 {
                                     data.map((item, index) => (
                                         <option key={index} className="dark:bg-dark-ing-900" value={item.raw_material_id}>{item.raw_material.name}</option>

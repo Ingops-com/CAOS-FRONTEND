@@ -2,12 +2,17 @@ import { createContext, useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { UserContext } from "../../../User/UserContext";
+import { ProductionContext } from "../../ProductionContext";
 
 export const RecipesIngrContext = createContext();
 
 export default function RecipesIngrContextProvider(props) {
 
     const { token } = useContext(UserContext)
+    const { getAllRecipes } = useContext(ProductionContext)
+    const [recipes, setRecipes] = useState(false)
+
+
     // const [data, setData] = useState([])
 
     // function getAllIngr() {
@@ -36,11 +41,35 @@ export default function RecipesIngrContextProvider(props) {
         })
     }
 
+    function createIngr(id_recipe, id_raw_material, percent) {
+        axios({
+            method: "POST",
+            url: "/recipes-ingredients",
+            headers: {
+                'Authorization': token
+            },
+            data: {
+                id_recipe,
+                id_raw_material,
+                percent
+            }
+        })
+            .then((res) => {
+                getAllRecipes()
+                setRecipes(!recipes)
+                toast.success('INGREDIENTE CREAD0')
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
     return (
         <RecipesIngrContext.Provider value={{
             // getAllIngr,
             getAllIngrbyId,
-            // data
+            createIngr,
+            recipes
         }}>
 
             {props.children}
