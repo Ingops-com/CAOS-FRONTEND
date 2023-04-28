@@ -9,3 +9,15 @@
 #card3{
     background-image: linear-gradient(to right,#08A5DA,#31C9DE);
 }
+
+#card4{
+    background-image: linear-gradient(to right,#4c5199,#fe519a);
+}
+
+#card5{
+    background-image: linear-gradient( to right,#f30513,#d20495);
+}
+
+#card6{
+    background-image: linear-gradient(to right,#08A5DA,#f5fc09);
+}

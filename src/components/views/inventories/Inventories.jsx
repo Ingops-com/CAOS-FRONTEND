@@ -1,14 +1,15 @@
-import { useContext, useState, useRef, useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { useContext, useState, useEffect } from 'react';
 import { BsFillTrashFill, BsPlusCircle } from 'react-icons/bs'
 import { InventoriesContext } from '../../../context/Inventories/InventoriesContext';
 import Cards from '../../commons/cards/Cards.jsx'
 import RawMaterialForm from './Forms/RawMaterialForm.jsx'
 import RawMaterialFormEdit from './Forms/RawMaterialFormEdit.jsx'
-import './Inventories.css'
-import { Toaster } from 'react-hot-toast';
 import CategoriesForm from './Forms/CategoriesForm.jsx';
 import { InvenHistContext } from '../../../context/History/InvenHistContext';
-
+import './Inventories.css'
+import 'react-tabs/style/react-tabs.css';
 
 function Inventories() {
 
@@ -27,7 +28,7 @@ function Inventories() {
     useEffect(() => {
         checkPermissions(1)
         getAllInvRawMate()
-
+        getHistInve()
     }, [])
 
     const handleChange = e => {
@@ -70,7 +71,7 @@ function Inventories() {
                 />
             </div>
 
-            {/* Boton nueva categoria */}
+            {/* Botones */}
             <div className='flex justify-center mt-5 mb-5'>
                 <button
                     className="middle none center mr-3 rounded-lg bg-cyan-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:opacity-75 focus:ring focus:ring-cyan-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
@@ -88,7 +89,6 @@ function Inventories() {
                     NUEVA MATERIA PRIMA
                 </button>
             </div>
-
 
             {/* Formulario nueva categoria */}
 
@@ -114,75 +114,101 @@ function Inventories() {
                 </label>
             </div>
 
-            {/* Tabla de contenido */}
-            <div className='flex w-full items-center justify-center shadow-xl p-5 mt-5 mb-5 bg-white dark:shadow-none dark:bg-dark-ing-800'>
-                <div className=' w-full max-h-96 overflow-auto'>
-                    <table className='w-full '>
-                        <thead className=' border-b-slate-300 dark:text-slate-500 dark:border-b-slate-800 bg-transparent'>
-                            <tr>
-                                <th className='thwhite dark:th'>Nombre</th>
-                                <th className='thwhite dark:th'>Cantidad</th>
-                                <th className='thwhite dark:th'>Unidad de medida</th>
-                                <th className='thwhite dark:th'>Precio total</th>
-                                <th className='thwhite dark:th'>Acciones</th>
-                            </tr>
-                        </thead >
-                        <tbody >
-                            {
-                            data.map((materia) => (
-                                <tr key={materia.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
-                                    <td>{materia.raw_material.name}</td>
-                                    <td>{materia.stock}</td>
-                                    <td>{materia.raw_material.unit_measure.name}</td>
-                                    <td>{materia.price}</td>
-                                    <td>
+            <div className='transition ease-in-out mt-5 mb-5'>
+                <Tabs >
+                    <TabList>
+                        <Tab>
+                            Inventario
+                        </Tab>
+                        <Tab>
+                            Historial
+                        </Tab>
+                    </TabList>
 
+                    {/* Tabla de contenido */}
+                    <TabPanel>
+                        <div className='flex w-full items-center justify-center shadow-xl p-5 mt-5 mb-5 bg-white dark:shadow-none dark:bg-dark-ing-800'>
+                            <div className=' w-full max-h-96 overflow-auto'>
+                                <table className='w-full '>
+                                    <thead className=' border-b-slate-300 dark:text-slate-500 dark:border-b-slate-800 bg-transparent'>
+                                        <tr>
+                                            <th className='thwhite dark:th'>Nombre</th>
+                                            <th className='thwhite dark:th'>Cantidad</th>
+                                            <th className='thwhite dark:th'>Unidad de medida</th>
+                                            <th className='thwhite dark:th'>Precio total</th>
+                                            <th className='thwhite dark:th'>Acciones</th>
+                                        </tr>
+                                    </thead >
+                                    <tbody >
                                         {
-                                            permission && (
-                                                <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'
-                                                    onClick={() => {
-                                                        deleteById(materia.id)
-                                                    }}
-                                                ><BsFillTrashFill color='ffffff' /></button>
-                                            )
+                                            data.map((materia) => (
+                                                <tr key={materia.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
+                                                    <td>{materia.raw_material.name}</td>
+                                                    <td>{materia.stock}</td>
+                                                    <td>{materia.raw_material.unit_measure.name}</td>
+                                                    <td>{materia.price}</td>
+                                                    <td>
+                                                        {
+                                                            permission && (
+                                                                <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'
+                                                                    onClick={() => {
+                                                                        deleteById(materia.id, materia.stock, materia.raw_material_id)
+                                                                    }}
+                                                                ><BsFillTrashFill color='ffffff' /></button>
+                                                            )
+                                                        }
+
+                                                        <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => {
+                                                            setShowFormEdit(true)
+                                                            setEditData(materia)
+                                                        }} ><BsPlusCircle color='ffffff' /></button>
+                                                    </td>
+                                                </tr>))
                                         }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </TabPanel>
 
-                                        <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => {
-                                            setShowFormEdit(true)
-                                            setEditData(materia)
-                                        }} ><BsPlusCircle color='ffffff' /></button>
-                                    </td>
-                                </tr>))
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                    {/* Tabla del historial */}
+                    <TabPanel>
+                        <div className='flex w-full items-center justify-center shadow-xl p-5 mt-5 mb-5 bg-white dark:shadow-none dark:bg-dark-ing-800'>
+                            <div className=' w-full max-h-96 overflow-auto'>
+                                <h1 className='flex w-full justify-center p-4 dark:text-slate-500 text-xl'>HISTORIAL</h1>
+                                <table className='w-full'>
+                                    <thead className=' border-b-slate-300 dark:text-slate-500 dark:border-b-slate-800 bg-transparent'>
+                                        <tr>
+                                            <th className='thwhite dark:th'>User</th>
+                                            <th className='thwhite dark:th'>Materia Prima</th>
+                                            <th className='thwhite dark:th'>Cantidad</th>
+                                            <th className='thwhite dark:th'>Status</th>
+                                            <th className='thwhite dark:th'>Fecha</th>
+                                        </tr>
+                                    </thead >
+                                    {historyRaw == null ? console.log('Historial Vacio') :
+                                        <tbody >
+                                            {
+                                                historyRaw.map((a) => (
+                                                    <tr key={a.id} className='text-center odd:bg-transparent  even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
+                                                        <td className='p-3'>{a.user}</td>
+                                                        <td>{a.raw_material.name}</td>
+                                                        <td>{a.cuantity}</td>
+                                                        <td>{a.status}</td>
+                                                        <td>{a.createdAt}</td>
+                                                    </tr>
+                                                ))
+                                            }
+                                        </tbody>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </TabPanel>
+
+                </Tabs>
             </div>
 
-            {/* Tabla del historial */}
-            <div className='flex w-full items-center justify-center shadow-xl p-5 mt-5 mb-5 bg-white dark:shadow-none dark:bg-dark-ing-800'>
-                <div className=' w-full max-h-96 overflow-auto'>
-                    <table className='w-full '>
-                        <thead className=' border-b-slate-300 dark:text-slate-500 dark:border-b-slate-800 bg-transparent'>
-                            <tr>
-                                <th className='thwhite dark:th'>Nombre</th>
-                                <th className='thwhite dark:th'>Cantidad</th>
-                                <th className='thwhite dark:th'>Unidad de medida</th>
-                                <th className='thwhite dark:th'>Precio total</th>
-                                <th className='thwhite dark:th'>Acciones</th>
-                            </tr>
-                        </thead >
-                        <tbody >
-                            {console.log(historyRaw)}
-                            {/* {historyRaw.map((a) => (
-                                
-                                <p>{a}</p>
-                            ))
-                            } */}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
     )
 }
