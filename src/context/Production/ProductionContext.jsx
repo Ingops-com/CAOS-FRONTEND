@@ -3,6 +3,7 @@ import { UserContext } from "../User/UserContext";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import RecipesIngrContextProvider from "./recipes/ingredients/RecipesIngrContext";
+import StepsContextProvider from "./recipes/Steps/StepsContext";
 
 export const ProductionContext = createContext();
 
@@ -74,7 +75,9 @@ export default function ProductionContextProvider(props) {
       data
     }}>
       <RecipesIngrContextProvider>
-        {props.children}
+        <StepsContextProvider>
+          {props.children}
+        </StepsContextProvider>
       </RecipesIngrContextProvider>
     </ProductionContext.Provider>
   )

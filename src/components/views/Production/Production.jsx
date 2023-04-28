@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react'
 
 import { Toaster } from "react-hot-toast";
 import { ProductionContext } from '../../../context/Production/ProductionContext.jsx';
-import { RecipesIngrContext } from '../../../context/Production/recipes/ingredients/RecipesIngrContext.jsx';
 import Cards from '../../commons/cards/Cards.jsx'
 import RecipeForm from './Forms/RecipeForm.jsx';
 import Item from './Table/Item.jsx';
@@ -14,7 +13,10 @@ export default function Production() {
   const [ShowFormRecipes, setShowFormRecipes] = useState(false)
 
   useEffect(() => {
-    getAllRecipes()
+    if (data.length == 0) {
+      console.log(data.length)
+      getAllRecipes()
+    }
   }, [])
 
   return (

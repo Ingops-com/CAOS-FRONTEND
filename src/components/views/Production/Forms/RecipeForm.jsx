@@ -8,10 +8,6 @@ function RecipeForm({ showFormRecipes }) {
 
     const nodeRef = useRef(null);
 
-    useEffect(() => {
-
-    }, [])
-
     function handleSubmit(e) {
         e.preventDefault()
         let name = e.target.name.value

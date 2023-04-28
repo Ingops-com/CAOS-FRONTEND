@@ -4,41 +4,39 @@ import axios from "axios";
 import { UserContext } from "../../../User/UserContext";
 import { ProductionContext } from "../../ProductionContext";
 
-export const RecipesIngrContext = createContext();
+export const StepsContext = createContext();
 
-export default function RecipesIngrContextProvider(props) {
+export default function StepsContextProvider(props) {
 
     const { token } = useContext(UserContext)
     const { getAllRecipes } = useContext(ProductionContext)
-    const [recipes, setRecipes] = useState(false)
+    const [steps, setSteps] = useState(false)
 
-    function getAllIngrbyId(id) {
+    function getAllStepsbyId(id) {
         return axios({
             method: "GET",
-            url: `/recipes-ingredients/${id}`,
+            url: `/recipes-steps/${id}`,
             headers: {
                 'Authorization': token
             }
         })
     }
 
-    function createIngr(id_recipe, id_raw_material, percent) {
+    function createStep(id_recipe, description) {
         axios({
             method: "POST",
-            url: "/recipes-ingredients",
+            url: "/recipes-steps",
             headers: {
                 'Authorization': token
             },
             data: {
                 id_recipe,
-                id_raw_material,
-                percent
+                description
             }
         })
             .then((res) => {
-                getAllRecipes()
-                setRecipes(!recipes)
-                toast.success('INGREDIENTE CREAD0')
+                setSteps(!steps)
+                toast.success('PASO CREAD0')
             })
             .catch((err) => {
                 console.log(err)
@@ -46,13 +44,13 @@ export default function RecipesIngrContextProvider(props) {
     }
 
     return (
-        <RecipesIngrContext.Provider value={{
-            getAllIngrbyId,
-            createIngr,
-            recipes
+        <StepsContext.Provider value={{
+            getAllStepsbyId,
+            createStep,
+            steps
         }}>
 
             {props.children}
-        </RecipesIngrContext.Provider>
+        </StepsContext.Provider>
     )
 }
