@@ -194,7 +194,13 @@ function Inventories() {
                                                         <td className='p-3'>{a.user}</td>
                                                         <td>{a.raw_material.name}</td>
                                                         <td>{a.cuantity}</td>
-                                                        <td>{a.status}</td>
+                                                        <td>{a.status == 0 ?
+                                                            <div className='text-green-400'>CREACION</div>
+                                                            : a.status == 1 ?
+                                                                <div className='text-yellow-400'>AGREGO</div>
+                                                                :
+                                                                <div className='text-red-400'>ELIMINO</div>
+                                                        }</td>
                                                         <td>{a.createdAt}</td>
                                                     </tr>
                                                 ))
