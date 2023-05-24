@@ -49,6 +49,28 @@ export default function ProductionContextProvider(props) {
       })
   }
 
+  function updateRecipes(id,name,description) {
+    axios({
+      method: "PUT",
+      url: `/recipes/${id}`,
+      headers: {
+        'Authorization': token
+      },
+      data: {
+        name,
+        description
+      }
+    })
+      .then((res) => {
+        getAllRecipes()
+        toast.success('RECETA ACTUALIZADA')
+      })
+      .catch((err) => {
+        console.log(err)
+        toast.error('ERROR AL ACTUALIZAR')
+      })
+  }
+
   function deleteRecipeById(id) {
     axios({
       method: "DELETE",
@@ -101,8 +123,7 @@ export default function ProductionContextProvider(props) {
       })
   }
 
-  
-
+ 
   return (
     <ProductionContext.Provider value={{
       getAllRecipes,
@@ -110,6 +131,7 @@ export default function ProductionContextProvider(props) {
       deleteRecipeById,
       deleteStepsByRecipe,
       deleteIngrByRecipe,
+      updateRecipes,
       data
     }}>
       <RecipesIngrContextProvider>

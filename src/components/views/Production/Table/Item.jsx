@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Collapse } from 'react-collapse';
 import { CSSTransition } from 'react-transition-group';
-import { BsFillTrashFill, BsFillPencilFill, BsFillPlayFill, BsPlusCircle } from 'react-icons/bs'
+import { BsFillTrashFill, BsFillPencilFill, BsFillPlayFill, BsPlusCircle, BsFillEyeFill, BsSaveFill } from 'react-icons/bs'
 import { ProductionContext } from '../../../../context/Production/ProductionContext';
 import { RecipesIngrContext } from '../../../../context/Production/recipes/ingredients/RecipesIngrContext';
 import { StepsContext } from '../../../../context/Production/recipes/Steps/StepsContext';
@@ -10,7 +10,7 @@ import StepsForm from '../Forms/StepsForm';
 
 export default function Item({ item }) {
 
-    const { deleteRecipeById, deleteStepsByRecipe, deleteIngrByRecipe, } = useContext(ProductionContext)
+    const { deleteRecipeById, deleteStepsByRecipe, deleteIngrByRecipe, updateRecipes } = useContext(ProductionContext)
     const { getAllIngrbyId, recipes } = useContext(RecipesIngrContext)
     const { getAllStepsbyId, steps } = useContext(StepsContext)
     const [bottonsIngr, setBottonsIngr] = useState(true)
@@ -20,6 +20,7 @@ export default function Item({ item }) {
     const [open, setOpen] = useState(false)
     const [dataIngr, setDataIngr] = useState([])
     const [dataSteps, setDataSteps] = useState([])
+    const [updateInput, setUpdateInput] = useState(false)
 
     const nodeRef = useRef(null);
 
@@ -45,31 +46,77 @@ export default function Item({ item }) {
             })
     }, [steps])
 
+    function updateHandler(id, oldName, oldDescription) {
+        setUpdateInput(!updateInput)
+        setOpen(true)
+
+        if (updateInput) {
+            const newNameInput = document.getElementById('nameUpdate').value;
+            const newDescriptionInput = document.getElementById('descriptionUpdate').value;
+          
+            if (!newNameInput && !newDescriptionInput) {
+              return;
+            }
+          
+            const newName = newNameInput.toUpperCase() || oldName;
+            const newDescription = newDescriptionInput.toUpperCase() || oldDescription;
+          
+            updateRecipes(id, newName, newDescription);
+        }
+    }
 
     return (
         <div className='w-full'>
             {/* header */}
-            <div className='flex place-content-between items-center p-5 dark:bg-dark-ing-700' onClick={(e) => { setOpen(!open) }}>
+            <div className='flex place-content-between items-center p-5 dark:bg-dark-ing-700'>
                 <div>
-                    {item.name}
+                    {
+                        !updateInput ? item.name :
+                            <input
+                                className="peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200  focus:border-blue-500   disabled:border-0 disabled:bg-blue-gray-50"
+                                type='text'
+                                placeholder={item.name}
+                                id='nameUpdate'
+                            />
+                    }
                 </div>
+                {/* BOTONER DE ACCIONES DENTRO DE CADA ITEM */}
                 <div>
+                    <button className='bg-blue-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={(e) => { setOpen(!open) }}><BsFillEyeFill /></button>
                     <button className='bg-green-500 p-2 rounded-lg pr-4 pl-4 m-2'><BsFillPlayFill /></button>
-                    <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2'><BsFillPencilFill /></button>
+                    <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2 transition-all ease-in-out'
+                        onClick={() => {
+                            updateHandler(item.id, item.name, item.description)
+                        }}
+                    >
+                        {
+                            !updateInput ? <BsFillPencilFill /> : <BsSaveFill className='mx-5' />
+                        }</button>
                     <button className='bg-red-500 p-2 rounded-lg pr-4 pl-4 m-2'
                         onClick={() => {
                             deleteStepsByRecipe(item.id)
                             deleteIngrByRecipe(item.id)
                             deleteRecipeById(item.id)
                         }}
-                    ><BsFillTrashFill color='ffffff' /></button>
+                    ><BsFillTrashFill /></button>
                 </div>
             </div>
             {/* body */}
             <Collapse isOpened={open}>
                 <div className='flex items-center p-5'>
                     <p className='text-xl text-green-500'>Descripcion:</p>
-                    <p className='mx-2.5'>{item.description}</p>
+                    {
+                        updateInput == false ?
+                            <p className='mx-2.5'>{item.description}</p>
+                            :
+                            <input
+                                className="peer h-full m-2.5 rounded-[7px] border border-blue-gray-200 bg-transparent p-3 p-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200  focus:border-blue-500   disabled:border-0 disabled:bg-blue-gray-50"
+                                type='text'
+                                placeholder={item.description}
+                                id='descriptionUpdate'
+                            />
+                    }
+
                 </div>
 
                 <div className='grid grid-flow-col grid-cols-2 p-5 '>
@@ -92,7 +139,7 @@ export default function Item({ item }) {
                         <div className='m-2.5'>
                             <table className='w-full'>
                                 <thead>
-                                    <tr className='bg-slate-200'>
+                                    <tr className='bg-slate-200 dark:bg-dark-ing-700'>
                                         <th>Ingrediente</th>
                                         <th>Porcentaje</th>
                                     </tr>
@@ -112,7 +159,7 @@ export default function Item({ item }) {
                         </div>
                     </div>
 
-                    {/* lissta de pasos */}
+                    {/* lista de pasos */}
                     <div className='px-2.5 border border-black dark:border-white border-y-0 border-r-0'>
 
                         {/* Botones de opciones */}
@@ -129,7 +176,7 @@ export default function Item({ item }) {
                         <div className='p-5'>
                             {
                                 dataSteps == null ? console.log('Sin datos') :
-                                    dataSteps.map((items,index) => (
+                                    dataSteps.map((items, index) => (
                                         <div className='flex gap-3' key={items.id}>
                                             <div>{index + 1}.</div>
                                             {items.description}
