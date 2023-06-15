@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Collapse } from 'react-collapse';
 import { CSSTransition } from 'react-transition-group';
-import { BsFillTrashFill, BsFillPencilFill, BsFillPlayFill, BsPlusCircle, BsFillEyeFill, BsSaveFill } from 'react-icons/bs'
+import { BsFillTrashFill, BsFillPencilFill, BsFillPlayFill, BsPlusCircle, BsFillEyeFill, BsSaveFill, BsXCircleFill } from 'react-icons/bs'
 import { ProductionContext } from '../../../../context/Production/ProductionContext';
 import { RecipesIngrContext } from '../../../../context/Production/recipes/ingredients/RecipesIngrContext';
 import { StepsContext } from '../../../../context/Production/recipes/Steps/StepsContext';
@@ -21,6 +21,9 @@ export default function Item({ item }) {
     const [dataIngr, setDataIngr] = useState([])
     const [dataSteps, setDataSteps] = useState([])
     const [updateInput, setUpdateInput] = useState(false)
+    const [updateIngr, setUpdateIngr] = useState(false)
+    const [updateIngrItem, setupdateIngrItem] = useState(0)
+
 
     const nodeRef = useRef(null);
 
@@ -53,17 +56,23 @@ export default function Item({ item }) {
         if (updateInput) {
             const newNameInput = document.getElementById('nameUpdate').value;
             const newDescriptionInput = document.getElementById('descriptionUpdate').value;
-          
+
             if (!newNameInput && !newDescriptionInput) {
-              return;
+                return;
             }
-          
+
             const newName = newNameInput.toUpperCase() || oldName;
             const newDescription = newDescriptionInput.toUpperCase() || oldDescription;
-          
+
             updateRecipes(id, newName, newDescription);
         }
     }
+
+    function updateIngrHandler(item) {
+        setUpdateIngr(true)
+        setupdateIngrItem(item)
+    }
+
 
     return (
         <div className='w-full'>
@@ -128,7 +137,7 @@ export default function Item({ item }) {
                             onEnter={() => { setOpenFormIngredients(false) }}>
                             <div className='flex gap-5 '>
                                 <button className='flex bg-green-500 w-full p-2 rounded-lg justify-center' onClick={() => { setOpenFormIngredients(!openFormIngredients), setBottonsIngr(!bottonsIngr) }}><BsPlusCircle color='ffffff' /></button>
-                                <button className='flex bg-yellow-500 w-full p-2 rounded-lg justify-center'><BsFillPencilFill color='ffffff' /></button>
+                                {/* <button className='flex bg-yellow-500 w-full p-2 rounded-lg justify-center'><BsFillPencilFill color='ffffff' /></button> */}
                             </div>
                         </CSSTransition>
 
@@ -142,15 +151,55 @@ export default function Item({ item }) {
                                     <tr className='bg-slate-200 dark:bg-dark-ing-700'>
                                         <th>Ingrediente</th>
                                         <th>Porcentaje</th>
+                                        <th>Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {
                                         dataIngr == null ? console.log('Sin datos') :
                                             dataIngr.map((items) => (
-                                                <tr key={items.id} className='text-center'>
-                                                    <td>{items.raw_material.name}</td>
-                                                    <td>{items.percent} %</td>
+                                                <tr key={items.id} className='text-center m-5'>
+
+                                                    {
+                                                        updateIngr && updateIngrItem === items.id ?
+                                                            <>
+                                                                <td><input
+                                                                    className="rounded-[7px] w-[60%] text-center border border-blue-gray-200 bg-transparent p-2 font-sans text-sm text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-t-blue-gray-200  focus:border-blue-500 "
+                                                                    type='text'
+                                                                    placeholder={items.raw_material.name}
+                                                                    id='descriptionUpdate'
+                                                                /></td>
+                                                                <td><input
+                                                                    className="rounded-[7px] w-[60%] text-center border border-blue-gray-200 bg-transparent p-2 font-sans text-sm text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-t-blue-gray-200  focus:border-blue-500 "
+                                                                    type='text'
+                                                                    placeholder={items.percent}
+                                                                    id='descriptionUpdate'
+                                                                /></td>
+                                                            </>
+                                                            :
+                                                            <>
+                                                                <td>{items.raw_material.name}</td>
+                                                                <td>{items.percent} %</td>
+                                                            </>
+                                                    }
+
+                                                    {
+                                                        updateIngr && updateIngrItem === items.id ?
+                                                            <>
+                                                                <td className=''>
+                                                                    <button className='bg-red-500 p-2 rounded-lg pr-4 pl-4 m-1' onClick={() => setUpdateIngr(!updateIngr)}><BsXCircleFill color='ffffff' /></button>
+                                                                </td>
+                                                            </>
+                                                            :
+                                                            <>
+                                                                <td className=''>
+                                                                    <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-1' onClick={() => updateIngrHandler(items.id)}><BsFillPencilFill color='ffffff' /></button>
+                                                                    <button className='bg-red-500 p-2 rounded-lg pr-4 pl-4 m-1'><BsFillTrashFill color='ffffff' /></button>
+                                                                </td>
+                                                            </>
+                                                    }
+
+
                                                 </tr>
                                             ))
                                     }
