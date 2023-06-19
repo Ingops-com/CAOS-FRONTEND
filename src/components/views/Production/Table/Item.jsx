@@ -11,7 +11,7 @@ import StepsForm from '../Forms/StepsForm';
 export default function Item({ item }) {
 
     const { deleteRecipeById, deleteStepsByRecipe, deleteIngrByRecipe, updateRecipes } = useContext(ProductionContext)
-    const { getAllIngrbyId, recipes } = useContext(RecipesIngrContext)
+    const { getAllIngrbyId,updateIngr,deleteIngr, recipes } = useContext(RecipesIngrContext)
     const { getAllStepsbyId, steps } = useContext(StepsContext)
     const [bottonsIngr, setBottonsIngr] = useState(true)
     const [bottonsSteps, setBottonsSteps] = useState(true)
@@ -21,8 +21,10 @@ export default function Item({ item }) {
     const [dataIngr, setDataIngr] = useState([])
     const [dataSteps, setDataSteps] = useState([])
     const [updateInput, setUpdateInput] = useState(false)
-    const [updateIngr, setUpdateIngr] = useState(false)
-    const [updateIngrItem, setupdateIngrItem] = useState(0)
+    const [updateIngrControl, setUpdateIngrControl] = useState(false)
+    const [updateIngrItem, setupdateIngrItem] = useState(0) 
+    const [updateStepControl, setUpdateStepControl] = useState(false)
+    const [updateStepItem, setupdateStepItem] = useState(0)
 
 
     const nodeRef = useRef(null);
@@ -68,11 +70,33 @@ export default function Item({ item }) {
         }
     }
 
-    function updateIngrHandler(item) {
-        setUpdateIngr(true)
-        setupdateIngrItem(item)
+    function updateIngrHandler(id,oldPercent) {
+        setUpdateIngrControl(!updateIngrControl)
+        setupdateIngrItem(id)
+
+        if(updateIngrControl){
+            const newPercentInput = document.getElementById('percentUpdate').value;
+
+            if (!newPercentInput) {
+                return;
+            }
+
+            const newPercent = newPercentInput || oldPercent;
+
+            console.log(id,newPercent)
+
+            updateIngr(id,newPercent);
+        }
     }
 
+    function updateStepHandler(id, oldDescription) {
+        setUpdateStepControl(!updateStepControl)
+        setupdateStepItem(id)
+    }
+
+    function deleteIngrHandler(id) {
+        deleteIngr(id)
+    }
 
     return (
         <div className='w-full'>
@@ -161,19 +185,14 @@ export default function Item({ item }) {
                                                 <tr key={items.id} className='text-center m-5'>
 
                                                     {
-                                                        updateIngr && updateIngrItem === items.id ?
+                                                        updateIngrControl && updateIngrItem === items.id ?
                                                             <>
-                                                                <td><input
-                                                                    className="rounded-[7px] w-[60%] text-center border border-blue-gray-200 bg-transparent p-2 font-sans text-sm text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-t-blue-gray-200  focus:border-blue-500 "
-                                                                    type='text'
-                                                                    placeholder={items.raw_material.name}
-                                                                    id='descriptionUpdate'
-                                                                /></td>
+                                                                <td>{items.raw_material.name}</td>
                                                                 <td><input
                                                                     className="rounded-[7px] w-[60%] text-center border border-blue-gray-200 bg-transparent p-2 font-sans text-sm text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-t-blue-gray-200  focus:border-blue-500 "
                                                                     type='text'
                                                                     placeholder={items.percent}
-                                                                    id='descriptionUpdate'
+                                                                    id='percentUpdate'
                                                                 /></td>
                                                             </>
                                                             :
@@ -184,17 +203,17 @@ export default function Item({ item }) {
                                                     }
 
                                                     {
-                                                        updateIngr && updateIngrItem === items.id ?
+                                                        updateIngrControl && updateIngrItem === items.id ?
                                                             <>
-                                                                <td className=''>
-                                                                    <button className='bg-red-500 p-2 rounded-lg pr-4 pl-4 m-1' onClick={() => setUpdateIngr(!updateIngr)}><BsXCircleFill color='ffffff' /></button>
+                                                                <td>
+                                                                    <button className='bg-blue-500 p-2 rounded-lg pr-4 pl-4 m-1' onClick={() => updateIngrHandler(items.id, items.percent)}><BsXCircleFill color='ffffff' /></button>
                                                                 </td>
                                                             </>
                                                             :
                                                             <>
-                                                                <td className=''>
-                                                                    <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-1' onClick={() => updateIngrHandler(items.id)}><BsFillPencilFill color='ffffff' /></button>
-                                                                    <button className='bg-red-500 p-2 rounded-lg pr-4 pl-4 m-1'><BsFillTrashFill color='ffffff' /></button>
+                                                                <td>
+                                                                    <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-1' onClick={() => updateIngrHandler(items.id,'') }><BsFillPencilFill color='ffffff' /></button>
+                                                                    <button className='bg-red-500 p-2 rounded-lg pr-4 pl-4 m-1' onClick={() => deleteIngrHandler(items.id)}><BsFillTrashFill color='ffffff' /></button>
                                                                 </td>
                                                             </>
                                                     }
@@ -216,7 +235,6 @@ export default function Item({ item }) {
                             onEnter={() => { setOpenFormSteps(false) }}>
                             <div className='flex gap-5'>
                                 <button className='flex bg-green-500 w-full p-2 rounded-lg justify-center' onClick={() => { setOpenFormSteps(!openFormSteps), setBottonsSteps(!bottonsSteps) }}><BsPlusCircle color='ffffff' /></button>
-                                <button className='flex bg-yellow-500 w-full p-2 rounded-lg justify-center'><BsFillPencilFill color='ffffff' /></button>
                             </div>
                         </CSSTransition>
 
@@ -226,9 +244,37 @@ export default function Item({ item }) {
                             {
                                 dataSteps == null ? console.log('Sin datos') :
                                     dataSteps.map((items, index) => (
-                                        <div className='flex gap-3' key={items.id}>
-                                            <div>{index + 1}.</div>
-                                            {items.description}
+                                        <div className='flex place-content-between' key={items.id}>
+
+                                            {
+                                                updateStepControl && updateStepItem == items.id ? 
+                                                <div className='flex place-content-center'>
+                                                    <input
+                                                        className="rounded-[7px] text-center border border-blue-gray-200 bg-transparent font-sans text-sm text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-t-blue-gray-200  focus:border-blue-500 "
+                                                        type='text'
+                                                        placeholder={items.description}
+                                                        id='percentUpdate'
+                                                    />
+                                                </div>
+                                                :
+                                                <div className='flex gap-3'>
+                                                    <div>{index + 1}.</div>
+                                                    {items.description}
+                                                </div>
+                                            }
+                                            {
+                                                 updateStepControl && updateStepItem == items.id ? 
+
+                                                 <div className=''> 
+                                                    <button className='bg-blue-500 p-2 rounded-lg pr-4 pl-4 m-1' onClick={() => updateStepHandler(items.id,'')}><BsXCircleFill color='ffffff' /></button>
+                                                </div>
+                                                :
+                                                <div className=''> 
+                                                    <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-1' onClick={() => updateStepHandler(items.id,'')}><BsFillPencilFill color='ffffff' /></button>
+                                                    <button className='bg-red-500 p-2 rounded-lg pr-4 pl-4 m-1' ><BsFillTrashFill color='ffffff' /></button>
+                                                </div>
+                                            }
+                                               
                                         </div>
                                     ))
                             }

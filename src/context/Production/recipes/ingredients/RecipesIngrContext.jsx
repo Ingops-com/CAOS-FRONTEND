@@ -45,10 +45,51 @@ export default function RecipesIngrContextProvider(props) {
             })
     }
 
+    const updateIngr = async(id_recipe, percent) => {
+        await axios({
+            method: 'PATCH',
+            url: `/recipes-ingredients/${id_recipe}`,
+            headers: {
+                'Authorization': token
+            },
+            data: {
+                percent
+            }
+        })
+            .then((res) => {
+                getAllRecipes()
+                setRecipes(!recipes)
+                toast.success('INGREDIENTE EDITADO')
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    const deleteIngr = async(id) => {
+        await axios({
+            method: 'DELETE',
+            url: `/recipes-ingredients/${id}`,
+            headers: {
+                'Authorization': token
+            }
+        })
+            .then((res) => {
+                getAllRecipes()
+                setRecipes(!recipes)
+                toast.success('INGREDIENTE ELIMINADO')
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
     return (
         <RecipesIngrContext.Provider value={{
             getAllIngrbyId,
             createIngr,
+            updateIngr,
+            deleteIngr,
             recipes
         }}>
 
