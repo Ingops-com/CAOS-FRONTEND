@@ -21,7 +21,7 @@ function StepsForm({ showFormSteps, setBottonsSteps, id_recipe }) {
         <CSSTransition nodeRef={nodeRef} in={showFormSteps} timeout={200} classNames="" unmountOnExit appear={true}
             onEnter={() => { }}
         >
-            <div id='formNew' ref={nodeRef} className='flex justify-center items-center m-5'>
+            <div id='formNew' ref={nodeRef} className='flex justify-center items-center'>
                 <div className='w-fit  dark:shadow-none bg-white dark:bg-dark-ing-800'>
                     <form onSubmit={handleSubmit} className="flex gap-3 justify-center items-center" >
                         <div className="relative">
