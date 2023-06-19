@@ -45,10 +45,33 @@ export default function RecipesIngrContextProvider(props) {
             })
     }
 
+    const updateIngr = async(id_recipe, percent) => {
+        await axios({
+            method: 'PATCH',
+            url: `/recipes-ingredients/${id_recipe}`,
+            headers: {
+                'Authorization': token
+            },
+            data: {
+                percent
+            }
+        })
+            .then((res) => {
+                console.log(res)
+                getAllRecipes()
+                setRecipes(!recipes)
+                toast.success('INGREDIENTE EDITADO')
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
     return (
         <RecipesIngrContext.Provider value={{
             getAllIngrbyId,
             createIngr,
+            updateIngr,
             recipes
         }}>
 
