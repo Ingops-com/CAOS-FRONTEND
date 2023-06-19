@@ -11,7 +11,7 @@ import StepsForm from '../Forms/StepsForm';
 export default function Item({ item }) {
 
     const { deleteRecipeById, deleteStepsByRecipe, deleteIngrByRecipe, updateRecipes } = useContext(ProductionContext)
-    const { getAllIngrbyId,updateIngr, recipes } = useContext(RecipesIngrContext)
+    const { getAllIngrbyId,updateIngr,deleteIngr, recipes } = useContext(RecipesIngrContext)
     const { getAllStepsbyId, steps } = useContext(StepsContext)
     const [bottonsIngr, setBottonsIngr] = useState(true)
     const [bottonsSteps, setBottonsSteps] = useState(true)
@@ -87,6 +87,9 @@ export default function Item({ item }) {
         }
     }
 
+    function deleteIngrHandler(id) {
+        deleteIngr(id)
+    }
 
     return (
         <div className='w-full'>
@@ -203,7 +206,7 @@ export default function Item({ item }) {
                                                             <>
                                                                 <td>
                                                                     <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-1' onClick={() => updateIngrHandler(items.id,'') }><BsFillPencilFill color='ffffff' /></button>
-                                                                    <button className='bg-red-500 p-2 rounded-lg pr-4 pl-4 m-1'><BsFillTrashFill color='ffffff' /></button>
+                                                                    <button className='bg-red-500 p-2 rounded-lg pr-4 pl-4 m-1' onClick={() => deleteIngrHandler(items.id)}><BsFillTrashFill color='ffffff' /></button>
                                                                 </td>
                                                             </>
                                                     }

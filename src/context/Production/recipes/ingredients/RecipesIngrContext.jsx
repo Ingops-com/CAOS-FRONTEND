@@ -57,10 +57,27 @@ export default function RecipesIngrContextProvider(props) {
             }
         })
             .then((res) => {
-                console.log(res)
                 getAllRecipes()
                 setRecipes(!recipes)
                 toast.success('INGREDIENTE EDITADO')
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    const deleteIngr = async(id) => {
+        await axios({
+            method: 'DELETE',
+            url: `/recipes-ingredients/${id}`,
+            headers: {
+                'Authorization': token
+            }
+        })
+            .then((res) => {
+                getAllRecipes()
+                setRecipes(!recipes)
+                toast.success('INGREDIENTE ELIMINADO')
             })
             .catch((err) => {
                 console.log(err)
@@ -72,6 +89,7 @@ export default function RecipesIngrContextProvider(props) {
             getAllIngrbyId,
             createIngr,
             updateIngr,
+            deleteIngr,
             recipes
         }}>
 
