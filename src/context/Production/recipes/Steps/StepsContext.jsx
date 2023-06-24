@@ -9,7 +9,6 @@ export const StepsContext = createContext();
 export default function StepsContextProvider(props) {
 
     const { token } = useContext(UserContext)
-    const { getAllRecipes } = useContext(ProductionContext)
     const [steps, setSteps] = useState(false)
 
     function getAllStepsbyId(id) {
@@ -43,10 +42,53 @@ export default function StepsContextProvider(props) {
             })
     }
 
+    const updateStep = async (id, description) => {
+        axios({
+            method: "PUT",
+            url: `/recipes-steps/${id}`,
+            headers: {
+                'Authorization': token
+            },
+            data: {
+                description
+            }
+        })
+            .then((res) => {
+                setSteps(!steps)
+                toast.success('PASO ACTUALIZADO')
+            })
+            .catch((err) => {
+                console.log(err)
+                toast.success('ERROR AL ACTUALIZAR')
+
+            })
+    }
+
+    const deleteStep = async (id) => {
+        axios({
+            method: "DELETE",
+            url: `/recipes-steps/${id}`,
+            headers: {
+                'Authorization': token
+            }
+        })
+            .then((res) => {
+                setSteps(!steps)
+                toast.success('PASO BORRADO')
+            })
+            .catch((err) => {
+                console.log(err)
+                toast.success('ERROR AL BORRAR')
+
+            })
+    }
+
     return (
         <StepsContext.Provider value={{
             getAllStepsbyId,
             createStep,
+            updateStep,
+            deleteStep,
             steps
         }}>
 

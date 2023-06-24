@@ -12,7 +12,8 @@ export default function Item({ item }) {
 
     const { deleteRecipeById, deleteStepsByRecipe, deleteIngrByRecipe, updateRecipes } = useContext(ProductionContext)
     const { getAllIngrbyId,updateIngr,deleteIngr, recipes } = useContext(RecipesIngrContext)
-    const { getAllStepsbyId, steps } = useContext(StepsContext)
+    const { getAllStepsbyId, updateStep, deleteStep ,steps } = useContext(StepsContext)
+    
     const [bottonsIngr, setBottonsIngr] = useState(true)
     const [bottonsSteps, setBottonsSteps] = useState(true)
     const [openFormIngredients, setOpenFormIngredients] = useState(false)
@@ -83,8 +84,6 @@ export default function Item({ item }) {
 
             const newPercent = newPercentInput || oldPercent;
 
-            console.log(id,newPercent)
-
             updateIngr(id,newPercent);
         }
     }
@@ -92,10 +91,26 @@ export default function Item({ item }) {
     function updateStepHandler(id, oldDescription) {
         setUpdateStepControl(!updateStepControl)
         setupdateStepItem(id)
+
+        if (updateStepControl) {
+            const newDescriptionInput = document.getElementById('descriptionStepUpdate').value;
+
+            if(!newDescriptionInput) {
+                return
+            }
+
+            const newDescription = newDescriptionInput || oldDescription;
+
+            updateStep(id,newDescription)
+        }
     }
 
     function deleteIngrHandler(id) {
         deleteIngr(id)
+    }
+
+    function deleteStepHandler(id) {
+        deleteStep(id)
     }
 
     return (
@@ -253,7 +268,7 @@ export default function Item({ item }) {
                                                         className="rounded-[7px] text-center border border-blue-gray-200 bg-transparent font-sans text-sm text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-t-blue-gray-200  focus:border-blue-500 "
                                                         type='text'
                                                         placeholder={items.description}
-                                                        id='percentUpdate'
+                                                        id='descriptionStepUpdate'
                                                     />
                                                 </div>
                                                 :
@@ -271,7 +286,7 @@ export default function Item({ item }) {
                                                 :
                                                 <div className=''> 
                                                     <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-1' onClick={() => updateStepHandler(items.id,'')}><BsFillPencilFill color='ffffff' /></button>
-                                                    <button className='bg-red-500 p-2 rounded-lg pr-4 pl-4 m-1' ><BsFillTrashFill color='ffffff' /></button>
+                                                    <button className='bg-red-500 p-2 rounded-lg pr-4 pl-4 m-1' onClick={() => deleteStepHandler(items.id)}><BsFillTrashFill color='ffffff' /></button>
                                                 </div>
                                             }
                                                
