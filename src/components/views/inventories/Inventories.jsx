@@ -152,7 +152,7 @@ function Inventories() {
                                                             permission && (
                                                                 <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'
                                                                     onClick={() => {
-                                                                        deleteById(materia.id, materia.stock, materia.raw_material_id)
+                                                                        deleteById(materia.id, materia.stock, materia.raw_material_id, materia.raw_material.name)
                                                                     }}
                                                                 ><BsFillTrashFill color='ffffff' /></button>
                                                             )
@@ -192,7 +192,7 @@ function Inventories() {
                                                 historyRaw.map((a) => (
                                                     <tr key={a.id} className='text-center odd:bg-transparent  even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
                                                         <td className='p-3'>{a.user}</td>
-                                                        <td>{a.raw_material.name}</td>
+                                                        {/* <td>{a.raw_material.name}</td> */}
                                                         <td>{a.cuantity}</td>
                                                         <td>{a.status == 0 ?
                                                             <div className='text-green-400'>CREACION</div>

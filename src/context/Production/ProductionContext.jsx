@@ -4,13 +4,16 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import RecipesIngrContextProvider from "./recipes/ingredients/RecipesIngrContext";
 import StepsContextProvider from "./recipes/Steps/StepsContext";
+import { InventoriesContext } from "../Inventories/InventoriesContext";
 
 export const ProductionContext = createContext();
 
 export default function ProductionContextProvider(props) {
 
+  const {data} = useContext(InventoriesContext)
+
   const { token } = useContext(UserContext)
-  const [data, setData] = useState([])
+  const [dataRecipes, setData] = useState([])
 
   function getAllRecipes() {
     axios({
@@ -123,6 +126,10 @@ export default function ProductionContextProvider(props) {
       })
   }
 
+  function verifyIngr(items) {
+    console.log(items)
+    console.log(data)
+  }
  
   return (
     <ProductionContext.Provider value={{
@@ -132,7 +139,8 @@ export default function ProductionContextProvider(props) {
       deleteStepsByRecipe,
       deleteIngrByRecipe,
       updateRecipes,
-      data
+      verifyIngr,
+      dataRecipes
     }}>
       <RecipesIngrContextProvider>
         <StepsContextProvider>

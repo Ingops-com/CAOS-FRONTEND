@@ -9,11 +9,11 @@ import "./Production.css"
 
 export default function Production() {
 
-  const { getAllRecipes, data } = useContext(ProductionContext)
+  const { getAllRecipes, dataRecipes } = useContext(ProductionContext)
   const [ShowFormRecipes, setShowFormRecipes] = useState(false)
 
   useEffect(() => {
-    if (data.length == 0) {
+    if (dataRecipes.length == 0) {
       getAllRecipes()
     }
   }, [])
@@ -62,10 +62,10 @@ export default function Production() {
 
       {/* Tabla de recetas */}
       <div className='grid w-full shadow-xl p-5 mt-5 mb-5 bg-white dark:shadow-none dark:bg-dark-ing-800'>
-        {data == null ? console.log('Sin datos') :
+        {dataRecipes == null ? console.log('Sin datos') :
           <div>
             {
-              data.map((item) => (
+              dataRecipes.map((item) => (
                 <Item key={item.id} item={item}></Item>
               ))
             }

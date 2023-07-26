@@ -90,7 +90,6 @@ export default function InventoriesContextProvider(props) {
     })
       .then((res) => {
         getAllInvRawMate()
-        console.log(data)
         creaHistInve(editData.raw_material_id, data[2], '1')
         toast.success('STOCK AGREGADO')
       })
@@ -100,7 +99,7 @@ export default function InventoriesContextProvider(props) {
       })
   }
 
-  const deleteById = async (id, stock, rawId) => {
+  const deleteById = async (id, stock, rawId,name) => {
     await axios({
       method: "DELETE",
       url: `/inventories-raw-material/${id}`,
@@ -109,14 +108,32 @@ export default function InventoriesContextProvider(props) {
       }
     })
       .then((res) => {
-        getAllInvRawMate()
-        creaHistInve(rawId, stock, '2')
-        toast.success('PRODUCTO BORRADO')
+
+
+        axios({
+          method: "DELETE",
+          url: `/raw-material/byname/${name}`,
+          headers: {
+            'Authorization': token
+          }
+        })
+          .then((res) => {
+            getAllInvRawMate()
+            creaHistInve(rawId, stock, '2')
+            toast.success('PRODUCTO BORRADO')
+          })
+          .catch((err) => {
+            toast.error('ERROR AL BORRAR')
+            console.log("error updateItemById" + err)
+          })
+
       })
       .catch((err) => {
         toast.error('ERROR AL BORRAR')
         console.log("error updateItemById" + err)
       })
+
+      
   }
 
   return (
