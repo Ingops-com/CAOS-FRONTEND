@@ -29,6 +29,10 @@ export default function Item({ item }) {
     const [updateStepItem, setupdateStepItem] = useState(0)
     const [modalOpen, setModalOpen] = useState(false)
 
+    // variables para el modal
+
+    const [totalCal, setTotalCal] = useState(0)
+
     const nodeRef = useRef(null);
 
     // trea la data de los ingredientes
@@ -117,6 +121,10 @@ export default function Item({ item }) {
     function playHandler() {
         setModalOpen(true)
         // verifyIngr(dataIngr)
+    }
+
+    function calcProductionHandler(total) {
+        setTotalCal(total)
     }
 
     return (
@@ -312,6 +320,7 @@ export default function Item({ item }) {
                     <div className="relative">
                         <input
                             className='peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-200 focus:border-2 focus:border-blue-500 focus:border-t-transparent border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50'
+                            onChange={e => calcProductionHandler(e.target.value)}
 
                             placeholder=" "
                             id='percent'
@@ -346,10 +355,11 @@ export default function Item({ item }) {
                         <table className='w-full'>
                             <thead >
                                 <tr className='bg-slate-200 dark:bg-dark-ing-700'>
-                                    <th className='bg-red-600'>Ingrediente</th>
-                                    <th className='bg-blue-600  min-w-[5rem]'>Gramos</th>
-                                    <th className='bg-green-600'>Kilogramos</th>
-                                    <th className='bg-red-600 min-w-[5rem]'>Valor</th>
+                                    <th>Ingrediente</th>
+                                    <th>Gramos</th>
+                                    <th>Kilogramos</th>
+                                    <th>Gramos</th>
+                                    <th>Valor</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -359,37 +369,14 @@ export default function Item({ item }) {
                                             <tr key={items.id} className='text-center m-5'>
 
                                                 {
-                                                    updateIngrControl && updateIngrItem === items.id ?
-                                                        <>
-                                                            <td>{items.raw_material.name}</td>
-                                                            <td><input
-                                                                className="rounded-[7px] w-[60%] text-center border border-blue-gray-200 bg-transparent p-2 font-sans text-sm text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-t-blue-gray-200  focus:border-blue-500 "
-                                                                type='text'
-                                                                placeholder={items.percent}
-                                                                id='percentUpdate'
-                                                            /></td>
-                                                        </>
-                                                        :
-                                                        <>
-                                                            <td className='py-2.5'>{items.name_raw_material}</td>
-                                                            <td>{items.percent} %</td>
-                                                        </>
+                                                    <>
+                                                        <td className='py-2.5 min-w-[10rem]'>{items.name_raw_material}</td>
+                                                        <td className='py-2.5 min-w-[10rem]'>{items.percent} %</td>
+                                                        <td className='py-2.5 min-w-[10rem]'>{Math.round((totalCal * items.percent) / 100)}</td>
+                                                        <td className='py-2.5 min-w-[10rem]'>{(totalCal * items.percent) / 100}</td>
+                                                        <td className='py-2.5 min-w-[10rem]'>{items.percent} %</td>
+                                                    </>
                                                 }
-
-                                                {
-                                                    updateIngrControl && updateIngrItem === items.id ?
-                                                        <>
-                                                            <td>
-                                                                <button className='bg-blue-500 p-2 rounded-lg pr-4 pl-4 m-1' onClick={() => updateIngrHandler(items.id, items.percent)}><BsXCircleFill color='ffffff' /></button>
-                                                            </td>
-                                                        </>
-                                                        :
-                                                        <>
-                                                            <td>
-                                                            </td>
-                                                        </>
-                                                }
-
 
                                             </tr>
                                         ))
