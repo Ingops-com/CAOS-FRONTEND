@@ -22,7 +22,7 @@ export default function RecipesIngrContextProvider(props) {
         })
     }
 
-    function createIngr(id_recipe, id_raw_material, percent) {
+    function createIngr(id_recipe, name_raw_material, percent) {
         axios({
             method: "POST",
             url: "/recipes-ingredients",
@@ -31,7 +31,7 @@ export default function RecipesIngrContextProvider(props) {
             },
             data: {
                 id_recipe,
-                id_raw_material,
+                name_raw_material,
                 percent
             }
         })

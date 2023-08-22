@@ -7,6 +7,7 @@ import { RecipesIngrContext } from '../../../../context/Production/recipes/ingre
 import { StepsContext } from '../../../../context/Production/recipes/Steps/StepsContext';
 import IngredientsForm from '../Forms/IngredientsForm';
 import StepsForm from '../Forms/StepsForm';
+import Modal from '../../../commons/Modal/Modal';
 
 export default function Item({ item }) {
 
@@ -26,8 +27,7 @@ export default function Item({ item }) {
     const [updateIngrItem, setupdateIngrItem] = useState(0)
     const [updateStepControl, setUpdateStepControl] = useState(false)
     const [updateStepItem, setupdateStepItem] = useState(0)
-    const [openModal, setOpenModal] = useState(false)
-
+    const [modalOpen, setModalOpen] = useState(false)
 
     const nodeRef = useRef(null);
 
@@ -115,7 +115,8 @@ export default function Item({ item }) {
     }
 
     function playHandler() {
-        verifyIngr(dataIngr)
+        setModalOpen(true)
+        // verifyIngr(dataIngr)
     }
 
     return (
@@ -137,7 +138,7 @@ export default function Item({ item }) {
                     {/* BOTONER DE ACCIONES DENTRO DE CADA ITEM */}
                     <div>
                         <button className='bg-blue-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={(e) => { setOpen(!open) }}><BsFillEyeFill /></button>
-                        <button className='bg-green-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={playHandler}><BsFillPlayFill /></button>
+                        <button className='bg-green-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => playHandler()} ><BsFillPlayFill /></button>
                         <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2 transition-all ease-in-out'
                             onClick={() => {
                                 updateHandler(item.id, item.name, item.description)
@@ -170,7 +171,6 @@ export default function Item({ item }) {
                                     id='descriptionUpdate'
                                 />
                         }
-
                     </div>
 
                     <div className='grid grid-flow-col grid-cols-2 p-5 '>
@@ -208,7 +208,7 @@ export default function Item({ item }) {
                                                         {
                                                             updateIngrControl && updateIngrItem === items.id ?
                                                                 <>
-                                                                    <td>{items.raw_material.name}</td>
+                                                                    <td>{items.name_raw_material}</td>
                                                                     <td><input
                                                                         className="rounded-[7px] w-[60%] text-center border border-blue-gray-200 bg-transparent p-2 font-sans text-sm text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-t-blue-gray-200  focus:border-blue-500 "
                                                                         type='text'
@@ -218,7 +218,7 @@ export default function Item({ item }) {
                                                                 </>
                                                                 :
                                                                 <>
-                                                                    <td>{items.raw_material.name}</td>
+                                                                    <td>{items.name_raw_material}</td>
                                                                     <td>{items.percent} %</td>
                                                                 </>
                                                         }
@@ -304,7 +304,101 @@ export default function Item({ item }) {
                     </div>
                 </Collapse >
             </div >
-            
+
+            <Modal open={modalOpen} onClose={() => { setModalOpen(false) }}>
+                {/* Campos del formulario */}
+                <div className='flex gap-5'>
+                    {/* Campo de cantidad */}
+                    <div className="relative">
+                        <input
+                            className='peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-200 focus:border-2 focus:border-blue-500 focus:border-t-transparent border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50'
+
+                            placeholder=" "
+                            id='percent'
+
+                            required
+                        />
+
+                        <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-blue-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            Cantidad Total
+                        </label>
+                    </div>
+
+                    {/* Campo de canasta */}
+                    <div className="relative">
+                        <input
+                            className='peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-200 focus:border-2 focus:border-blue-500 focus:border-t-transparent border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50'
+
+                            placeholder=" "
+                            id='percent'
+
+                            required
+                        />
+
+                        <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-blue-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            Total Canastas
+                        </label>
+                    </div>
+                </div>
+                {/* Tabla */}
+                <div>
+                    <div className='my-5 max-h-96 overflow-auto '>
+                        <table className='w-full'>
+                            <thead >
+                                <tr className='bg-slate-200 dark:bg-dark-ing-700'>
+                                    <th className='bg-red-600'>Ingrediente</th>
+                                    <th className='bg-blue-600  min-w-[5rem]'>Gramos</th>
+                                    <th className='bg-green-600'>Kilogramos</th>
+                                    <th className='bg-red-600 min-w-[5rem]'>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    dataIngr == null ? console.log('Sin datos') :
+                                        dataIngr.map((items) => (
+                                            <tr key={items.id} className='text-center m-5'>
+
+                                                {
+                                                    updateIngrControl && updateIngrItem === items.id ?
+                                                        <>
+                                                            <td>{items.raw_material.name}</td>
+                                                            <td><input
+                                                                className="rounded-[7px] w-[60%] text-center border border-blue-gray-200 bg-transparent p-2 font-sans text-sm text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-t-blue-gray-200  focus:border-blue-500 "
+                                                                type='text'
+                                                                placeholder={items.percent}
+                                                                id='percentUpdate'
+                                                            /></td>
+                                                        </>
+                                                        :
+                                                        <>
+                                                            <td className='py-2.5'>{items.name_raw_material}</td>
+                                                            <td>{items.percent} %</td>
+                                                        </>
+                                                }
+
+                                                {
+                                                    updateIngrControl && updateIngrItem === items.id ?
+                                                        <>
+                                                            <td>
+                                                                <button className='bg-blue-500 p-2 rounded-lg pr-4 pl-4 m-1' onClick={() => updateIngrHandler(items.id, items.percent)}><BsXCircleFill color='ffffff' /></button>
+                                                            </td>
+                                                        </>
+                                                        :
+                                                        <>
+                                                            <td>
+                                                            </td>
+                                                        </>
+                                                }
+
+
+                                            </tr>
+                                        ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </Modal>
         </>
     )
 }

@@ -16,9 +16,9 @@ function IngredientsForm({ showFormIngredients, setBottonsIngr, id_recipe }) {
 
     function handleSubmit(e) {
         e.preventDefault()
-        let raw_material_id = e.target.raw_material_id.value
+        let raw_material_name = e.target.raw_material_name.value
         let percent = e.target.percent.value
-        createIngr(id_recipe, raw_material_id, percent)
+        createIngr(id_recipe, raw_material_name, percent)
     }
 
     return (
@@ -31,11 +31,11 @@ function IngredientsForm({ showFormIngredients, setBottonsIngr, id_recipe }) {
                         <div className="relative">
                             <select
                                 className="p-2 font-normal rounded-[7px] border border-blue-gray-200 bg-transparent transition-all"
-                                id='raw_material_id'
+                                id='raw_material_name'
                             >
                                 {
                                     data.map((item, index) => (
-                                        <option key={index} className="dark:bg-dark-ing-900" value={item.raw_material_id}>{item.raw_material.name}</option>
+                                        <option key={index} className="dark:bg-dark-ing-900" value={item.raw_material.name}>{item.raw_material.name}</option>
                                     ))
                                 }
                             </select>
