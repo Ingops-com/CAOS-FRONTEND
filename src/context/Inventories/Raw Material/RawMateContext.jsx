@@ -10,6 +10,7 @@ export default function RawMateContextProvider(props) {
     const [dataRawMate] = useState([])
     const [dataIdRawMaterial, setdataIdRawMaterial] = useState(null)
     const [newRawMate, setNewRawMate] = useState('')
+    const [dataAllRawMate, setDataAllRawMate] = useState([])
 
     const getIdRawMaterial = async (name) => {
         await axios({
@@ -48,9 +49,25 @@ export default function RawMateContextProvider(props) {
                 console.log("Error getAll create raw material " + err)
             })
     }
-    
 
-    
+    function getAllRawMaterial() {
+        axios({
+            method: "GET",
+            url: "/raw-material",
+            headers: {
+                'Authorization': token
+            }
+        })
+            .then((res) => {
+                setDataAllRawMate(res.data)
+            })
+            .catch((err) => {
+                console.log("A ocurrido un error" + err)
+            })
+
+    }
+
+
 
     return (
         <RawMateContext.Provider value={{
@@ -60,6 +77,8 @@ export default function RawMateContextProvider(props) {
             setNewRawMate,
             createRawMaterial,
             getIdRawMaterial,
+            getAllRawMaterial,
+            dataAllRawMate
         }}>
             {props.children}
         </RawMateContext.Provider>

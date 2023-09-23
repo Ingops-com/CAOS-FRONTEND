@@ -1,13 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { BsFillTrashFill, BsPlusCircle } from 'react-icons/bs'
+import { BsFillTrashFill, BsPlusCircle, BsFillEyeFill } from 'react-icons/bs'
 import { BuysContext } from '../../../context/Buys/BuysContext';
 import Cards from '../../commons/cards/Cards';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Toaster } from 'react-hot-toast';
+import { Link, Outlet } from 'react-router-dom';
+import { InvoicesContextProvider } from '../../../context/Buys/Invoice/InvoicesContext';
 function Buys() {
 
   const { getAllInvoices, date, datafilter, dataInvoices, setDataInvoices } = useContext(BuysContext)
   const [permission, setPermission] = useState(false)
+
 
 
   function checkPermissions(permMin) {
@@ -20,7 +23,7 @@ function Buys() {
   useEffect(() => {
     checkPermissions(1)
     getAllInvoices()
-}, [])
+  }, [])
 
 
   return (
@@ -54,6 +57,17 @@ function Buys() {
 
       {/* BOTONES */}
 
+      <div className='flex justify-center mt-5 mb-5'>
+        <Link to={`../invoice/create`}>
+        <button
+          className="middle none center mr-3 rounded-lg bg-cyan-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:opacity-75 focus:ring focus:ring-cyan-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          data-ripple-dark="true"
+        >
+          NUEVA FACTURA
+        </button>
+        </Link>
+      </div>
+
       {/* aqui van los formularios */}
       <div className='transition ease-in-out mt-5 mb-5'>
         {/* tabla de facturas */}
@@ -82,7 +96,7 @@ function Buys() {
                           permission && (
                             <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'
                               onClick={() => {
-                                
+
                               }}
                             ><BsFillTrashFill color='ffffff' /></button>
                           )
@@ -92,8 +106,12 @@ function Buys() {
                           // setShowFormEdit(true)
                           // setEditData(materia)
                         }} ><BsPlusCircle color='ffffff' /></button>
+                        <Link to={`../invoice/${invoice.id}`}>
+                          <button className='bg-blue-500 p-2 rounded-lg pr-4 pl-4 m-2'><BsFillEyeFill color='ffffff' /> </button>
+                        </Link>
                       </td>
-                    </tr>))
+                    </tr>
+                  ))
                 }
               </tbody>
             </table>
