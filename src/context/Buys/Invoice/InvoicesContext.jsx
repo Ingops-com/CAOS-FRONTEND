@@ -10,7 +10,7 @@ export function InvoicesContextProvider(props) {
 
     const { token } = useContext(UserContext)
     const [dataItemInvoice, setDataItemInvoice] = useState([]);
-    const [createController, setCreateController] = useState([]);
+    const [idInvoice, setIdInvoice] = useState(0);
 
     function getAllItemsById(id) {
         axios({
@@ -28,7 +28,7 @@ export function InvoicesContextProvider(props) {
             })
     }
 
-    function createInvoice( amount, id_supplier) {
+    function createInvoice( totalValue, id_supplier) {
         axios({
             method: "POST",
             url: "/invoices",
@@ -36,25 +36,63 @@ export function InvoicesContextProvider(props) {
                 'Authorization': token
             },
             data: {
-                "amount":amount,
+                "amount":totalValue,
                 "id_supplier": id_supplier
             }
         })
             .then((res) => {
                 toast.success('Factura creada')
-                setCreateController(true)
+                setIdInvoice(res.data)
             })
             .catch((err) => {
                 toast.error('Error al crear factura')
             })
     }
 
+    function createItemsJson(dataForm){
+        axios({
+            method:"POST",
+            url:"/invoices/items/json/",
+            headers:{
+                Authorization: token
+            },data:{
+                "items": {dataForm}
+            }
+        })
+        .then((res)=>{
+            toast.success('Items creados')
+        })
+        .catch((err)=>{
+            toast.error('Fallo al crear items')
+        })
+    }
+
+    function JSONConvertItems(JSONDataForm) {
+        const { amount, product, quantity } = JSONDataForm;
+        console.log(amount)
+        const { name, unit_measure_id } = product;
+      
+        // Construye el objeto en el formato deseado
+        const JSONData = {
+          id_invoice: idInvoice,
+          name: name,
+          quantity: quantity,
+          measure: "kg",
+          //measure: unit_measure_id, // Supongamos que siempre es "kg" en este caso
+          amount: amount
+        };
+      
+        createItemsJson(JSONData);
+      };
+
+
+
     return (
         <InvoicesContext.Provider value={{
             getAllItemsById,
             dataItemInvoice,
             createInvoice,
-            createController
+            JSONConvertItems
         }}>{props.children}
         </InvoicesContext.Provider>
     )

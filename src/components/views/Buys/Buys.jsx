@@ -101,11 +101,6 @@ function Buys() {
                             ><BsFillTrashFill color='ffffff' /></button>
                           )
                         }
-
-                        <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => {
-                          // setShowFormEdit(true)
-                          // setEditData(materia)
-                        }} ><BsPlusCircle color='ffffff' /></button>
                         <Link to={`../invoice/${invoice.id}`}>
                           <button className='bg-blue-500 p-2 rounded-lg pr-4 pl-4 m-2'><BsFillEyeFill color='ffffff' /> </button>
                         </Link>
