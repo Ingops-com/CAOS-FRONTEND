@@ -13,7 +13,10 @@ module.exports = {
         'dark-ing-800': '#17182c',
         'dark-ing-700': '#212442',
         'blue-ing-600': '#2e7cec',
-        'blue-ing-900': '#170c9e'
+        'blue-ing-900': '#170c9e',
+        'main-white' : '#f3f4f6',
+        'sidebar-selected' : '#e0e7ff',
+        'sidebar-selected-900' : '#4f46e5'
       }
     },
   },
