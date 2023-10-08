@@ -36,27 +36,7 @@ export function BuysContextProvider(props) {
                 console.log("Error getAll Invoices " + err)
             })
     }
-    const createInvoice = async (amount, id_supplier, items) => {
-        await axios({
-            method: "POST",
-            url: "/invoices/",
-            headers: {
-                'Authorization': token
-            },
-            data: {
-                amount: amount,
-                id_supplier: id_supplier,
-                // items: items,
-            }
-        })
-            .then((res) => {
-                getAllInvoices()
-            })
-            .catch((err) => {
-                console.log("Error create item invoice " + err)
-            })
-    }
-
+   
     return (
         <BuysContext.Provider value={{
             getAllInvoices,
@@ -64,7 +44,6 @@ export function BuysContextProvider(props) {
             datafilter,
             dataInvoices,
             setDataInvoices,
-            createInvoice,
         }}>
             {props.children}
         </BuysContext.Provider>

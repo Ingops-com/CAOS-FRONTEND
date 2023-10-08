@@ -11,6 +11,11 @@ import { BuysContextProvider } from "../context/Buys/BuysContext";
 import SupplierContextProvider from "../context/Buys/Suppliers/SuppliersContext"
 import ProductionContextProvider from "../context/Production/ProductionContext";
 import Production from "../components/views/Production/Production";
+import Invoice from "../components/views/Buys/Invoices/Invoice"
+import { InvoicesContextProvider } from "../context/Buys/Invoice/InvoicesContext";
+import { UnitMeasuresContextProvider } from "../context/Inventories/Unite Measure/UnitMeasuresContext";
+import InvoicesFormNew from "../components/views/Buys/Forms/InvoicesFormNew";
+import RawMateContextProvider from "../context/Inventories/Raw Material/RawMateContext";
 
 export default function Routes() {
     const routes = createBrowserRouter([
@@ -33,12 +38,22 @@ export default function Routes() {
                 },
                 {
                     path: 'buys',
-
-                    element: <SupplierContextProvider> <BuysContextProvider><Buys /> </BuysContextProvider> </SupplierContextProvider>
+                    element: <SupplierContextProvider> <BuysContextProvider><Buys /> </BuysContextProvider> </SupplierContextProvider>,
                 },
                 {
                     path: 'production',
                     element: <InventoriesContextProvider><ProductionContextProvider> <Production /> </ProductionContextProvider></InventoriesContextProvider>
+                },
+                {
+                    path: "invoice/:id",
+                    
+                    element: <InvoicesContextProvider><Invoice /></InvoicesContextProvider>
+                },
+                {
+                    path: "invoice/create",
+
+                    element: <RawMateContextProvider><UnitMeasuresContextProvider><SupplierContextProvider><InvoicesContextProvider><InvoicesFormNew></InvoicesFormNew></InvoicesContextProvider></SupplierContextProvider></UnitMeasuresContextProvider></RawMateContextProvider>
+
                 }
 
             ]

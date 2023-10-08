@@ -1,15 +1,36 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { BsFillTrashFill, BsPlusCircle } from 'react-icons/bs'
+import { BsFillTrashFill, BsPlusCircle, BsFillEyeFill } from 'react-icons/bs'
 import { BuysContext } from '../../../context/Buys/BuysContext';
 import Cards from '../../commons/cards/Cards';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Toaster } from 'react-hot-toast';
+import { Link, Outlet } from 'react-router-dom';
+import { InvoicesContextProvider } from '../../../context/Buys/Invoice/InvoicesContext';
 function Buys() {
 
   const { getAllInvoices, date, datafilter, dataInvoices, setDataInvoices } = useContext(BuysContext)
   const [permission, setPermission] = useState(false)
 
-
+  function sumAmountForCurrentMonth() {
+    // Obtén la fecha actual
+    const currentDate = new Date();
+  
+    // Filtra los objetos que tengan la misma fecha de mes y año que la fecha actual
+    const filteredData = dataInvoices.filter(item => {
+      const itemDate = new Date(item.createdAt);
+      return (
+        itemDate.getMonth() === currentDate.getMonth() &&
+        itemDate.getFullYear() === currentDate.getFullYear()
+      );
+    });
+  
+    // Suma los valores de "amount" de los objetos filtrados
+    const totalAmount = filteredData.reduce((acc, item) => {
+      return acc + parseFloat(item.amount);
+    }, 0);
+  
+    return totalAmount;
+  }
   function checkPermissions(permMin) {
     let user = JSON.parse(localStorage.getItem('userData'))
     if (user.role_id <= permMin) {
@@ -20,7 +41,7 @@ function Buys() {
   useEffect(() => {
     checkPermissions(1)
     getAllInvoices()
-}, [])
+  }, [])
 
 
   return (
@@ -39,12 +60,12 @@ function Buys() {
           />
           <Cards
             titleCard='FECHA ULTIMA COMPRA'
-            bodyCard='00/00/0000'
+            bodyCard={date.createdAt}
             cardNum='card2'
           />
           <Cards
             titleCard='COSTE TOTAL DEL INVENTARIO'
-            bodyCard='0'
+            bodyCard={sumAmountForCurrentMonth()}
             cardNum='card3'
           />
         </div>
@@ -53,6 +74,17 @@ function Buys() {
       </div>
 
       {/* BOTONES */}
+
+      <div className='flex justify-center mt-5 mb-5'>
+        <Link to={`../invoice/create`}>
+        <button
+          className="middle none center mr-3 rounded-lg bg-cyan-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:opacity-75 focus:ring focus:ring-cyan-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          data-ripple-dark="true"
+        >
+          NUEVA FACTURA
+        </button>
+        </Link>
+      </div>
 
       {/* aqui van los formularios */}
       <div className='transition ease-in-out mt-5 mb-5'>
@@ -71,6 +103,7 @@ function Buys() {
               </thead >
               <tbody >
                 {
+                  
                   dataInvoices.map((invoice) => (
                     <tr key={invoice.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
                       <td>{invoice.id}</td>
@@ -82,18 +115,17 @@ function Buys() {
                           permission && (
                             <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'
                               onClick={() => {
-                                
+
                               }}
                             ><BsFillTrashFill color='ffffff' /></button>
                           )
                         }
-
-                        <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => {
-                          // setShowFormEdit(true)
-                          // setEditData(materia)
-                        }} ><BsPlusCircle color='ffffff' /></button>
+                        <Link to={`../invoice/${invoice.id}`}>
+                          <button className='bg-blue-500 p-2 rounded-lg pr-4 pl-4 m-2'><BsFillEyeFill color='ffffff' /> </button>
+                        </Link>
                       </td>
-                    </tr>))
+                    </tr>
+                  ))
                 }
               </tbody>
             </table>
