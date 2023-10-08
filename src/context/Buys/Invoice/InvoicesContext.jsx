@@ -11,6 +11,9 @@ export function InvoicesContextProvider(props) {
     const { token } = useContext(UserContext)
     const [dataItemInvoice, setDataItemInvoice] = useState([]);
     const [idInvoice, setIdInvoice] = useState(0);
+    const [showFormEdit, setShowFormEdit] = useState(false)
+    const [itemsEditData, setItemsEditData] = useState([]);
+    const [dataInvoice, SetDataInvoice] = useState([])
 
     function getAllItemsById(id) {
         axios({
@@ -28,7 +31,24 @@ export function InvoicesContextProvider(props) {
             })
     }
 
-    function createInvoice( totalValue, id_supplier) {
+    function getDataInvoiceByid(id){
+        axios({
+            method: "GET",
+            url: `/invoices/${id}`,
+            headers: {
+                'Authorization': token
+            }
+        })
+            .then((res) => {
+                SetDataInvoice(res.data)
+                
+            })
+            .catch((err) => {
+                console.log("Error getAll Invoices " + err)
+            })
+    }
+
+    function createInvoice(totalValue, id_supplier) {
         axios({
             method: "POST",
             url: "/invoices",
@@ -36,63 +56,141 @@ export function InvoicesContextProvider(props) {
                 'Authorization': token
             },
             data: {
-                "amount":totalValue,
+                "amount": totalValue,
                 "id_supplier": id_supplier
             }
         })
             .then((res) => {
+                setIdInvoice(res.data.id)
                 toast.success('Factura creada')
-                setIdInvoice(res.data)
+
+
             })
             .catch((err) => {
                 toast.error('Error al crear factura')
             })
     }
 
-    function createItemsJson(dataForm){
+    function createItemsJson(dataForm) {
         axios({
-            method:"POST",
-            url:"/invoices/items/json/",
-            headers:{
+            method: "POST",
+            url: "/invoices/items/json/",
+            headers: {
                 Authorization: token
-            },data:{
-                "items": {dataForm}
+            }, data: {
+                "items": dataForm
             }
         })
-        .then((res)=>{
-            toast.success('Items creados')
-        })
-        .catch((err)=>{
-            toast.error('Fallo al crear items')
-        })
+            .then((res) => {
+                toast.success('Items creados')
+            })
+            .catch((err) => {
+                toast.error('Fallo al crear items' + err)
+            })
     }
 
     function JSONConvertItems(JSONDataForm) {
-        const { amount, product, quantity } = JSONDataForm;
-        console.log(amount)
-        const { name, unit_measure_id } = product;
-      
-        // Construye el objeto en el formato deseado
-        const JSONData = {
-          id_invoice: idInvoice,
-          name: name,
-          quantity: quantity,
-          measure: "kg",
-          //measure: unit_measure_id, // Supongamos que siempre es "kg" en este caso
-          amount: amount
-        };
-      
-        createItemsJson(JSONData);
-      };
+        // Construye el objeto en el formato deseado,
+        const jsonDeseado = JSONDataForm.map(item => {
+            let id_invoice = idInvoice
+            const { quantity, amount, product } = item;
+            const { name, id, unit_measure_id } = product;
+            return {
+                id_invoice: id_invoice,
+                name: name,
+                quantity: quantity,
+                measure: "kg",
+                amount: amount,
+            };
+        });
 
+        createItemsJson(jsonDeseado);
+    };
 
+    async function editItemById() {
+          await axios({
+            method: "PUT",
+            url: `/Invoices/items/${itemsEditData.id}`,
+            headers: {
+                Authorization: token
+            }, data: {
+                name: itemsEditData.name,
+                amount: itemsEditData.amount,
+                quantity: itemsEditData.quantity,
+            }
+        })
+            .then((res) => {
+                toast.success('Items Editados correctamente')
+                getAllItemsById(itemsEditData.id_invoice)
+                editInvoiceByItem()
+                
+            })
+            .catch((err) => {
+                toast.error('Fallo al crear items' + err)
+            })
+    }
+
+    function editInvoiceByItem() {
+        const total = dataItemInvoice.reduce((acc, item) => {
+            const amountTimesQuantity = item.amount * item.quantity;
+            return acc + amountTimesQuantity;
+        }, 0);
+        axios({
+            method:"PUT",
+            url:`/Invoices/${itemsEditData.id_invoice}`,
+            headers:{
+                Authorization: token
+            }, data: {
+                amount: total,
+                id_supplier: dataInvoice[0].id_supplier
+            }
+        })
+        .then((res) => {
+            toast.success("Factura editada correctamente")
+
+        })
+        .catch((err) => {
+            toast.error("error al editar factura" + err)
+            console.log(err)
+        })
+        ;
+
+    }
+
+    const deleteItemsInvoices = async (invoiceItem) =>{
+     await axios({
+            method:"DELETE",
+            url:`/invoices/items/${invoiceItem.id}`,
+            headers:{
+                Authorization: token
+            }
+            
+        })
+        .then((res) => {
+            toast.success("item eliminado correctamente")
+            getAllItemsById(itemsEditData.id_invoice)
+            editInvoiceByItem()
+        })
+        .catch((err)=>{
+            toast.error("Fallo al eliminar item" + err)
+        })
+    }
 
     return (
         <InvoicesContext.Provider value={{
             getAllItemsById,
             dataItemInvoice,
             createInvoice,
-            JSONConvertItems
+            JSONConvertItems,
+            showFormEdit,
+            setShowFormEdit,
+            itemsEditData,
+            setItemsEditData,
+            idInvoice,
+            editItemById,
+            getDataInvoiceByid,
+            dataInvoice,
+            deleteItemsInvoices
         }}>{props.children}
         </InvoicesContext.Provider>
     )

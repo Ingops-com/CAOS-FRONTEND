@@ -4,6 +4,7 @@ import { UnitMeasuresContext } from "../../../../context/Inventories/Unite Measu
 import { InvoicesContext } from "../../../../context/Buys/Invoice/InvoicesContext";
 import { RawMateContext } from "../../../../context/Inventories/Raw Material/RawMateContext";
 import Cards from '../../../commons/cards/Cards';
+import { Toaster } from "react-hot-toast";
 
 function InvoicesFormNew() {
     let totalValue
@@ -12,13 +13,17 @@ function InvoicesFormNew() {
     //variable encargada de recolectar los datos de todos los formularios anteriormente creados
     const [datosFormularios, setDatosFormularios] = useState([]);
     const { dataSuppliers, getAllSuppleirs } = useContext(SupplierContext)
-    const { JSONConvertItems, createInvoice } = useContext(InvoicesContext)
+    const { JSONConvertItems, createInvoice, idInvoice } = useContext(InvoicesContext)
     const { getAllRawMaterial, dataAllRawMate } = useContext(RawMateContext)
 
     useEffect(() => {
         getAllSuppleirs()
         getAllRawMaterial()
     }, [])
+
+    useEffect(() => {
+        JSONConvertItems(datosFormularios)
+    }, [idInvoice])
 
     const calcularValorTotal = () => {
         const total = datosFormularios.reduce((acc, item) => {
@@ -40,9 +45,10 @@ function InvoicesFormNew() {
 
     function handleSubmit(e) {
         e.preventDefault()
+        totalValue = calcularValorTotal()
         let supplier = e.target.supplier.value
         createInvoice(totalValue, supplier)
-        JSONConvertItems(JSON.stringify(datosFormularios))
+
     }
     //Esta funcion se encarga de guardar los datos de los formularios al detectar cambios, respetando los datos previamente guardados. guarda los datos segun el index dado en el mapeo del formulario
     const handleChange = (index, field, value) => {
@@ -57,6 +63,7 @@ function InvoicesFormNew() {
     };
     return (
         <div className="container-primary">
+            <div><Toaster /></div>
             <div className="distribuidor">
 
                 {/* formulario encargado de recolectar datos para la creacion de items en la factura */}
@@ -141,7 +148,7 @@ function InvoicesFormNew() {
                             id={`quantity-${index}`}
                             value={datosFormularios[index]?.quantity || ''}
                             onChange={(e) => handleChange(index, 'quantity', e.target.value)}
-                            required
+
                         />
                         <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-blue-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-blue-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-blue-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                             Cantidad

@@ -11,8 +11,26 @@ function Buys() {
   const { getAllInvoices, date, datafilter, dataInvoices, setDataInvoices } = useContext(BuysContext)
   const [permission, setPermission] = useState(false)
 
-
-
+  function sumAmountForCurrentMonth() {
+    // Obtén la fecha actual
+    const currentDate = new Date();
+  
+    // Filtra los objetos que tengan la misma fecha de mes y año que la fecha actual
+    const filteredData = dataInvoices.filter(item => {
+      const itemDate = new Date(item.createdAt);
+      return (
+        itemDate.getMonth() === currentDate.getMonth() &&
+        itemDate.getFullYear() === currentDate.getFullYear()
+      );
+    });
+  
+    // Suma los valores de "amount" de los objetos filtrados
+    const totalAmount = filteredData.reduce((acc, item) => {
+      return acc + parseFloat(item.amount);
+    }, 0);
+  
+    return totalAmount;
+  }
   function checkPermissions(permMin) {
     let user = JSON.parse(localStorage.getItem('userData'))
     if (user.role_id <= permMin) {
@@ -42,12 +60,12 @@ function Buys() {
           />
           <Cards
             titleCard='FECHA ULTIMA COMPRA'
-            bodyCard='00/00/0000'
+            bodyCard={date.createdAt}
             cardNum='card2'
           />
           <Cards
             titleCard='COSTE TOTAL DEL INVENTARIO'
-            bodyCard='0'
+            bodyCard={sumAmountForCurrentMonth()}
             cardNum='card3'
           />
         </div>
@@ -85,6 +103,7 @@ function Buys() {
               </thead >
               <tbody >
                 {
+                  
                   dataInvoices.map((invoice) => (
                     <tr key={invoice.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
                       <td>{invoice.id}</td>
