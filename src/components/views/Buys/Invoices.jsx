@@ -1,14 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { BsFillTrashFill, BsPlusCircle, BsFillEyeFill } from 'react-icons/bs'
-import { BuysContext } from '../../../context/Buys/BuysContext';
+import { BsFillTrashFill, BsFillEyeFill } from 'react-icons/bs'
 import Cards from '../../commons/cards/Cards';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { Toaster } from 'react-hot-toast';
-import { Link, Outlet } from 'react-router-dom';
-import { InvoicesContextProvider } from '../../../context/Buys/Invoice/InvoicesContext';
-function Buys() {
+import { Link } from 'react-router-dom';
+import { InvoicesContext } from '../../../context/Buys/Invoice/InvoicesContext';
+function Invoices() {
 
-  const { getAllInvoices, date, datafilter, dataInvoices, setDataInvoices } = useContext(BuysContext)
+  const { getAllInvoices, date, dataInvoices } = useContext(InvoicesContext)
   const [permission, setPermission] = useState(false)
 
   function sumAmountForCurrentMonth() {
@@ -137,4 +134,4 @@ function Buys() {
 }
 
 
-export default Buys
+export default Invoices

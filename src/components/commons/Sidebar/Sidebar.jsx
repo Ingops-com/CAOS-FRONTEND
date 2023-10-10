@@ -9,16 +9,16 @@ export default function Sidebar() {
         {
             name: 'Dashboard',
             href: '/home/soon/1',
-            submenu: true,
-            submenuItems: [
-                { name: 'Submenu 1', href: '/home/inventories' },
-                { name: 'Submenu 2', href: '/home/production' }
-            ],
             icon: <RiDashboardFill />
         },
         { name: 'Inventarios', href: '/home/inventories', icon: <RiCalendarCheckFill /> },
         { name: 'Produccion', href: '/home/production', icon: <RiArchiveFill /> },
-        { name: 'Finanzas', href: '/home/buys', icon: <RiMoneyPoundBoxFill /> },
+        { name: 'Finanzas', href: '',
+        submenu: true,
+            submenuItems: [
+                { name: 'Facturas', href: '/home/invoices' },
+                { name: 'Submenu 2', href: '/home/production' }
+            ], icon: <RiMoneyPoundBoxFill /> },
     ]
 
     // En el video minuto 25 https://www.youtube.com/watch?v=MszSqhEw__8&ab_channel=PradipDebnath

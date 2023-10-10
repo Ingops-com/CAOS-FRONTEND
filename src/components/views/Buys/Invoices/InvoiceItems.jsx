@@ -6,12 +6,30 @@ import { InvoicesContext } from '../../../../context/Buys/Invoice/InvoicesContex
 import { SupplierContext } from '../../../../context/Buys/Suppliers/SuppliersContext';
 import ItemsInvoicesFromEdit from '../Forms/ItemsInvoicesFormEdit'
 
-function Invoice() {
+function InvoiceItems() {
 
     const [permission, setPermission] = useState(false)
-    const { getAllItemsById, dataItemInvoice,ShowFormEdit,
-        setShowFormEdit, setItemsEditData, getDataInvoiceByid, dataInvoice, deleteItemsInvoices} = useContext(InvoicesContext)
-    
+    const { getAllItemsById, dataItemInvoice, ShowFormEdit,
+        setShowFormEdit, setItemsEditData, getDataInvoiceByid, dataInvoice,
+        deleteItemsInvoices, getAllInvoices } = useContext(InvoicesContext)
+    const currentUrl = window.location.href;
+    const parts = currentUrl.split('/');
+    const id = parts[parts.length - 1];
+
+
+    useEffect(() => {
+
+        checkPermissions(1)
+        getAllItemsById(id)
+        getDataInvoiceByid(id)
+
+    }, [])
+
+    useEffect(() => {
+        getDataInvoiceByid(id)
+
+    }, [dataItemInvoice])
+
 
     function checkPermissions(permMin) {
         let user = JSON.parse(localStorage.getItem('userData'))
@@ -20,32 +38,18 @@ function Invoice() {
         }
     }
 
-    useEffect(() => {
-        
-        checkPermissions(1)
-        const currentUrl = window.location.href;
-        const parts = currentUrl.split('/');
-        const id = parts[parts.length - 1];
-        getAllItemsById(id)
-        
-    }, [])
-
-    useEffect(() => {
-        if (dataInvoice != null) {
-        }
-     }, [dataInvoice])
-
     return (
         <div className='invoiceBody'>
-            
+
             {/* notificaciones */}
             <div><Toaster /></div>
             <div className="cards">
                 {/* aqui van las cards 1 para una para el dinero total 2 fecha de ultima compra 3 coste del inventario actual*/}
                 <div className='w-full h-auto flex justify-center gap-4 mt-5 mb-5 items-center '>
+                    {console.log(dataInvoice)}
                     <Cards
                         titleCard='PROVEEDOR'
-                        bodyCard={dataInvoice.length > 0 ? dataInvoice[0].id_supplier : ''}
+                        bodyCard={dataInvoice.length > 0 ? dataInvoice[0].supplier.name : ''}
                         cardNum='card1'
                     />
                     <Cards
@@ -82,35 +86,36 @@ function Invoice() {
                             </tr>
                         </thead >
                         <tbody >
-                            
-                            { dataItemInvoice.map((invoice) => (
-                                    <tr key={invoice.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
-                                        <td>{invoice.id}</td>
-                                        <td>{invoice.id_invoice}</td>
-                                        <td>{invoice.name}</td>
-                                        <td>{invoice.quantity}</td>
-                                        <td>{invoice.measure}</td>
-                                        <td>{invoice.amount}</td>
-                                        <td>{invoice.createdAt}</td>
-                                        <td>{invoice.updatedAt}</td>
-                                        <td>
-                                            {
-                                                permission && (
-                                                    <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'
-                                                        onClick={() => {deleteItemsInvoices(invoice)
 
-                                                        }}
-                                                    ><BsFillTrashFill color='ffffff' /></button>
-                                                )
-                                            }
-                                            
-                                            <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => {
-                                                            setShowFormEdit(true)
-                                                            setItemsEditData(invoice)
-                                                        }} ><BsFillPencilFill color='ffffff' /></button>
-                                        </td>
-                                    </tr>
-                                ))
+                            {dataItemInvoice.map((itemInvoice) => (
+                                <tr key={itemInvoice.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
+                                    <td>{itemInvoice.id}</td>
+                                    <td>{itemInvoice.id_invoice}</td>
+                                    <td>{itemInvoice.name}</td>
+                                    <td>{itemInvoice.quantity}</td>
+                                    <td>{itemInvoice.measure}</td>
+                                    <td>{itemInvoice.amount}</td>
+                                    <td>{itemInvoice.createdAt}</td>
+                                    <td>{itemInvoice.updatedAt}</td>
+                                    <td>
+                                        {
+                                            permission && (
+                                                <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'
+                                                    onClick={() => {
+                                                        deleteItemsInvoices(itemInvoice)
+
+                                                    }}
+                                                ><BsFillTrashFill color='ffffff' /></button>
+                                            )
+                                        }
+
+                                        <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => {
+                                            setShowFormEdit(true)
+                                            setItemsEditData(itemInvoice)
+                                        }} ><BsFillPencilFill color='ffffff' /></button>
+                                    </td>
+                                </tr>
+                            ))
                             }
                         </tbody>
                     </table>
@@ -121,4 +126,4 @@ function Invoice() {
 
 }
 
-export default Invoice
+export default InvoiceItems
