@@ -14,6 +14,10 @@ import InvoicesFormNew from "../components/views/Buys/Forms/InvoicesFormNew";
 import RawMateContextProvider from "../context/Inventories/Raw Material/RawMateContext";
 import Invoices from "../components/views/Buys/Invoices";
 import InvoiceItems from "../components/views/Buys/Invoices/InvoiceItems";
+import Customers from "../components/views/Customers/Customers";
+import CustomersContextProvider from "../context/Customers/CustomersContext";
+import CustomersDetails from "../components/views/Customers/CustomersDetails";
+import Suppliers from "../components/views/Buys/suppleirs/Suppliers";
 
 export default function Routes() {
     const routes = createBrowserRouter([
@@ -38,6 +42,11 @@ export default function Routes() {
                     path: 'invoices',
                     element: <SupplierContextProvider> <InvoicesContextProvider><Invoices /> </InvoicesContextProvider> </SupplierContextProvider>,
                 },
+                {
+                    path: "suppliers",
+
+                    element: <SupplierContextProvider><Suppliers /></SupplierContextProvider>
+                },
                 {   
                     path: 'production',
                     element: <InventoriesContextProvider><ProductionContextProvider> <Production /> </ProductionContextProvider></InventoriesContextProvider>
@@ -52,8 +61,18 @@ export default function Routes() {
 
                     element: <RawMateContextProvider><SupplierContextProvider><InvoicesContextProvider><InvoicesFormNew></InvoicesFormNew></InvoicesContextProvider></SupplierContextProvider></RawMateContextProvider>
 
+                },{
+                    path: "customers",
+
+                    element:<CustomersContextProvider><Customers/></CustomersContextProvider>
+                },
+                {
+                    path: "customers/:id",
+
+                    element:<CustomersContextProvider><CustomersDetails /></CustomersContextProvider>
                 }
 
+                
             ]
         }
     ])

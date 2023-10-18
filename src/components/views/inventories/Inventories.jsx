@@ -13,7 +13,9 @@ import 'react-tabs/style/react-tabs.css';
 
 function Inventories() {
 
-    const { data, date, getAllInvRawMate, valTotalRawMate, showFormEdit, setShowFormEdit, setEditData, setshowFormNew, showFormNew, showFormCategorie, setShowFormCategorie, setData, datafilter, deleteById } = useContext(InventoriesContext)
+    const { data, date, getAllInvRawMate, valTotalRawMate, showFormEdit,
+        setShowFormEdit, setEditData, setshowFormNew, showFormNew, showFormCategorie,
+        setShowFormCategorie, setData, datafilter, deleteById } = useContext(InventoriesContext)
     const { historyRaw, getHistInve } = useContext(InvenHistContext)
     const [search, setSearch] = useState("")
     const [permission, setPermission] = useState(false)

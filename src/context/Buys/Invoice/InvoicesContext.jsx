@@ -88,8 +88,6 @@ export function InvoicesContextProvider(props) {
             .then((res) => {
                 setIdInvoice(res.data.id)
                 toast.success('Factura creada')
-
-
             })
             .catch((err) => {
                 toast.error('Error al crear factura')
@@ -107,7 +105,6 @@ export function InvoicesContextProvider(props) {
             }
         })
             .then((res) => {
-                toast.success('Items creados')
             })
             .catch((err) => {
                 toast.error('Fallo al crear items' + err)

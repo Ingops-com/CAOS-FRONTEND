@@ -12,46 +12,54 @@ export default function SupplierContextProvider(props) {
     const [showFormNew, setshowFormNew] = useState(false);
     const [showFormSupplier, setShowFormSupplier] = useState(false);
 
-    function getAllSuppleirs() {
-        axios({
+    async function getAllSuppleirs() {
+        await axios({
             method: "GET",
             url: "/Suppliers/",
             headers: {
                 'Authorization': token
             }
         })
-        .then((res) => {
-            setDataSuppliers(res.data)
-        })
-        .catch((res) => {
-            console.log("Error getAll Suppliers" + err)
-        })
+            .then((res) => {
+                setDataSuppliers(res.data)
+            })
+            .catch((res) => {
+                console.log("Error getAll Suppliers" + err)
+            })
     }
 
-    function createSupplier(name, email, phone){
-        axios({
+    async function createSupplier(name, email, phone, active) {
+        await axios({
             method: "POST",
             url: "/Suppliers/",
             headers: {
                 'Authorization': token
             },
-            data:{
+            data: {
                 name: name,
                 contact_email: email,
-                contact_phone: phone
+                contact_phone: phone,
+                active: active
             }
         })
-        .then((res) => {
-            toast.success('PROVEEDOR CREADO')
-            getAllSuppleirs()
-        })
-        .catch((err) => {
-            console.log("Error create Suppliers " + err)
-        })
-        
+            .then((res) => {
+                toast.success('PROVEEDOR CREADO')
+                getAllSuppleirs()
+            })
+            .catch((err) => {
+                console.log("Error create Suppliers " + err)
+            })
+
     }
 
-    return(
+    async function deleteSupplier(id) {
+        await axios({
+            
+
+        })
+    }
+
+    return (
         <SupplierContext.Provider value={{
             createSupplier,
             dataSuppliers,
