@@ -64,8 +64,7 @@ export default function CustomersContextProvider(props) {
             allCustomers,
             getCustomerById,
             customerDetails,
-            getCustomerById,
-            deleteCustomer
+            deleteCustomer,
         }}>
             {props.children}
         </CustomersContext.Provider>

@@ -1,12 +1,15 @@
+import { Toaster } from 'react-hot-toast';
 import React, { useContext, useEffect, useState } from 'react'
-import { BsFillTrashFill, BsCheckCircleFill } from 'react-icons/bs'
+import { BsFillTrashFill, BsBellSlashFill, BsFillBellFill, BsPencilFill } from 'react-icons/bs'
 import { SupplierContext } from '../../../../context/Buys/Suppliers/SuppliersContext'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import SupplierFormNew from '../Forms/SupplierFormNew';
+import SupplierFormEdit from '../Forms/SupplierFormEdit';
+
 
 function Suppliers() {
 
-    const { createSupplier, dataSuppliers, getAllSuppleirs } = useContext(SupplierContext)
+    const { dataSuppliers, getAllSuppleirs, updateStateSupplier, deleteSupplier, setDataEdit } = useContext(SupplierContext)
     const [permission, setPermission] = useState(false)
 
     useEffect(() => {
@@ -23,9 +26,13 @@ function Suppliers() {
 
     return (
         <div className="SuppliersView">
+            <div><Toaster /></div>
             <div className="forms">
                 <div className="createSupplier">
                     <SupplierFormNew />
+                </div>
+                <div className="createSupplier">
+                    <SupplierFormEdit />
                 </div>
             </div>
             <div className='transition ease-in-out mt-5 mb-5'>
@@ -65,10 +72,21 @@ function Suppliers() {
                                                                 <button
                                                                     className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'
                                                                     onClick={() => {
-                                                                        // Lógica para eliminar el proveedor
+                                                                        updateStateSupplier(supplier.id, supplier.active)
+                                                                        console.log("entra")
                                                                     }}
                                                                 >
-                                                                    <BsFillTrashFill color='ffffff' />
+                                                                    <BsBellSlashFill color='ffffff' />
+                                                                </button>
+                                                            )}
+                                                            {permission && (
+                                                                <button
+                                                                    className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2'
+                                                                    onClick={() => {
+                                                                        setDataEdit(supplier)
+                                                                    }}
+                                                                >
+                                                                    <BsPencilFill color='ffffff' />
                                                                 </button>
                                                             )}
                                                         </td>
@@ -107,10 +125,30 @@ function Suppliers() {
                                                                 <button
                                                                     className='bg-green-600 p-2 rounded-lg pr-4 pl-4 m-2'
                                                                     onClick={() => {
-                                                                        // Lógica para eliminar el proveedor
+                                                                        updateStateSupplier(supplier.id, supplier.active)
                                                                     }}
                                                                 >
-                                                                    <BsCheckCircleFill color='ffffff' />
+                                                                    <BsFillBellFill color='ffffff' />
+                                                                </button>
+                                                            )}
+                                                            {permission && (
+                                                                <button
+                                                                    className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'
+                                                                    onClick={() => {
+                                                                        deleteSupplier(supplier.id)
+                                                                    }}
+                                                                >
+                                                                    <BsFillTrashFill color='ffffff' />
+                                                                </button>
+                                                            )}
+                                                            {permission && (
+                                                                <button
+                                                                    className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2'
+                                                                    onClick={() => {
+                                                                        setDataEdit(supplier)
+                                                                    }}
+                                                                >
+                                                                    <BsPencilFill color='ffffff' />
                                                                 </button>
                                                             )}
                                                         </td>

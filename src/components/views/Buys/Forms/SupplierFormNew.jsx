@@ -14,8 +14,7 @@ function supplierFormNew({ showFormSupplier }) {
         let name = e.target.name.value
         let email = e.target.email.value
         let phone = e.target.phone.value
-        let active = e.target.active.value
-        createSupplier(name, email, phone,active)
+
         setShowFormSupplier(false)
     }
 
