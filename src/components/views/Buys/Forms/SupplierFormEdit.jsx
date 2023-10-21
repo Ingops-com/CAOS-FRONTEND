@@ -16,7 +16,6 @@ function supplierFormEdit() {
         let phone = e.target.phone.value
         
         updateDataSupplier(dataEdit.id,name, email, phone)
-        setShowFormSupplier(false)
     }
 
     return (
@@ -27,7 +26,7 @@ function supplierFormEdit() {
             <form onSubmit={handleSubmit} className="flex gap-3 p-5 justify-center items-center" >
                 <div className="w-fit shadow-xl p-5 mt-2.5 mb-2.5 dark:shadow-none bg-white dark:bg-dark-ing-800">
                     <div className='flex justify-center'>
-                        <h2>NUEVO PROVEEDOR</h2>
+                        <h2>EDITAR PROVEEDOR</h2>
                     </div>
                 </div>
                 <div className="relative">
