@@ -1,20 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { BsFillTrashFill, BsPlusCircle, BsFillEyeFill } from 'react-icons/bs'
-import { BuysContext } from '../../../context/Buys/BuysContext';
+import { BsFillTrashFill, BsFillEyeFill } from 'react-icons/bs'
 import Cards from '../../commons/cards/Cards';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { Toaster } from 'react-hot-toast';
-import { Link, Outlet } from 'react-router-dom';
-import { InvoicesContextProvider } from '../../../context/Buys/Invoice/InvoicesContext';
-function Buys() {
+import { Link } from 'react-router-dom';
+import { InvoicesContext } from '../../../context/Buys/Invoice/InvoicesContext';
+function Invoices() {
 
-  const { getAllInvoices, date, datafilter, dataInvoices, setDataInvoices } = useContext(BuysContext)
+  const { getAllInvoices, date, dataInvoices } = useContext(InvoicesContext)
   const [permission, setPermission] = useState(false)
 
   function sumAmountForCurrentMonth() {
     // Obtén la fecha actual
     const currentDate = new Date();
-  
+
     // Filtra los objetos que tengan la misma fecha de mes y año que la fecha actual
     const filteredData = dataInvoices.filter(item => {
       const itemDate = new Date(item.createdAt);
@@ -23,12 +20,12 @@ function Buys() {
         itemDate.getFullYear() === currentDate.getFullYear()
       );
     });
-  
+
     // Suma los valores de "amount" de los objetos filtrados
     const totalAmount = filteredData.reduce((acc, item) => {
       return acc + parseFloat(item.amount);
     }, 0);
-  
+
     return totalAmount;
   }
   function checkPermissions(permMin) {
@@ -77,12 +74,12 @@ function Buys() {
 
       <div className='flex justify-center mt-5 mb-5'>
         <Link to={`../invoice/create`}>
-        <button
-          className="middle none center mr-3 rounded-lg bg-cyan-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:opacity-75 focus:ring focus:ring-cyan-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          data-ripple-dark="true"
-        >
-          NUEVA FACTURA
-        </button>
+          <button
+            className="middle none center mr-3 rounded-lg bg-cyan-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:opacity-75 focus:ring focus:ring-cyan-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            data-ripple-dark="true"
+          >
+            NUEVA FACTURA
+          </button>
         </Link>
       </div>
 
@@ -102,30 +99,28 @@ function Buys() {
                 </tr>
               </thead >
               <tbody >
-                {
-                  
-                  dataInvoices.map((invoice) => (
-                    <tr key={invoice.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
-                      <td>{invoice.id}</td>
-                      <td>{invoice.amount}</td>
-                      <td>{invoice.supplier.name}</td>
-                      <td>{invoice.createdAt}</td>
-                      <td>
-                        {
-                          permission && (
-                            <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'
-                              onClick={() => {
+                {dataInvoices.slice().reverse().map((invoice) => (
+                  <tr key={invoice.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
+                    <td>{invoice.id}</td>
+                    <td>{invoice.amount}</td>
+                    <td>{invoice.supplier.name}</td>
+                    <td>{invoice.createdAt}</td>
+                    <td>
+                      {
+                        permission && (
+                          <button className='bg-red-600 p-2 rounded-lg pr-4 pl-4 m-2'
+                            onClick={() => {
 
-                              }}
-                            ><BsFillTrashFill color='ffffff' /></button>
-                          )
-                        }
-                        <Link to={`../invoice/${invoice.id}`}>
-                          <button className='bg-blue-500 p-2 rounded-lg pr-4 pl-4 m-2'><BsFillEyeFill color='ffffff' /> </button>
-                        </Link>
-                      </td>
-                    </tr>
-                  ))
+                            }}
+                          ><BsFillTrashFill color='ffffff' /></button>
+                        )
+                      }
+                      <Link to={`../invoice/${invoice.id}`}>
+                        <button className='bg-blue-500 p-2 rounded-lg pr-4 pl-4 m-2'><BsFillEyeFill color='ffffff' /> </button>
+                      </Link>
+                    </td>
+                  </tr>
+                ))
                 }
               </tbody>
             </table>
@@ -137,4 +132,4 @@ function Buys() {
 }
 
 
-export default Buys
+export default Invoices

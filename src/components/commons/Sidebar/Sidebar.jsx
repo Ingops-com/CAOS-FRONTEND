@@ -1,4 +1,4 @@
-import { RiDashboardFill, RiCalendarCheckFill, RiArchiveFill, RiMoneyPoundBoxFill } from "react-icons/ri";
+import { RiDashboardFill, RiCalendarCheckFill, RiArchiveFill, RiMoneyPoundBoxFill, RiUser3Fill } from "react-icons/ri";
 import caos from "../../../assets/svg/caos.light.svg"
 import './Sidebar.css'
 import Items from "./Iitems/items";
@@ -6,19 +6,16 @@ import Items from "./Iitems/items";
 export default function Sidebar() {
 
     const navigate = [
-        {
-            name: 'Dashboard',
-            href: '/home/soon/1',
-            submenu: true,
-            submenuItems: [
-                { name: 'Submenu 1', href: '/home/inventories' },
-                { name: 'Submenu 2', href: '/home/production' }
-            ],
-            icon: <RiDashboardFill />
-        },
+        {name: 'Dashboard',href: '/home/soon/1',icon: <RiDashboardFill /> },
         { name: 'Inventarios', href: '/home/inventories', icon: <RiCalendarCheckFill /> },
         { name: 'Produccion', href: '/home/production', icon: <RiArchiveFill /> },
-        { name: 'Finanzas', href: '/home/buys', icon: <RiMoneyPoundBoxFill /> },
+        { name: 'Finanzas', href: '',
+        submenu: true,
+            submenuItems: [
+                { name: 'Facturas', href: '/home/invoices' },
+                { name: 'Proveedores', href: '/home/suppliers' }
+            ], icon: <RiMoneyPoundBoxFill /> },
+        { name: 'Clientes', href: '/home/customers', icon: <RiUser3Fill /> },
     ]
 
     // En el video minuto 25 https://www.youtube.com/watch?v=MszSqhEw__8&ab_channel=PradipDebnath

@@ -14,9 +14,34 @@ export function InvoicesContextProvider(props) {
     const [showFormEdit, setShowFormEdit] = useState(false)
     const [itemsEditData, setItemsEditData] = useState([]);
     const [dataInvoice, SetDataInvoice] = useState([])
+    const [dataInvoices, setDataInvoices] = useState([]);
+    const [date, setDate] = useState([]);
 
-    function getAllItemsById(id) {
+
+    function getAllInvoices() {
         axios({
+            method: "GET",
+            url: "/invoices/",
+            headers: {
+                'Authorization': token
+            }
+        })
+            .then((res) => {
+                setDataInvoices(res.data)
+                if (res.data != '') {
+                    setDate(res.data.slice(-1)[0]);
+                }
+                else {
+                    setDate({ 'createdAt': '00-00-0000' })
+                }
+            })
+            .catch((err) => {
+                console.log("Error getAll Invoices " + err)
+            })
+    }
+
+    async function getAllItemsById(id) {
+        await axios({
             method: "GET",
             url: `/invoices/items/${id}`,
             headers: {
@@ -31,8 +56,8 @@ export function InvoicesContextProvider(props) {
             })
     }
 
-    function getDataInvoiceByid(id){
-        axios({
+    async function getDataInvoiceByid(id) {
+        await axios({
             method: "GET",
             url: `/invoices/${id}`,
             headers: {
@@ -41,7 +66,7 @@ export function InvoicesContextProvider(props) {
         })
             .then((res) => {
                 SetDataInvoice(res.data)
-                
+
             })
             .catch((err) => {
                 console.log("Error getAll Invoices " + err)
@@ -63,8 +88,6 @@ export function InvoicesContextProvider(props) {
             .then((res) => {
                 setIdInvoice(res.data.id)
                 toast.success('Factura creada')
-
-
             })
             .catch((err) => {
                 toast.error('Error al crear factura')
@@ -82,7 +105,6 @@ export function InvoicesContextProvider(props) {
             }
         })
             .then((res) => {
-                toast.success('Items creados')
             })
             .catch((err) => {
                 toast.error('Fallo al crear items' + err)
@@ -108,7 +130,7 @@ export function InvoicesContextProvider(props) {
     };
 
     async function editItemById() {
-          await axios({
+        await axios({
             method: "PUT",
             url: `/Invoices/items/${itemsEditData.id}`,
             headers: {
@@ -120,60 +142,57 @@ export function InvoicesContextProvider(props) {
             }
         })
             .then((res) => {
-                toast.success('Items Editados correctamente')
                 getAllItemsById(itemsEditData.id_invoice)
-                editInvoiceByItem()
-                
+                getDataInvoiceByid(itemsEditData.id_invoice)
             })
             .catch((err) => {
                 toast.error('Fallo al crear items' + err)
             })
     }
 
-    function editInvoiceByItem() {
+    async function editInvoiceById() {
         const total = dataItemInvoice.reduce((acc, item) => {
             const amountTimesQuantity = item.amount * item.quantity;
             return acc + amountTimesQuantity;
         }, 0);
-        axios({
-            method:"PUT",
-            url:`/Invoices/${itemsEditData.id_invoice}`,
-            headers:{
+
+        await axios({
+            method: "PUT",
+            url: `/Invoices/${itemsEditData.id_invoice}`,
+            headers: {
                 Authorization: token
             }, data: {
                 amount: total,
                 id_supplier: dataInvoice[0].id_supplier
             }
         })
-        .then((res) => {
-            toast.success("Factura editada correctamente")
+            .then((res) => {
+                toast.success("Factura editada correctamente")
 
-        })
-        .catch((err) => {
-            toast.error("error al editar factura" + err)
-            console.log(err)
-        })
-        ;
+            })
+            .catch((err) => {
+            })
+            ;
 
     }
 
-    const deleteItemsInvoices = async (invoiceItem) =>{
-     await axios({
-            method:"DELETE",
-            url:`/invoices/items/${invoiceItem.id}`,
-            headers:{
+    const deleteItemsInvoices = async (invoiceItem) => {
+        await axios({
+            method: "DELETE",
+            url: `/invoices/items/${invoiceItem.id}`,
+            headers: {
                 Authorization: token
             }
-            
+
         })
-        .then((res) => {
-            toast.success("item eliminado correctamente")
-            getAllItemsById(itemsEditData.id_invoice)
-            editInvoiceByItem()
-        })
-        .catch((err)=>{
-            toast.error("Fallo al eliminar item" + err)
-        })
+            .then((res) => {
+                toast.success("item eliminado correctamente")
+                getAllItemsById(itemsEditData.id_invoice)
+                editInvoiceByItem()
+            })
+            .catch((err) => {
+                toast.error("Fallo al eliminar item" + err)
+            })
     }
 
     return (
@@ -190,7 +209,11 @@ export function InvoicesContextProvider(props) {
             editItemById,
             getDataInvoiceByid,
             dataInvoice,
-            deleteItemsInvoices
+            deleteItemsInvoices,
+            getAllInvoices,
+            date,
+            dataInvoices,
+            editInvoiceById,
         }}>{props.children}
         </InvoicesContext.Provider>
     )
