@@ -5,7 +5,7 @@ import { DashContext } from "../../../context/Dashboard/DashContext";
 import { NavbarContextProvider } from "../../../context/Dashboard/Navbar/NavbarContext";
 import RawMateContextProvider from "../../../context/Inventories/Raw Material/RawMateContext";
 import Navbar from "../../commons/Navbar/Navbar";
-import Sidebar from "../../commons/Sidebar/Sidebar";
+import SidebarMenu from "../../commons/Sidebar/Sidebar";
 
 export default function Dashboard() {
 
@@ -18,8 +18,8 @@ export default function Dashboard() {
     return (
         <NavbarContextProvider>
             <div className="flex w-full h-screen bg-main-white dark:bg-dark-ing-900">
-                <div id="sidebar" className="text-black bg-white w-fit p-2 dark:text-white dark:bg-dark-ing-800">
-                    <Sidebar />
+                <div id="sidebar" >
+                    <SidebarMenu />
                 </div>
                 <div id="detail" className=" w-full p-5">
                     <div className="dark:text-white">
