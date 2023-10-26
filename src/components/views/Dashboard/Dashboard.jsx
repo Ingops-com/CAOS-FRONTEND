@@ -18,7 +18,7 @@ export default function Dashboard() {
     return (
         <NavbarContextProvider>
             <div className="flex w-full h-screen bg-main-white dark:bg-dark-ing-900">
-                <div id="sidebar" className="text-black bg-white lg:w-1/6 p-2 dark:text-white dark:bg-dark-ing-800">
+                <div id="sidebar" className="text-black bg-white w-fit p-2 dark:text-white dark:bg-dark-ing-800">
                     <Sidebar />
                 </div>
                 <div id="detail" className=" w-full p-5">
