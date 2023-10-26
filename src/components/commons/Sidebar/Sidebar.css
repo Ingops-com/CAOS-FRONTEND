@@ -1,0 +1,27 @@
+/* Estilo de hover para MenuItem */
+.MenuItem:hover {
+    background-color: #f0f0f0;
+    /* Cambia el color de fondo al pasar el mouse por encima */
+    color: #333;
+    /* Cambia el color del texto al pasar el mouse por encima */
+}
+
+.MenuItem div {
+    background-color: transparent;
+    border-color: transparent;
+
+}
+
+.SubMenu div{
+    background-color: transparent;
+    border-color: transparent;
+
+}
+
+/* Estilo de hover para SubMenu */
+.SubMenu:hover {
+    background-color: #e0e0e0;
+    /* Cambia el color de fondo al pasar el mouse por encima */
+    color: #222;
+    /* Cambia el color del texto al pasar el mouse por encima */
+}
