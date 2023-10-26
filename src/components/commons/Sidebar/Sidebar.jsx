@@ -23,7 +23,7 @@ export default function Sidebar() {
     return (
         <>
             <div className=" flex w-full p-5 justify-center items-center">
-                <img src={caos} alt="logo.png" />
+                <img src={caos} alt="logo.png" className="w-72" />
             </div>
             <aside className="grid gap-1">
 
