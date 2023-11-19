@@ -11,7 +11,7 @@ import Modal from '../../../commons/Modal/Modal';
 
 export default function Item({ item }) {
 
-    const { deleteRecipeById, deleteStepsByRecipe, deleteIngrByRecipe, updateRecipes, verifyIngr } = useContext(ProductionContext)
+    const { deleteRecipeById, deleteStepsByRecipe, deleteIngrByRecipe, updateRecipes, verifyIngr,socket } = useContext(ProductionContext)
     const { getAllIngrbyId, updateIngr, deleteIngr, recipes } = useContext(RecipesIngrContext)
     const { getAllStepsbyId, updateStep, deleteStep, steps } = useContext(StepsContext)
 
@@ -56,6 +56,11 @@ export default function Item({ item }) {
                 console.log(err)
             })
     }, [steps])
+
+    function handlePlay() {
+        console.log('Intentando emitir el evento test');
+        socket.emit('startProduction',item.id);
+    }
 
     function updateHandler(id, oldName, oldDescription) {
         setUpdateInput(!updateInput)
@@ -118,7 +123,7 @@ export default function Item({ item }) {
         deleteStep(id)
     }
 
-    function playHandler() {
+    function openModal() {
         setModalOpen(true)
         // verifyIngr(dataIngr)
     }
@@ -146,7 +151,7 @@ export default function Item({ item }) {
                     {/* BOTONER DE ACCIONES DENTRO DE CADA ITEM */}
                     <div>
                         <button className='bg-blue-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={(e) => { setOpen(!open) }}><BsFillEyeFill /></button>
-                        <button className='bg-green-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => playHandler()} ><BsFillPlayFill /></button>
+                        <button className='bg-green-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => openModal()} ><BsFillPlayFill /></button>
                         <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2 transition-all ease-in-out'
                             onClick={() => {
                                 updateHandler(item.id, item.name, item.description)
@@ -383,6 +388,10 @@ export default function Item({ item }) {
                             </tbody>
                         </table>
                     </div>
+                </div>
+                {/* Boton */}
+                <div>
+                    <button className='flex bg-green-500 p-2 w-full justify-center ' onClick={() => handlePlay()} ><BsFillPlayFill color='white' /></button>
                 </div>
             </Modal>
         </>

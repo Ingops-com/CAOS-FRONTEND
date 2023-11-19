@@ -1,4 +1,16 @@
 .background{
-    background-image: url('../../../assets/img/backgroundLogin.webp');
+    background-image: url('../../../assets/img/bg_login.webp');
     background-size: cover;
+    background-position: center;
+}
+
+.background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 0, 0, 0.6); /* Color rojo con una transparencia del 60% */
+    z-index: -1; /* Para que se sitúe detrás del contenido */
 }

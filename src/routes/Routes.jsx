@@ -18,6 +18,7 @@ import Customers from "../components/views/Customers/Customers";
 import CustomersContextProvider from "../context/Customers/CustomersContext";
 import CustomersDetails from "../components/views/Customers/CustomersDetails";
 import Suppliers from "../components/views/Buys/suppleirs/Suppliers";
+import ProductionLive from "../components/views/Production/Production_live/ProductionLive";
 
 export default function Routes() {
     const routes = createBrowserRouter([
@@ -47,13 +48,13 @@ export default function Routes() {
 
                     element: <SupplierContextProvider><Suppliers /></SupplierContextProvider>
                 },
-                {   
+                {
                     path: 'production',
                     element: <InventoriesContextProvider><ProductionContextProvider> <Production /> </ProductionContextProvider></InventoriesContextProvider>
                 },
                 {
                     path: "invoice/:id",
-                    
+
                     element: <InvoicesContextProvider><InvoiceItems /></InvoicesContextProvider>
                 },
                 {
@@ -61,18 +62,23 @@ export default function Routes() {
 
                     element: <RawMateContextProvider><SupplierContextProvider><InvoicesContextProvider><InvoicesFormNew></InvoicesFormNew></InvoicesContextProvider></SupplierContextProvider></RawMateContextProvider>
 
-                },{
+                }, {
                     path: "customers",
 
-                    element:<CustomersContextProvider><Customers/></CustomersContextProvider>
+                    element: <CustomersContextProvider><Customers /></CustomersContextProvider>
                 },
                 {
                     path: "customers/:id",
 
-                    element:<CustomersContextProvider><CustomersDetails /></CustomersContextProvider>
+                    element: <CustomersContextProvider><CustomersDetails /></CustomersContextProvider>
+                },
+                {
+                    path: "production/live",
+
+                    element: <InventoriesContextProvider><ProductionContextProvider> <ProductionLive /> </ProductionContextProvider></InventoriesContextProvider>
                 }
 
-                
+
             ]
         }
     ])
