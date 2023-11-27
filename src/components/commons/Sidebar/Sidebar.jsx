@@ -14,6 +14,7 @@ export default function SidebarMenu() {
             name: 'Finanzas', href: '',
             submenu: true,
             submenuItems: [
+                { name: 'Cuentas bancarias', href: '/home/bank-accounts'},
                 { name: 'Facturas', href: '/home/invoices' },
                 { name: 'Proveedores', href: '/home/suppliers' }
             ], icon: <RiMoneyPoundBoxFill />

@@ -18,6 +18,8 @@ import Customers from "../components/views/Customers/Customers";
 import CustomersContextProvider from "../context/Customers/CustomersContext";
 import CustomersDetails from "../components/views/Customers/CustomersDetails";
 import Suppliers from "../components/views/Buys/suppleirs/Suppliers";
+import BankAccounts from "../components/views/Buys/Bank-acoounts/BankAccounts";
+import BankAccountsContextProvider from "../context/Buys/Banks/BankAccountsContext";
 
 export default function Routes() {
     const routes = createBrowserRouter([
@@ -70,6 +72,11 @@ export default function Routes() {
                     path: "customers/:id",
 
                     element:<CustomersContextProvider><CustomersDetails /></CustomersContextProvider>
+                },
+                {
+                    path: "bank-accounts",
+                    
+                    element:<BankAccountsContextProvider><BankAccounts/></BankAccountsContextProvider>
                 }
 
                 
