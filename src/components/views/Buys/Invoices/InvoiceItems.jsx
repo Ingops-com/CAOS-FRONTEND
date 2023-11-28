@@ -17,10 +17,10 @@ function InvoiceItems() {
 
 
     useEffect(() => {
-
+        getDataInvoiceByid(id)
         checkPermissions(1)
         getAllItemsById(id)
-        getDataInvoiceByid(id)
+        
 
     }, [])
 
@@ -45,7 +45,6 @@ function InvoiceItems() {
             <div className="cards">
                 {/* aqui van las cards 1 para una para el dinero total 2 fecha de ultima compra 3 coste del inventario actual*/}
                 <div className='w-full h-auto flex justify-center gap-4 mt-5 mb-5 items-center '>
-                    {console.log(dataInvoice)}
                     <Cards
                         titleCard='PROVEEDOR'
                         bodyCard={dataInvoice.length > 0 ? dataInvoice[0].supplier.name : ''}
@@ -66,6 +65,22 @@ function InvoiceItems() {
             {/* formularios */}
 
             <ItemsInvoicesFromEdit></ItemsInvoicesFromEdit>
+
+            {/* apartado de notas */}
+
+            <div className="w-fit shadow-xl p-5 dark:shadow-none bg-white dark:bg-dark-ing-800">
+                <div className='flex justify-center'>
+                    <h2>notas </h2>
+                </div>
+                <div className="relative">
+                        <input
+                            className="peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-blue-500  focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                            placeholder=" "
+                            id='name'
+                            value={dataInvoice == null || dataInvoice[0] == null ? "cargando" : dataInvoice[0].note} />
+                        
+                    </div>
+            </div>
 
             {/* tabla de facturas */}
             <div className='flex w-full items-center justify-center shadow-xl p-5 mt-5 mb-5 bg-white dark:shadow-none dark:bg-dark-ing-800'>

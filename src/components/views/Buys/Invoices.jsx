@@ -17,7 +17,8 @@ function Invoices() {
       const itemDate = new Date(item.createdAt);
       return (
         itemDate.getMonth() === currentDate.getMonth() &&
-        itemDate.getFullYear() === currentDate.getFullYear()
+        itemDate.getFullYear() === currentDate.getFullYear() &&
+        item.type === 1
       );
     });
 
@@ -48,20 +49,14 @@ function Invoices() {
 
       <div className="cards">
 
-        {/* aqui van las cards 1 para una para el dinero total 2 fecha de ultima compra 3 coste del inventario actual*/}
         <div className='w-full h-auto flex justify-center gap-4 mt-5 mb-5 items-center '>
-          <Cards
-            titleCard='DINERO TOTAL'
-            bodyCard='0'
-            cardNum='card1'
-          />
           <Cards
             titleCard='FECHA ULTIMA COMPRA'
             bodyCard={date.createdAt}
-            cardNum='card2'
+            cardNum='card1'
           />
           <Cards
-            titleCard='COSTE TOTAL DEL INVENTARIO'
+            titleCard='DINERO GASTADO EN EL ULTIMO MES'
             bodyCard={sumAmountForCurrentMonth()}
             cardNum='card3'
           />
@@ -99,7 +94,9 @@ function Invoices() {
                 </tr>
               </thead >
               <tbody >
-                {dataInvoices.slice().reverse().map((invoice) => (
+                {dataInvoices
+                .filter(dataInvoices => dataInvoices.type == 1)
+                .slice().reverse().map((invoice) => (
                   <tr key={invoice.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
                     <td>{invoice.id}</td>
                     <td>{invoice.amount}</td>
