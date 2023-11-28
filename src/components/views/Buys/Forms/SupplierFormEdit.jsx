@@ -11,9 +11,9 @@ function supplierFormEdit() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        let name = e.target.name.value
-        let email = e.target.email.value
-        let phone = e.target.phone.value
+        let name = e.target.name.value? e.target.name.value : dataEdit.name 
+        let email = e.target.email.value? e.target.email.value : dataEdit.contact_email
+        let phone = e.target.phone.value? e.target.phone.value : dataEdit.contact_phone
         
         updateDataSupplier(dataEdit.id,name, email, phone)
     }
@@ -35,7 +35,7 @@ function supplierFormEdit() {
                         placeholder={dataEdit.name} 
                         id='name'
 
-                        required
+                        
                     />
                 </div>
                 <div className="relative">
@@ -52,7 +52,7 @@ function supplierFormEdit() {
                         placeholder={dataEdit.contact_phone}
                         id='phone'
 
-                        required
+                        
                     />
                 </div>
                 <button

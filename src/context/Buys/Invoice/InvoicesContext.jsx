@@ -73,7 +73,7 @@ export function InvoicesContextProvider(props) {
             })
     }
 
-    function createInvoice(totalValue, id_supplier) {
+    function createInvoice(totalValue, id_supplier, note, type) {
         axios({
             method: "POST",
             url: "/invoices",
@@ -82,7 +82,9 @@ export function InvoicesContextProvider(props) {
             },
             data: {
                 "amount": totalValue,
-                "id_supplier": id_supplier
+                "id_supplier": id_supplier,
+                "note": note,
+                "type": type
             }
         })
             .then((res) => {
