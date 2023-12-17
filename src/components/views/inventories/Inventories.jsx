@@ -131,7 +131,7 @@ function Inventories() {
                     <TabPanel>
                         <div className='flex w-full items-center justify-center shadow-xl p-5 mt-5 mb-5 bg-white dark:shadow-none dark:bg-dark-ing-800'>
                             <div className=' w-full max-h-[50rem] overflow-auto'>
-                                <table className='w-full '>
+                                <table className='w-full'>
                                     <thead className=' border-b-slate-300 dark:text-slate-500 dark:border-b-slate-800 bg-transparent'>
                                         <tr>
                                             <th className='thwhite dark:th'>Nombre</th>

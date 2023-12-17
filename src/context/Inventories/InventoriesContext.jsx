@@ -9,7 +9,7 @@ export const InventoriesContext = createContext()
 export default function InventoriesContextProvider(props) {
 
   const { token } = useContext(UserContext)
-  const { creaHistInve } = useContext(InvenHistContext)
+  // const { creaHistInve } = useContext(InvenHistContext)
   const [data, setData] = useState([])
   const [date, setDate] = useState([]);
   const [editData, setEditData] = useState(null)
@@ -69,7 +69,7 @@ export default function InventoriesContextProvider(props) {
     })
       .then((res) => {
         getAllInvRawMate()
-        creaHistInve(rawId, 0, '0')
+        // creaHistInve(rawId, 0, '0')
       })
       .catch((err) => {
         console.log("Error create item inventorie " + err)
@@ -90,7 +90,7 @@ export default function InventoriesContextProvider(props) {
     })
       .then((res) => {
         getAllInvRawMate()
-        creaHistInve(editData.raw_material_id, data[2], '1')
+        // creaHistInve(editData.raw_material_id, data[2], '1')
         toast.success('STOCK AGREGADO')
       })
       .catch((err) => {
@@ -99,7 +99,7 @@ export default function InventoriesContextProvider(props) {
       })
   }
 
-  const deleteById = async (id, stock, rawId,name) => {
+  const deleteById = async (id, stock, rawId, name) => {
     await axios({
       method: "DELETE",
       url: `/inventories-raw-material/${id}`,
@@ -119,7 +119,7 @@ export default function InventoriesContextProvider(props) {
         })
           .then((res) => {
             getAllInvRawMate()
-            creaHistInve(rawId, stock, '2')
+            // creaHistInve(rawId, stock, '2')
             toast.success('PRODUCTO BORRADO')
           })
           .catch((err) => {
@@ -133,7 +133,7 @@ export default function InventoriesContextProvider(props) {
         console.log("error updateItemById" + err)
       })
 
-      
+
   }
 
   return (
@@ -159,6 +159,6 @@ export default function InventoriesContextProvider(props) {
       {props.children}
     </InventoriesContext.Provider>
   )
-  
+
 }
 

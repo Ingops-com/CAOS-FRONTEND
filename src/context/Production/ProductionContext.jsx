@@ -7,7 +7,7 @@ import StepsContextProvider from "./recipes/Steps/StepsContext";
 import { InventoriesContext } from "../Inventories/InventoriesContext";
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:4000');
+// const socket = io('http://localhost:4000');
 
 export const ProductionContext = createContext();
 
@@ -137,20 +137,20 @@ export default function ProductionContextProvider(props) {
      const [progress, setProgress] = useState(0);
     const [currentStep, setCurrentStep] = useState(null);
 
-    useEffect(() => {
-        socket.on('connect', () => {
-            console.log('Conectado a servidor de sockets');
-        });
+    // useEffect(() => {
+    //     socket.on('connect', () => {
+    //         console.log('Conectado a servidor de sockets');
+    //     });
         
-        socket.on('updateProgress', (data) => {
-            setProgress(data.progress);
-            setCurrentStep(data.step);
-        });
+    //     socket.on('updateProgress', (data) => {
+    //         setProgress(data.progress);
+    //         setCurrentStep(data.step);
+    //     });
 
-        return () => {
-            socket.off('connect');
-        };
-    }, []);
+    //     return () => {
+    //         socket.off('connect');
+    //     };
+    // }, []);
 
  
   return (
@@ -163,7 +163,7 @@ export default function ProductionContextProvider(props) {
       updateRecipes,
       verifyIngr,
       dataRecipes,
-      socket,
+      // socket,
       progress,
       currentStep
     }}>
