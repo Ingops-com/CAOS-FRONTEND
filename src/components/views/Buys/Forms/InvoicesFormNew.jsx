@@ -35,13 +35,11 @@ function InvoicesFormNew() {
         return total;
     };
 
-
     //funcion que se dispara en el momento de hacer click en el boton "agregar producto existente"
     const agregarFormulario = () => {
         setNumFormularios(numFormularios + 1);
         setDatosFormularios([...datosFormularios, {}]);
     };
-
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -67,6 +65,7 @@ function InvoicesFormNew() {
         setDatosFormularios(newDatosFormularios);
         totalValue = calcularValorTotal();
       };
+
     return (
         <div className="container-primary">
             <div><Toaster /></div>
@@ -117,6 +116,7 @@ function InvoicesFormNew() {
                     </button>
                 </form>
             </div>
+
             {/* se mapea la variable de numFormularios para general este fragmento de codigo por cada vez que se indique en el state */}
             {Array.from({ length: numFormularios }).map((_, index) => (
                 <div key={index} className="formulario-producto-existente flex gap-3 pt-3">
@@ -186,6 +186,7 @@ function InvoicesFormNew() {
                     </div>
                 </div>
             ))}
+            
         </div>
     )
 

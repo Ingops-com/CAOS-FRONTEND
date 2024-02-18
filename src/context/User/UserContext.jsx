@@ -20,7 +20,6 @@ export function UserContextProvider(props) {
                 window.location.assign('/home')
             })
             .catch((err) => {
-                // console.error({ error: err.response.data.error })
                 if(err.response.status == 401){
                     toast.error('USUARIO 0 CONTRASEÑA INVALIDA')
                 }

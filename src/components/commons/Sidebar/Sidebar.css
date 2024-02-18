@@ -6,17 +6,16 @@
     /* Cambia el color del texto al pasar el mouse por encima */
 }
 
-.MenuItem div {
+/* .MenuItem .container {
     background-color: transparent;
     border-color: transparent;
 
-}
+} */
 
 .SubMenu div{
-    background-color: transparent;
-    border-color: transparent;
-
-}
+    background-color: white;
+    color: #222;
+} 
 
 /* Estilo de hover para SubMenu */
 .SubMenu:hover {

@@ -8,12 +8,16 @@ import { StepsContext } from '../../../../context/Production/recipes/Steps/Steps
 import IngredientsForm from '../Forms/IngredientsForm';
 import StepsForm from '../Forms/StepsForm';
 import Modal from '../../../commons/Modal/Modal';
+import { InventoriesContext } from '../../../../context/Inventories/InventoriesContext';
+
 
 export default function Item({ item }) {
 
-    const { deleteRecipeById, deleteStepsByRecipe, deleteIngrByRecipe, updateRecipes, verifyIngr } = useContext(ProductionContext)
+    const { deleteRecipeById, deleteStepsByRecipe, deleteIngrByRecipe, updateRecipes, verifyIngr, socket } = useContext(ProductionContext)
     const { getAllIngrbyId, updateIngr, deleteIngr, recipes } = useContext(RecipesIngrContext)
     const { getAllStepsbyId, updateStep, deleteStep, steps } = useContext(StepsContext)
+    const { data, getAllInvRawMate } = useContext(InventoriesContext)
+
 
     const [bottonsIngr, setBottonsIngr] = useState(true)
     const [bottonsSteps, setBottonsSteps] = useState(true)
@@ -34,6 +38,23 @@ export default function Item({ item }) {
     const [totalCal, setTotalCal] = useState(0)
 
     const nodeRef = useRef(null);
+
+    useEffect(() => {
+        getAllInvRawMate()
+
+        function buscarJsonPorNombre(data, nombre) {
+            for (var i = 0; i < data.length; i++) {
+              // Comparar nombres (ignorando mayúsculas/minúsculas)
+            //   console.log(data[i].raw_material.name.toLowerCase())
+              if (data[i].raw_material.name.toLowerCase() === nombre.toLowerCase()) {
+                return data[i]; // Devuelve el objeto JSON completo
+              }
+            }
+            return null; // Devuelve null si no se encuentra coincidencia
+          }
+
+        console.log(buscarJsonPorNombre(data, 'bolsa de cocción'))
+    }, [])
 
     // trea la data de los ingredientes
     useEffect(() => {
@@ -56,6 +77,11 @@ export default function Item({ item }) {
                 console.log(err)
             })
     }, [steps])
+
+    function handlePlay() {
+        console.log('Intentando emitir el evento test');
+        socket.emit('startProduction', item.id);
+    }
 
     function updateHandler(id, oldName, oldDescription) {
         setUpdateInput(!updateInput)
@@ -118,7 +144,7 @@ export default function Item({ item }) {
         deleteStep(id)
     }
 
-    function playHandler() {
+    function openModal() {
         setModalOpen(true)
         // verifyIngr(dataIngr)
     }
@@ -146,7 +172,7 @@ export default function Item({ item }) {
                     {/* BOTONER DE ACCIONES DENTRO DE CADA ITEM */}
                     <div>
                         <button className='bg-blue-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={(e) => { setOpen(!open) }}><BsFillEyeFill /></button>
-                        <button className='bg-green-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => playHandler()} ><BsFillPlayFill /></button>
+                        <button className='bg-green-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => openModal()} ><BsFillPlayFill /></button>
                         <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2 transition-all ease-in-out'
                             onClick={() => {
                                 updateHandler(item.id, item.name, item.description)
@@ -254,6 +280,10 @@ export default function Item({ item }) {
                                     </tbody>
                                 </table>
                             </div>
+
+
+
+
                         </div>
 
                         {/* lista de pasos */}
@@ -366,7 +396,6 @@ export default function Item({ item }) {
                                     dataIngr == null ? console.log('Sin datos') :
                                         dataIngr.map((items) => (
                                             <tr key={items.id} className='text-center m-5'>
-
                                                 {
                                                     <>
                                                         <td className='py-2.5 min-w-[10rem]'>{items.name_raw_material}</td>
@@ -383,6 +412,10 @@ export default function Item({ item }) {
                             </tbody>
                         </table>
                     </div>
+                </div>
+                {/* Boton */}
+                <div>
+                    <button className='flex bg-green-500 p-2 w-full justify-center ' onClick={() => handlePlay()} ><BsFillPlayFill color='white' /></button>
                 </div>
             </Modal>
         </>

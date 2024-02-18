@@ -49,13 +49,13 @@ export default function Routes() {
 
                     element: <SupplierContextProvider><Suppliers /></SupplierContextProvider>
                 },
-                {   
+                {
                     path: 'production',
                     element: <InventoriesContextProvider><ProductionContextProvider> <Production /> </ProductionContextProvider></InventoriesContextProvider>
                 },
                 {
                     path: "invoice/:id",
-                    
+
                     element: <InvoicesContextProvider><InvoiceItems /></InvoicesContextProvider>
                 },
                 {
@@ -63,23 +63,23 @@ export default function Routes() {
 
                     element: <RawMateContextProvider><SupplierContextProvider><InvoicesContextProvider><InvoicesFormNew></InvoicesFormNew></InvoicesContextProvider></SupplierContextProvider></RawMateContextProvider>
 
-                },{
+                }, {
                     path: "customers",
 
-                    element:<CustomersContextProvider><Customers/></CustomersContextProvider>
+                    element: <CustomersContextProvider><Customers /></CustomersContextProvider>
                 },
                 {
                     path: "customers/:id",
 
-                    element:<CustomersContextProvider><CustomersDetails /></CustomersContextProvider>
+                    element: <CustomersContextProvider><CustomersDetails /></CustomersContextProvider>
                 },
                 {
                     path: "bank-accounts",
-                    
-                    element:<BankAccountsContextProvider><BankAccounts/></BankAccountsContextProvider>
+
+                    element: <BankAccountsContextProvider><BankAccounts /></BankAccountsContextProvider>
                 }
 
-                
+
             ]
         }
     ])

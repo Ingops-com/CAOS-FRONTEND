@@ -23,7 +23,7 @@ function LogIn() {
     }
 
     return (
-        <div className="flex h-screen w-full items-center justify-center background">
+        <div className="relative flex h-screen w-full items-center justify-center background">
             <Toaster />
             <div className="grid gap-2 bg-[#2A353B]/75 text-white rounded-3xl justify-center p-5 max-w-sm backdrop-blur-sm">
                 <div>

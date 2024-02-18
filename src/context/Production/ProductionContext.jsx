@@ -1,10 +1,13 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState,useEffect } from "react";
 import { UserContext } from "../User/UserContext";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import RecipesIngrContextProvider from "./recipes/ingredients/RecipesIngrContext";
 import StepsContextProvider from "./recipes/Steps/StepsContext";
 import { InventoriesContext } from "../Inventories/InventoriesContext";
+import io from 'socket.io-client';
+
+// const socket = io('http://localhost:4000');
 
 export const ProductionContext = createContext();
 
@@ -130,6 +133,25 @@ export default function ProductionContextProvider(props) {
     console.log(items)
     console.log(data)
   }
+
+     const [progress, setProgress] = useState(0);
+    const [currentStep, setCurrentStep] = useState(null);
+
+    // useEffect(() => {
+    //     socket.on('connect', () => {
+    //         console.log('Conectado a servidor de sockets');
+    //     });
+        
+    //     socket.on('updateProgress', (data) => {
+    //         setProgress(data.progress);
+    //         setCurrentStep(data.step);
+    //     });
+
+    //     return () => {
+    //         socket.off('connect');
+    //     };
+    // }, []);
+
  
   return (
     <ProductionContext.Provider value={{
@@ -140,7 +162,10 @@ export default function ProductionContextProvider(props) {
       deleteIngrByRecipe,
       updateRecipes,
       verifyIngr,
-      dataRecipes
+      dataRecipes,
+      // socket,
+      progress,
+      currentStep
     }}>
       <RecipesIngrContextProvider>
         <StepsContextProvider>

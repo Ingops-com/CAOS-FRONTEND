@@ -9,7 +9,15 @@ export default function SidebarMenu() {
     const navigate = [
         { name: 'Dashboard', href: '/home/soon/1', icon: <RiDashboardFill /> },
         { name: 'Inventarios', href: '/home/inventories', icon: <RiCalendarCheckFill /> },
-        { name: 'Produccion', href: '/home/production', icon: <RiArchiveFill /> },
+        {
+            name: 'Produccion',
+            submenu: true,
+            submenuItems: [
+                { name: 'Recetas', href: '/home/production' },
+                { name: 'Activas', href: '/home/production/live' },
+            ],
+            icon: <RiArchiveFill />
+        },
         {
             name: 'Finanzas', href: '',
             submenu: true,
@@ -24,10 +32,9 @@ export default function SidebarMenu() {
 
     return (
         <>
-            <div className=" flex w-full p-5 justify-center items-center">
-                <img src={caos} alt="logo.png" className="w-72" />
-            </div>
+
             <aside className="grid gap-1">
+
                 <Sidebar collapsed={false}
                     rootStyles={{
                         [`.${sidebarClasses.container}`]: {
@@ -35,12 +42,17 @@ export default function SidebarMenu() {
                         },
                     }}
                 >
+                    <div className="flex p-5 justify-center items-center">
+                        <img src={caos} alt="logo.png" className="w-72" />
+                    </div>
                     <Menu
                         rootStyles={{
                             [`.${menuClasses.container}`]: {
                                 backgroundColor: 'transparent',
                             },
                         }}
+
+
                     >
                         {navigate.map((item, index) => (
                             item.submenu ? ( // Si hay submenu
