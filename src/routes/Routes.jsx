@@ -17,7 +17,7 @@ import InvoiceItems from "../components/views/Buys/Invoices/InvoiceItems";
 import Customers from "../components/views/Customers/Customers";
 import CustomersContextProvider from "../context/Customers/CustomersContext";
 import CustomersDetails from "../components/views/Customers/CustomersDetails";
-import Suppliers from "../components/views/Buys/suppleirs/Suppliers";
+import Suppliers from "../components/views/Buys/Suppleirs/Suppliers";
 import BankAccounts from "../components/views/Buys/Bank-acoounts/BankAccounts";
 import BankAccountsContextProvider from "../context/Buys/Banks/BankAccountsContext";
 
