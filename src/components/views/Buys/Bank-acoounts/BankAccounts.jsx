@@ -101,7 +101,7 @@ function BankAccounts() {
                                         .filter(account => account.owner === 0)
                                         .map((account) => (
                                             <tr key={account.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
-                                                <td>{account.bank.name}</td> 
+                                                {/* <td>{account.bank.name}</td>  */}
                                                 <td>{account.number}</td>
                                                 <td>{account.type}</td>
                                                 <td>{account.balance}</td>
@@ -142,7 +142,7 @@ function BankAccounts() {
                                     {
                                         dataBanks.map((Bank) => (
                                             <tr key={Bank.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
-                                                <td>{Bank.id}</td>
+                                                {/* <td>{Bank.id}</td>
                                                 <td>{Bank.name}</td>
                                                 <td>
                                                     {
@@ -158,7 +158,7 @@ function BankAccounts() {
                                                     <button className='bg-yellow-500 p-2 rounded-lg pr-4 pl-4 m-2' onClick={() => {
                                                         setEditDataBank(Bank)
                                                     }} ><BsFillPencilFill color='ffffff' /></button>
-                                                </td>
+                                                </td> */}
                                             </tr>))
                                     }
                                 </tbody>

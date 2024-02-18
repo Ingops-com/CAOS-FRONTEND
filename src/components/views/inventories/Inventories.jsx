@@ -145,9 +145,9 @@ function Inventories() {
                                         {
                                             data.map((materia) => (
                                                 <tr key={materia.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
-                                                    <td>{materia.raw_material.name}</td>
+                                                    <td>{materia.raw_material}</td>
                                                     <td>{materia.stock}</td>
-                                                    <td>{materia.raw_material.unit_measure.name}</td>
+                                                    <td>{materia.raw_material}</td>
                                                     <td>{materia.price}</td>
                                                     <td>
                                                         {

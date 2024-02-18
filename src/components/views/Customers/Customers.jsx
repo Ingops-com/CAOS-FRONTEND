@@ -32,12 +32,12 @@ function Customers() {
                         </thead >
                         <tbody >
                             {
-                                allCustomers.map((customer) => (
+                                allCustomers.map((customer) => {
                                     <tr key={customer.id} className='text-center odd:bg-transparent even:bg-slate-200 dark:even:bg-dark-ing-700 dark:odd:bg-transparent dark:text-white'>
                                         <td>{customer.name}</td>
                                         {/*<td>{customer.phone}</td>*/}
                                         <td>{customer.email}</td>
-                                        <td>{customer.city.name}</td>
+                                        <td>{customer.city}</td>
                                         <td>{customer.address}</td>
                                         <td>{customer.updatedAt}</td>
                                         <td>
@@ -45,7 +45,7 @@ function Customers() {
                                                 <button className='bg-blue-500 p-2 rounded-lg pr-4 pl-4 m-2'><BsFillEyeFill color='ffffff' /> </button>
                                             </Link>
                                         </td>
-                                    </tr>))
+                                    </tr>})
                             }
                         </tbody>
                     </table>
